@@ -4,15 +4,15 @@ const EASE = [0.22, 1, 0.36, 1];
 
 export const Reveal = ({ children, delay = 0, className = "", immediate = false }) => {
   const motionProps = immediate
-    ? { animate: { y: 0 } }
-    : { whileInView: { y: 0 }, viewport: { once: true, margin: "-8%" } };
+    ? { animate: { y: 0, opacity: 1 } }
+    : { whileInView: { y: 0, opacity: 1 }, viewport: { once: true, margin: "-8%" } };
   return (
     <span className={`block overflow-hidden ${className}`}>
       <motion.span
         className="block will-change-transform"
-        initial={{ y: "115%" }}
+        initial={{ y: 56, opacity: 0 }}
         {...motionProps}
-        transition={{ duration: 1, delay, ease: EASE }}
+        transition={{ duration: 0.9, delay, ease: EASE }}
       >
         {children}
       </motion.span>

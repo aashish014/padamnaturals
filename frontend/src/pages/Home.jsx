@@ -4,50 +4,14 @@ import { Marquee } from "../components/Marquee";
 import { Comparison } from "../components/home/Comparison";
 import { Journey } from "../components/home/Journey";
 import { Faq } from "../components/home/Faq";
-import { ProductCard } from "../components/ProductCard";
+import { OilGrid } from "../components/home/OilGrid";
 import { WhyGhani } from "../components/WhyGhani";
 import { LoveWall } from "../components/LoveWall";
 import { Motto } from "../components/Motto";
-import { FactsFlip } from "../components/FactsFlip";
+import { MythFacts } from "../components/MythFacts";
 import { Reveal, FadeUp } from "../components/Reveal";
-import { products } from "../data/products";
 import { useLang } from "../i18n";
 import { Flame, Leaf, Sparkles } from "lucide-react";
-
-const Range = () => {
-  const { t } = useLang();
-  return (
-    <section data-testid="range-section" className="bg-bone py-24 md:py-32">
-      <div className="mx-auto max-w-7xl px-5 md:px-10">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <Reveal>
-              <p className="overline-tag">{t("home.rangeOver")}</p>
-            </Reveal>
-            <h2 className="mt-4 font-display text-4xl font-semibold leading-none tracking-tight sm:text-5xl lg:text-6xl">
-              <Reveal delay={0.1}>{t("home.rangeA")}</Reveal>
-              <Reveal delay={0.22}>
-                <span className="italic text-terra">{t("home.rangeB")}</span>
-              </Reveal>
-            </h2>
-          </div>
-          <FadeUp delay={0.3}>
-            <Link to="/shop" data-testid="range-view-all-link" className="rounded-full border border-ink px-7 py-3.5 text-sm font-bold transition-colors duration-300 hover:bg-ink hover:text-bone">
-              {t("home.viewAll")}
-            </Link>
-          </FadeUp>
-        </div>
-        <div className="mt-16 grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
-          {products.slice(0, 6).map((p, i) => (
-            <div key={p.slug} className={i % 3 === 1 ? "lg:mt-14" : ""}>
-              <ProductCard product={p} index={i} />
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
 
 const Values = () => {
   const { t } = useLang();
@@ -110,12 +74,12 @@ export default function Home() {
     <main data-testid="home-page">
       <Hero />
       <Marquee />
-      <Range />
+      <OilGrid />
       <LoveWall />
       <Values />
       <WhyGhani dark={false} />
       <Comparison />
-      <FactsFlip dark={true} />
+      <MythFacts dark={false} />
       <Journey />
       <Motto />
       <Faq />

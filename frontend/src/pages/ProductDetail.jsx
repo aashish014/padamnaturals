@@ -8,7 +8,7 @@ import { useLang } from "../i18n";
 import { WhatsAppIcon } from "../components/WhatsAppIcon";
 import { Gallery } from "../components/Gallery";
 import { WhyGhani } from "../components/WhyGhani";
-import { FactsFlip } from "../components/FactsFlip";
+import { MythFacts } from "../components/MythFacts";
 import { LoveWall } from "../components/LoveWall";
 import { ProductCard } from "../components/ProductCard";
 import { waLink, buyNowMessage } from "../lib/whatsapp";
@@ -240,7 +240,7 @@ export default function ProductDetail() {
       )}
 
       <WhyGhani dark={true} />
-      <FactsFlip dark={false} />
+      <MythFacts dark={false} />
 
       <div className="mx-auto max-w-3xl px-5 py-16 md:px-10">
         <Accordion type="single" collapsible defaultValue="uses" data-testid="product-info-accordion">

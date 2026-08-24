@@ -35,3 +35,6 @@ export const cartMessage = (items) => {
 
 export const generalMessage =
   "Hello Padam Naturals! I have a question about your cold-pressed oils.";
+
+export const comboMessage =
+  "Hello Padam Naturals! I'm interested in a family combo pack of your cold-pressed oils. Please share the options and prices.";

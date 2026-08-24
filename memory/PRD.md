@@ -23,6 +23,12 @@ User choices: business WhatsApp number (found on site: +91 82691 69904), message
 - Recreate all original pages: Home, Shop, Product detail, About, Contact.
 - Bilingual Hindi-English heritage brand voice.
 
+## Implemented (2026-08-24 iteration 5)
+- Replaced tap-to-flip facts with graphical "Myths vs Facts" section (`src/components/MythFacts.jsx`): 6 icon-led myth cards that tap to reveal the truth (animated MYTH→FACT badge + icon swap), plus a 4-tile icon stat strip (45℃ max temp, 0% chemicals, 90–100% nutrition, 100+ families). On Home + every PDP. Fully Hindi/English.
+- New home "Choose Your Oil" selector grid (`src/components/home/OilGrid.jsx`): 2-col mobile / 4-col desktop visual tiles with oil image, Hindi name, from-price, arrow — each lands on its product page; 6th terracotta tile = Family Combo via WhatsApp.
+- Replaced percentage-based masked reveals with pixel+opacity reveals (fixed headings not appearing on some devices).
+- Removed old FactsFlip component.
+
 ## Implemented (2026-08-24 iteration 4)
 - REAL RATES applied (user-provided): Groundnut 1L ₹300 / 5L ₹1475 / 15L ₹4300 · Mustard 200ml ₹80 / 1L ₹280 / 5L ₹1400 / 15L ₹3999 · Sesame 200ml ₹85 / 1L ₹380 / 5L ₹1850 / 15L ₹5400 · Coconut 200ml ₹200 / 1L ₹950 · Almond 100ml ₹300 / 200ml ₹600. Sunflower oil removed (not in rate list). MRP/strike-through removed (no MRPs given). Sizes now carry ml for correct per-litre pricing.
 - Full Hindi long-form: FAQs, journey steps, comparison table (all cells), ghani pillar details, heat test, per-oil benefits/nutrients/bestFor/smoke point, About chapters, motto — all switch with the language toggle.

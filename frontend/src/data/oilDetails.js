@@ -170,3 +170,55 @@ export const facts = [
     hi: "लकड़ी घानी तेल में 0% ट्रांस फैट। ट्रांस फैट आपके दिल का सबसे बड़ा आहार-दुश्मन है।",
   },
 ];
+
+export const myths = [
+  {
+    icon: "Feather",
+    myth: "Refined oil is lighter, so it's healthier",
+    mythHi: "रिफाइंड तेल हल्का है, इसलिए सेहतमंद है",
+    fact: "Refining at 250℃ burns away 90% of nutrients. Light in colour, heavy in damage.",
+    factHi: "250℃ पर रिफाइनिंग 90% पोषण जला देती है। रंग में हल्का, नुकसान में भारी।",
+  },
+  {
+    icon: "Flame",
+    myth: "Cold-pressed oil can't handle frying",
+    mythHi: "कोल्ड-प्रेस्ड तेल से तलाई नहीं होती",
+    fact: "Kachi ghani groundnut & mustard are India's original frying oils — pakoras prove it.",
+    factHi: "कच्ची घानी मूंगफली और सरसों भारत के असली फ्राइंग तेल हैं — पकोड़े इसके गवाह हैं।",
+  },
+  {
+    icon: "Droplets",
+    myth: "Pure oil should be crystal clear & odourless",
+    mythHi: "शुद्ध तेल एकदम साफ और बिना खुशबू होना चाहिए",
+    fact: "Real kachi ghani oil has natural aroma and a slight haze — that IS the purity.",
+    factHi: "असली कच्ची घानी तेल में प्राकृतिक खुशबू और हल्की धुंधलापन होती है — यही शुद्धता है।",
+  },
+  {
+    icon: "Wallet",
+    myth: "Cold-pressed is expensive for no reason",
+    mythHi: "कोल्ड-प्रेस्ड तेल बिना वजह महंगा है",
+    fact: "A wooden ghani yields 30% less oil per seed. You pay for what's NOT taken out.",
+    factHi: "लकड़ी घानी हर बीज से 30% कम तेल निकालती है। आप उस चीज़ की कीमत देते हैं जो निकाली नहीं गई।",
+  },
+  {
+    icon: "Ban",
+    myth: "Oil is just fat — less is always better",
+    mythHi: "तेल बस चर्बी है — जितना कम उतना अच्छा",
+    fact: "Good fats carry Vitamin E & Omega-3 into your body. Kam khaye, par achha khaye.",
+    factHi: "अच्छी चर्बी विटामिन E और ओमेगा-3 शरीर तक पहुंचाती है। कम खाएं, पर अच्छा खाएं।",
+  },
+  {
+    icon: "Snowflake",
+    myth: "Oil that freezes in winter is fake",
+    mythHi: "सर्दी में जमने वाला तेल नकली है",
+    fact: "Pure coconut & mustard oils naturally solidify in cold — a sign of zero adulteration.",
+    factHi: "शुद्ध नारियल और सरसों का तेल ठंड में स्वाभाविक रूप से जमता है — बिना मिलावट की निशानी।",
+  },
+];
+
+export const statStrip = [
+  { icon: "Thermometer", value: "45℃", label: "Max pressing temperature", labelHi: "अधिकतम निचोड़ तापमान" },
+  { icon: "FlaskConical", value: "0%", label: "Chemicals & trans fats", labelHi: "केमिकल और ट्रांस फैट" },
+  { icon: "Wheat", value: "90–100%", label: "Nutrition retained", labelHi: "पोषण सुरक्षित" },
+  { icon: "HeartHandshake", value: "100+", label: "Happy families", labelHi: "खुश परिवार" },
+];
