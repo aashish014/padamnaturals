@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --background: 36 33% 96%;
+        --foreground: 153 13% 14%;
+        --card: 36 33% 96%;
+        --card-foreground: 153 13% 14%;
+        --popover: 36 33% 96%;
+        --popover-foreground: 153 13% 14%;
+        --primary: 16 70% 44%;
+        --primary-foreground: 36 33% 96%;
+        --secondary: 39 33% 88%;
+        --secondary-foreground: 153 13% 14%;
+        --muted: 39 33% 88%;
+        --muted-foreground: 105 9% 37%;
+        --accent: 39 33% 88%;
+        --accent-foreground: 153 13% 14%;
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 36 33% 96%;
+        --border: 153 13% 14%;
+        --input: 153 13% 14%;
+        --ring: 16 70% 44%;
+        --radius: 0.5rem;
+    }
+}
+
+@layer base {
+    * {
+        @apply border-border/15;
+    }
+    body {
+        @apply bg-bone text-ink font-sans;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        overflow-x: hidden;
+    }
+    ::selection {
+        background: #c04a22;
+        color: #faf7f2;
+    }
+}
+
+@layer components {
+    .grain::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 90;
+        pointer-events: none;
+        opacity: 0.035;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    .arch {
+        border-radius: 999px 999px 12px 12px;
+    }
+    .overline-tag {
+        @apply text-xs tracking-[0.25em] uppercase font-bold text-terra;
+    }
+}
+
+@layer base {
+    [data-debug-wrapper="true"] {
+        display: contents !important;
+    }
+
+    [data-debug-wrapper="true"] > * {
+        margin-left: inherit;
+        margin-right: inherit;
+        margin-top: inherit;
+        margin-bottom: inherit;
+        padding-left: inherit;
+        padding-right: inherit;
+        padding-top: inherit;
+        padding-bottom: inherit;
+        column-gap: inherit;
+        row-gap: inherit;
+        gap: inherit;
+        border-left-width: inherit;
+        border-right-width: inherit;
+        border-top-width: inherit;
+        border-bottom-width: inherit;
+        border-left-style: inherit;
+        border-right-style: inherit;
+        border-top-style: inherit;
+        border-bottom-style: inherit;
+        border-left-color: inherit;
+        border-right-color: inherit;
+        border-top-color: inherit;
+        border-bottom-color: inherit;
+    }
+}

@@ -1,0 +1,41 @@
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
+import { faqs } from "../../data/products";
+import { Reveal, FadeUp } from "../Reveal";
+
+export const Faq = () => (
+  <section data-testid="faq-section" className="bg-sand py-24 md:py-32">
+    <div className="mx-auto grid max-w-6xl gap-12 px-5 md:grid-cols-[1fr_1.4fr] md:px-10">
+      <div>
+        <Reveal>
+          <p className="overline-tag">Questions, Answered</p>
+        </Reveal>
+        <h2 className="mt-4 font-display text-4xl font-semibold leading-none tracking-tight sm:text-5xl">
+          <Reveal delay={0.1}>Everything you</Reveal>
+          <Reveal delay={0.22}>
+            <span className="italic text-terra">want to know.</span>
+          </Reveal>
+        </h2>
+        <FadeUp delay={0.3}>
+          <p className="mt-5 max-w-sm text-sm leading-relaxed text-moss">
+            Still curious? Message us on WhatsApp — we reply personally, like family.
+          </p>
+        </FadeUp>
+      </div>
+      <FadeUp delay={0.15}>
+        <Accordion type="single" collapsible className="w-full" data-testid="faq-accordion">
+          {faqs.map((f, i) => (
+            <AccordionItem key={i} value={`faq-${i}`} className="border-ink/15">
+              <AccordionTrigger
+                data-testid={`faq-trigger-${i}`}
+                className="py-5 text-left font-display text-lg font-semibold hover:text-terra hover:no-underline"
+              >
+                {f.q}
+              </AccordionTrigger>
+              <AccordionContent className="text-sm leading-relaxed text-moss">{f.a}</AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </FadeUp>
+    </div>
+  </section>
+);

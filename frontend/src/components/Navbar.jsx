@@ -1,0 +1,104 @@
+import { useEffect, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { ShoppingBag, Menu, X } from "lucide-react";
+import { useCart } from "../context/CartContext";
+import { logo } from "../data/products";
+import { scrollTop } from "../lib/scroll";
+
+const LINKS = [
+  { to: "/", label: "Home" },
+  { to: "/shop", label: "Shop Oils" },
+  { to: "/about", label: "Our Story" },
+  { to: "/contact", label: "Contact" },
+];
+
+export const Navbar = () => {
+  const { count, setOpen } = useCart();
+  const [scrolled, setScrolled] = useState(false);
+  const [menu, setMenu] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const fn = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", fn, { passive: true });
+    return () => window.removeEventListener("scroll", fn);
+  }, []);
+
+  useEffect(() => {
+    setMenu(false);
+    scrollTop();
+  }, [location.pathname]);
+
+  return (
+    <header
+      data-testid="main-navbar"
+      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-500 ${
+        scrolled ? "bg-bone/85 backdrop-blur-md shadow-[0_1px_0_rgba(31,41,34,0.08)]" : "bg-transparent"
+      }`}
+    >
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-10">
+        <Link to="/" data-testid="nav-logo-link" className="flex items-center gap-3">
+          <img src={logo} alt="Padam Naturals" className="h-10 w-auto" />
+          <span className="hidden font-hindi text-lg text-ink/70 sm:block">पदम नैचुरल्स</span>
+        </Link>
+
+        <nav className="hidden items-center gap-8 md:flex" data-testid="nav-links-desktop">
+          {LINKS.map((l) => (
+            <NavLink
+              key={l.to}
+              to={l.to}
+              data-testid={`nav-link-${l.label.toLowerCase().replace(/\s/g, "-")}`}
+              className={({ isActive }) =>
+                `group relative text-sm font-semibold tracking-wide transition-colors duration-300 ${
+                  isActive ? "text-terra" : "text-ink hover:text-terra"
+                }`
+              }
+            >
+              {l.label}
+              <span className="absolute -bottom-1 left-0 h-px w-0 bg-terra transition-[width] duration-300 group-hover:w-full" />
+            </NavLink>
+          ))}
+        </nav>
+
+        <div className="flex items-center gap-3">
+          <button
+            data-testid="cart-open-button"
+            onClick={() => setOpen(true)}
+            className="relative flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-bone transition-transform duration-300 hover:scale-95"
+          >
+            <ShoppingBag className="h-4 w-4" />
+            <span className="hidden sm:inline">Order</span>
+            {count > 0 && (
+              <span data-testid="cart-count-badge" className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-terra text-[11px] font-bold text-bone">
+                {count}
+              </span>
+            )}
+          </button>
+          <button
+            data-testid="mobile-menu-button"
+            onClick={() => setMenu(!menu)}
+            className="rounded-full border border-ink/20 p-2.5 md:hidden"
+            aria-label="Menu"
+          >
+            {menu ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
+      </div>
+
+      {menu && (
+        <nav className="border-t border-ink/10 bg-bone px-6 py-6 md:hidden" data-testid="nav-links-mobile">
+          {LINKS.map((l) => (
+            <NavLink
+              key={l.to}
+              to={l.to}
+              data-testid={`nav-mobile-link-${l.label.toLowerCase().replace(/\s/g, "-")}`}
+              className="block py-3 font-display text-2xl text-ink"
+            >
+              {l.label}
+            </NavLink>
+          ))}
+        </nav>
+      )}
+    </header>
+  );
+};

@@ -1,0 +1,142 @@
+{
+  "theme": {
+    "strategy": "Light Dominant (Organic & Earthy Archetype) with a radical Dark Mode tension section.",
+    "vibe": "Awwwards-level, traditional-Indian-meets-premium-editorial. Think 'Aesop' but deeply rooted in Indian Lakdi Ghani heritage. High-contrast typography, generous negative space, warm tactile surfaces."
+  },
+  "typography": {
+    "font_pairings": [
+      {
+        "role": "Headings (English)",
+        "family": "'Cormorant Garamond', serif",
+        "weight": "Light (300) and Bold (700)",
+        "usage": "Hero typography, large section titles. Creates an elegant, editorial, heritage feel."
+      },
+      {
+        "role": "Headings (Hindi)",
+        "family": "'Rozha One', serif",
+        "weight": "Regular (400)",
+        "usage": "For the bilingual brand voice like 'गांव की घानी से सीधा आपके घर तक'. Pairs beautifully with Cormorant Garamond."
+      },
+      {
+        "role": "Body & UI (English)",
+        "family": "'Manrope', sans-serif",
+        "weight": "Regular (400), Medium (500), SemiBold (600)",
+        "usage": "Clean geometric contrast for product specs, prices, and navigational UI. Highly legible."
+      }
+    ],
+    "rules": {
+      "h1": "text-5xl sm:text-6xl md:text-8xl tracking-tighter leading-[0.9]",
+      "h2": "text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-none",
+      "h3": "text-2xl sm:text-3xl leading-snug",
+      "overline": "text-xs tracking-[0.2em] uppercase font-bold text-brand-terracotta"
+    }
+  },
+  "colors": {
+    "base": {
+      "bg_primary": "#FAF7F2",
+      "bg_secondary": "#EBE4D5",
+      "text_primary": "#1F2922",
+      "text_secondary": "#5C6856"
+    },
+    "brand": {
+      "terracotta": "#C04A22",
+      "terracotta_hover": "#A63F1C",
+      "mustard_gold": "#DDA74F",
+      "dark_forest": "#1F2922"
+    },
+    "dark_mode_section": {
+      "bg": "#141C16",
+      "text": "#FAF7F2",
+      "accent": "#DDA74F"
+    }
+  },
+  "layouts": {
+    "spacing_system": "Generous. Use 2-3x typical spacing (e.g., py-24 or py-32 for sections) to let the photography and typography breathe.",
+    "grid_strategy": "Asymmetrical Bento (Tetris mode) for the 'Journey' section. Do not use generic 3-column equal grids for products; alternate alignments or use staggered heights.",
+    "alignment": "Left-aligned dominant for text heavy blocks to maintain editorial structure. Center-aligned ONLY for the Manifesto/Story statements."
+  },
+  "visual_enhancers": {
+    "textures": "Apply a very subtle noise/grain overlay (opacity 2-3%) across the entire site to remove digital flatness and enhance the 'organic' feel.",
+    "borders": "1px solid #1F2922 with 15% opacity for separating grid items or table rows. No heavy drop shadows. Rely on 'Clay & Crisp' subtle depth if needed.",
+    "shapes": "Use soft arch motifs (Indian architectural nod) for masking product images or founder portraits."
+  },
+  "motion": {
+    "scrolling": "MUST use 'lenis' for smooth momentum scrolling. This is critical for the premium feel.",
+    "reveals": "Framer Motion line-by-line masked reveals for all H1 and H2 elements (initial y: 100%, overflow: hidden).",
+    "parallax": "Apply subtle Y-axis parallax to background images in the 'Journey' section.",
+    "micro_interactions": "Product cards: on hover, the bottle image scales up by 5% and the background arch slightly shifts color."
+  },
+  "components": {
+    "buttons": {
+      "primary": "Pill-shaped, bg-[#C04A22] text-[#FAF7F2]. On hover: scales down slightly (scale-95) instead of up, background darkens.",
+      "secondary": "Outline button with 1px border. border-[#1F2922] text-[#1F2922]. Hover: bg-[#1F2922] text-[#FAF7F2].",
+      "whatsapp": "Use the primary style but append a WhatsApp SVG icon."
+    },
+    "product_card": {
+      "structure": "Image heavy. Bottle centered within a large soft-colored background (e.g., #EBE4D5). Title and price left-aligned below.",
+      "action": "Two buttons on hover/bottom: 'Buy Now' (direct to WA) and 'Add to Cart'."
+    },
+    "cart_drawer": {
+      "design": "Slide-in from right. Clean, minimal. White/Bone background.",
+      "functionality": "Lists selected products, quantities (+/-), and calculates total MRP and Discounted Price. 'Order on WhatsApp' button at the bottom."
+    },
+    "whatsapp_integration": {
+      "logic": "Construct a dynamic URL: `https://wa.me/91XXXXXXXXXX?text=[URL_ENCODED_STRING]`. The string should read: 'Hello Padam Naturals! I want to order: %0A- 2x Groundnut Oil (1L) - ₹560 %0ATotal: ₹560. Please confirm my order.'"
+    }
+  },
+  "sections_blueprint": {
+    "hero": {
+      "layout": "Massive typography ('गांव की घानी से सीधा आपके घर तक') overlapping a clipped-arch image or video loop of oil pouring. A floating '100% PURE & UNREFINED' badge rotating slowly in the corner."
+    },
+    "marquee": {
+      "design": "The 'Editorial Ribbon'. bg-[#EBE4D5] text-[#1F2922]. Slow, smooth drift. Text: 'Khaane Ka Swaad, Sehat Ke Saath ✦ No Heat, No Chemicals ✦ 100% Natural'. Font: Cormorant Garamond, italicized."
+    },
+    "products_grid": {
+      "layout": "Staggered grid of the 6 oils. Groundnut, Sunflower, Sesame, Coconut, Mustard, Almond. Each card feels like an art piece."
+    },
+    "comparison_table": {
+      "vibe": "The Tension Point. This entire section inverts to Dark Mode (bg-[#141C16]).",
+      "design": "Editorial table comparing 'Lakdi Ghani' vs 'Refined Oil'. High contrast gold (#DDA74F) text for Padam Naturals column, muted grey for Refined. 1px gold borders."
+    },
+    "journey_manifesto": {
+      "layout": "Numbered scrolling sticky section. Left side: Massive numbers (01, 02, 03) and text ('From the Farms', 'Churned in Lakdi Ghani', etc.) pinning to the screen. Right side: Corresponding beautiful photography scrolling past."
+    }
+  },
+  "image_urls": {
+    "branding": {
+      "logo": "https://padamnaturals.in/wp-content/uploads/2025/09/PadamLogoEng.png"
+    },
+    "hero_and_vibe": {
+      "oil_pouring": "https://images.unsplash.com/photo-1760445529865-1311cf88ef45?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzV8MHwxfHNlYXJjaHwxfHxjb29raW5nJTIwb2lsJTIwYm90dGxlJTIwb3JnYW5pY3xlbnwwfHx8fDE3ODc1NTQzNTB8MA&ixlib=rb-4.1.0&q=85"
+    },
+    "products": {
+      "bottle_mockup": "https://padamnaturals.in/wp-content/uploads/2025/09/OilOneLiter.png"
+    },
+    "journey_section": {
+      "mustard_field": "https://images.pexels.com/photos/38277321/pexels-photo-38277321.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "wooden_mortar": "https://images.pexels.com/photos/34599398/pexels-photo-34599398.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "peanuts": "https://images.unsplash.com/photo-1697468921924-1d113bf7ba06?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDN8MHwxfHNlYXJjaHwzfHxwZWFudXRzJTIwZmFybSUyMGdyb3VuZG51dHN8ZW58MHx8fHwxNzg3NTU0MzUwfDA&ixlib=rb-4.1.0&q=85",
+      "indian_farmers": "https://images.pexels.com/photos/17504886/pexels-photo-17504886.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    }
+  },
+  "instructions_to_main_agent": {
+    "framework": "React (.js) + Tailwind CSS + Framer Motion. Do not use .tsx.",
+    "routing": "Set up a standard multi-page router (react-router-dom) with Home, Shop, About, Contact. Alternatively, since it's a creative site, single-page with sections mapped to navigation is acceptable if executed brilliantly.",
+    "state_management": "Use Context API or Zustand to manage the Cart state globally across pages.",
+    "whatsapp_logic": "Write a utility function `generateWhatsAppLink(cartItems)` that dynamically creates the wa.me link. Assume dummy phone number '919876543210' if not provided.",
+    "shadcn": "Use Shadcn components for the Cart Drawer (Sheet), FAQs (Accordion), and minimal elements. Overwrite Shadcn's default 'Vercel' look to match the organic brand.",
+    "fonts_installation": "Add Google Fonts: Cormorant Garamond, Rozha One, Manrope to the index.html."
+  },
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": [
+    "You tend to converge toward generic, 'on distribution' outputs. Avoid this: make creative, distinctive frontends that surprise and delight.",
+    "DO NOT use generic centered layouts, simplistic gradients, and uniform styling. Embrace asymmetry and the grid constraints defined.",
+    "Create depth through layered design elements with z-index hierarchy, NOT heavy drop shadows.",
+    "Use glass-morphism effects with backdrop filters ONLY when scrolling content dictates it (like sticky header).",
+    "You MUST NOT apply universal transition. Eg: `transition: all`. Always add transitions for specific interactive elements.",
+    "You MUST NOT center align the app container. Do not add `.App { text-align: center; }`.",
+    "NEVER use AI assistant Emoji characters like 🤖🧠💭💡🔮🎯 for icons. Use lucide-react or phosphor-icons.",
+    "Every interaction needs micro-animations - hover states, transitions, parallax effects. Static = dead.",
+    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "Add `data-testid` to all buttons, links, and form inputs for testing purposes."
+  ]
+}
