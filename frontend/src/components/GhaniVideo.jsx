@@ -1,6 +1,6 @@
 import { useLang } from "../i18n";
 import { Reveal, FadeUp } from "./Reveal";
-import { Play } from "lucide-react";
+import { MapPin } from "lucide-react";
 
 export const GhaniVideo = () => {
   const { t } = useLang();
@@ -30,7 +30,7 @@ export const GhaniVideo = () => {
         </h2>
         <FadeUp delay={0.35}>
           <p className="mt-4 flex max-w-md items-center justify-center gap-2.5 text-sm text-bone/70">
-            <Play className="h-4 w-4 shrink-0 text-gold" /> {t("video.cap")}
+            <MapPin className="h-4 w-4 shrink-0 text-gold" /> {t("video.cap")}
           </p>
         </FadeUp>
       </div>

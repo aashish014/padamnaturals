@@ -51,7 +51,7 @@ export const OilGrid = () => {
         <Reveal>
           <p className="overline-tag">{t("grid.over")}</p>
         </Reveal>
-        <h2 className="mt-4 font-display text-4xl font-semibold leading-none tracking-tight sm:text-5xl lg:text-6xl">
+        <h2 className="mt-4 font-display text-3xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
           <Reveal delay={0.1}>{t("grid.a")}</Reveal>
           <Reveal delay={0.22}>
             <span className="italic text-terra">{t("grid.b")}</span>

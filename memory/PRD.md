@@ -23,6 +23,17 @@ User choices: business WhatsApp number (found on site: +91 82691 69904), message
 - Recreate all original pages: Home, Shop, Product detail, About, Contact.
 - Bilingual Hindi-English heritage brand voice.
 
+## Implemented (2026-08-24 iteration 8)
+- Trust-first homepage refinement (user-directed, minimal changes):
+  - Video section reframed as "देखिए, तेल कैसे निकलता है / Come see how your oil is pressed" + visit invitation (Village Shivpur, Ratlam — watch extraction live).
+  - Long 4-chapter Journey replaced by compact 5-step process strip (बीज → सफाई → लकड़ी घानी → छानना → बोतल में भरना) with circular photos, numbered badges, swipeable on mobile (`src/components/ProcessSteps.jsx`). NOTE: सफाई/cleaning photo is a placeholder — owner to supply real cleaning photo.
+  - Values strip replaced with exact Quality Promise (100% Pure & Unrefined · No Added Chemicals · Freshly Pressed · Carefully Packed) — `src/components/QualityPromise.jsx`.
+  - The Padam Standard now sits inside a separate moss-green box with gold stat tiles.
+  - Oil-grid heading reduced on mobile (text-3xl).
+  - Review cards now show initials avatars (real photos/names pending from owner).
+- Bottom tab bar: Order tab removed (duplicated top navbar), replaced with Contact. Tabs: Home, Shop, Seed to Oil, Contact, Chat.
+- Verified mobile: promise strip, process strip, trust video copy, green standard box, tab bar all render; no console errors.
+
 ## Implemented (2026-08-24 iteration 7)
 - Ghani video section (`src/components/GhaniVideo.jsx`): full-bleed autoplay muted looping video (slow-motion golden oil pour, placeholder stock clip at /videos/ghani.mp4 — REPLACE with owner's real wooden ghani footage) with dark overlay heading "Watch every drop, being born slow." on Home.
 - Combo idea dropped: /combo page + data removed; home grid 6th tile is now "Your Seed Your Oil" (Wheat icon, dark forest tile → /your-seed-your-oil). Footer combo link removed.

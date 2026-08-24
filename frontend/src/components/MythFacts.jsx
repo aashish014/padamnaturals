@@ -75,28 +75,30 @@ export const MythFacts = ({ dark = false }) => {
           ))}
         </div>
 
-        <FadeUp delay={0.2} className="mt-16 text-center">
-          <p className={`overline-tag ${dark ? "!text-gold" : ""}`}>{t("myths.standard")}</p>
-          <p className={`mt-2 font-display text-xl italic ${dark ? "text-bone/70" : "text-moss"}`}>{t("myths.standardSub")}</p>
+        <FadeUp delay={0.2} className="mt-16">
+          <div className="rounded-3xl bg-moss p-6 text-bone md:p-10" data-testid="padam-standard-box">
+            <div className="text-center">
+              <p className="overline-tag !text-gold">{t("myths.standard")}</p>
+              <p className="mt-2 font-display text-xl italic text-bone/80">{t("myths.standardSub")}</p>
+            </div>
+            <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4" data-testid="stat-strip">
+              {statStrip.map((s, i) => {
+                const Icon = STAT_ICONS[s.icon];
+                return (
+                  <div key={s.label} className="flex flex-col items-center gap-3 rounded-2xl bg-bone/10 px-4 py-7 text-center" data-testid={`stat-tile-${i}`}>
+                    <span className="flex h-11 w-11 items-center justify-center rounded-full bg-gold/20 text-gold">
+                      <Icon className="h-5 w-5" />
+                    </span>
+                    <p className="font-display text-3xl font-bold text-gold md:text-4xl">{s.value}</p>
+                    <p className="text-[11px] font-bold uppercase tracking-widest text-bone/60">
+                      {hi ? s.labelHi : s.label}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </FadeUp>
-        <div className={`mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-3xl border md:grid-cols-4 ${dark ? "border-bone/10 bg-bone/10" : "border-ink/10 bg-ink/10"}`} data-testid="stat-strip">
-          {statStrip.map((s, i) => {
-            const Icon = STAT_ICONS[s.icon];
-            return (
-              <FadeUp key={s.label} delay={i * 0.08}>
-                <div className={`flex h-full flex-col items-center gap-3 px-4 py-8 text-center ${dark ? "bg-forest" : "bg-bone"}`} data-testid={`stat-tile-${i}`}>
-                  <span className={`flex h-11 w-11 items-center justify-center rounded-full ${dark ? "bg-gold/15 text-gold" : "bg-terra/10 text-terra"}`}>
-                    <Icon className="h-5 w-5" />
-                  </span>
-                  <p className={`font-display text-3xl font-bold md:text-4xl ${dark ? "text-gold" : "text-terra"}`}>{s.value}</p>
-                  <p className={`text-[11px] font-bold uppercase tracking-widest ${dark ? "text-bone/50" : "text-moss"}`}>
-                    {hi ? s.labelHi : s.label}
-                  </p>
-                </div>
-              </FadeUp>
-            );
-          })}
-        </div>
       </div>
     </section>
   );
