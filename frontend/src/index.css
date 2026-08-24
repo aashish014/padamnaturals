@@ -41,6 +41,12 @@
         background: #c04a22;
         color: #faf7f2;
     }
+    body.lang-hi {
+        font-family: "Mukta", Manrope, sans-serif;
+    }
+    body.lang-hi .font-display {
+        font-family: "Tiro Devanagari Hindi", "Cormorant Garamond", serif;
+    }
 }
 
 @layer components {

@@ -4,9 +4,11 @@ import { motion } from "framer-motion";
 import { products } from "../data/products";
 import { galleries, oilHealth } from "../data/oilDetails";
 import { useCart } from "../context/CartContext";
+import { useLang } from "../i18n";
 import { WhatsAppIcon } from "../components/WhatsAppIcon";
 import { Gallery } from "../components/Gallery";
 import { WhyGhani } from "../components/WhyGhani";
+import { LoveWall } from "../components/LoveWall";
 import { ProductCard } from "../components/ProductCard";
 import { waLink, buyNowMessage } from "../lib/whatsapp";
 import { Reveal, FadeUp } from "../components/Reveal";
@@ -25,6 +27,7 @@ export default function ProductDetail() {
   const [sizeIdx, setSizeIdx] = useState(0);
   const [qty, setQty] = useState(1);
   const { add } = useCart();
+  const { lang, t } = useLang();
 
   if (!product) {
     return (
@@ -37,6 +40,7 @@ export default function ProductDetail() {
 
   const size = product.sizes[sizeIdx];
   const perLitre = Math.round(size.price / parseInt(size.label));
+  const displayName = lang === "hi" ? product.hindi : product.name.replace("Lakdi Ghani ", "");
 
   return (
     <main data-testid="product-detail-page" className="bg-bone pt-24 md:pt-36">
@@ -59,7 +63,7 @@ export default function ProductDetail() {
           </FadeUp>
 
           <FadeUp delay={0.26} className="mt-7">
-            <p className="text-xs font-bold uppercase tracking-widest text-moss">Choose Size</p>
+            <p className="text-xs font-bold uppercase tracking-widest text-moss">{t("pdp.chooseSize")}</p>
             <div className="mt-3 grid grid-cols-3 gap-2.5 sm:flex sm:flex-wrap sm:gap-3">
               {product.sizes.map((s, i) => (
                 <button
@@ -81,7 +85,7 @@ export default function ProductDetail() {
             <div>
               <span className="font-display text-4xl font-bold" data-testid="product-detail-price">{inr(size.price)}</span>
               <span className="ml-3 text-lg text-moss line-through">{inr(size.mrp)}</span>
-              <p className="mt-1 text-xs font-semibold text-moss">{inr(perLitre)}/L · Launch offer applied</p>
+              <p className="mt-1 text-xs font-semibold text-moss">{inr(perLitre)}/L · {t("pdp.launch")}</p>
             </div>
             <div className="flex items-center gap-4 rounded-full border border-ink/20 px-3 py-2">
               <button data-testid="qty-minus-button" onClick={() => setQty(Math.max(1, qty - 1))} aria-label="Decrease quantity">
@@ -102,25 +106,25 @@ export default function ProductDetail() {
               data-testid="buy-now-whatsapp-button"
               className="flex flex-1 items-center justify-center gap-2.5 rounded-full bg-terra py-4 text-sm font-bold text-bone transition-all duration-300 hover:scale-[0.98] hover:bg-terra-dark"
             >
-              <WhatsAppIcon className="h-5 w-5" /> Buy Now on WhatsApp
+              <WhatsAppIcon className="h-5 w-5" /> {t("pdp.buyNow")}
             </a>
             <button
               data-testid="add-to-order-button"
               onClick={() => add(product, size, qty)}
               className="flex flex-1 items-center justify-center gap-2.5 rounded-full border border-ink py-4 text-sm font-bold transition-colors duration-300 hover:bg-ink hover:text-bone"
             >
-              <ShoppingBag className="h-5 w-5" /> Add to Order
+              <ShoppingBag className="h-5 w-5" /> {t("pdp.add")}
             </button>
           </FadeUp>
 
           <FadeUp delay={0.44} className="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-3">
             {[
-              [Truck, "Free delivery over ₹599"],
-              [ShieldCheck, "0% chemicals, 0% trans fat"],
-              [Leaf, "Fresh small batches"],
-            ].map(([Icon, t]) => (
-              <div key={t} className="flex items-center gap-2.5 rounded-xl bg-sand px-4 py-3 text-xs font-semibold">
-                <Icon className="h-4 w-4 shrink-0 text-terra" /> {t}
+              [Truck, t("pdp.free")],
+              [ShieldCheck, t("pdp.zero")],
+              [Leaf, t("pdp.fresh")],
+            ].map(([Icon, label]) => (
+              <div key={label} className="flex items-center gap-2.5 rounded-xl bg-sand px-4 py-3 text-xs font-semibold">
+                <Icon className="h-4 w-4 shrink-0 text-terra" /> {label}
               </div>
             ))}
           </FadeUp>
@@ -131,12 +135,12 @@ export default function ProductDetail() {
         <section data-testid="health-section" className="bg-sand py-20 md:py-28">
           <div className="mx-auto max-w-6xl px-5 md:px-10">
             <Reveal>
-              <p className="overline-tag">Health Benefits · सेहत के फायदे</p>
+              <p className="overline-tag">{t("pdp.healthOver")}</p>
             </Reveal>
             <h2 className="mt-4 font-display text-4xl font-semibold leading-none tracking-tight sm:text-5xl">
-              <Reveal delay={0.1}>Why {product.name.replace("Lakdi Ghani ", "")}</Reveal>
+              <Reveal delay={0.1}>{t("pdp.healthWhy")} {displayName}</Reveal>
               <Reveal delay={0.22}>
-                <span className="italic text-terra">loves your body.</span>
+                <span className="italic text-terra">{t("pdp.healthB")}</span>
               </Reveal>
             </h2>
 
@@ -149,7 +153,7 @@ export default function ProductDetail() {
                       data-testid={`benefit-card-${i}`}
                       className="group h-full rounded-3xl border border-ink/10 bg-bone p-6 transition-colors duration-300 hover:border-terra/40 md:p-8"
                     >
-                      <div className="flex h-11 w-11 items-center justify-center rounded-full bg-sand transition-colors duration-300 group-hover:bg-terra group-hover:text-bone">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-full bg-sand transition-colors duration-300 group-hover:bg-terra">
                         <Icon className="h-5 w-5 text-terra transition-colors duration-300 group-hover:text-bone" />
                       </div>
                       <p className="mt-4 font-display text-xl font-semibold">{b.title}</p>
@@ -162,7 +166,7 @@ export default function ProductDetail() {
 
             <div className="mt-14 grid gap-10 md:grid-cols-2">
               <FadeUp>
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-moss">What's inside — nutrition retained</p>
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-moss">{t("pdp.inside")}</p>
                 <div className="mt-6 flex flex-col gap-5" data-testid="nutrient-bars">
                   {health.nutrients.map((n, i) => (
                     <div key={n.name} data-testid={`nutrient-${i}`}>
@@ -184,18 +188,18 @@ export default function ProductDetail() {
                 </div>
               </FadeUp>
               <FadeUp delay={0.15}>
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-moss">Best for</p>
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-moss">{t("pdp.bestFor")}</p>
                 <div className="mt-6 flex flex-wrap gap-2.5" data-testid="best-for-chips">
-                  {health.bestFor.map((t) => (
-                    <span key={t} className="rounded-full border border-ink/15 bg-bone px-5 py-2.5 text-sm font-semibold transition-colors duration-300 hover:border-terra hover:text-terra">
-                      {t}
+                  {health.bestFor.map((chip) => (
+                    <span key={chip} className="rounded-full border border-ink/15 bg-bone px-5 py-2.5 text-sm font-semibold transition-colors duration-300 hover:border-terra hover:text-terra">
+                      {chip}
                     </span>
                   ))}
                 </div>
                 <div className="mt-8 flex items-start gap-3 rounded-2xl bg-bone p-5">
                   <Flame className="mt-0.5 h-5 w-5 shrink-0 text-terra" />
                   <div>
-                    <p className="text-xs font-bold uppercase tracking-widest text-moss">Smoke Point</p>
+                    <p className="text-xs font-bold uppercase tracking-widest text-moss">{t("pdp.smoke")}</p>
                     <p className="mt-1 text-sm font-semibold">{health.smokePoint}</p>
                   </div>
                 </div>
@@ -210,27 +214,25 @@ export default function ProductDetail() {
       <div className="mx-auto max-w-3xl px-5 py-16 md:px-10">
         <Accordion type="single" collapsible defaultValue="uses" data-testid="product-info-accordion">
           <AccordionItem value="uses" className="border-ink/15">
-            <AccordionTrigger data-testid="accordion-uses" className="font-display text-lg font-semibold hover:no-underline">Uses</AccordionTrigger>
+            <AccordionTrigger data-testid="accordion-uses" className="font-display text-lg font-semibold hover:no-underline">{t("pdp.uses")}</AccordionTrigger>
             <AccordionContent className="text-sm leading-relaxed text-moss">{product.uses}</AccordionContent>
           </AccordionItem>
           <AccordionItem value="storage" className="border-ink/15">
-            <AccordionTrigger data-testid="accordion-storage" className="font-display text-lg font-semibold hover:no-underline">Storage & Shelf Life</AccordionTrigger>
-            <AccordionContent className="text-sm leading-relaxed text-moss">
-              Store in a cool, dry place away from direct sunlight with the lid tightly closed. Best before 12 months from pressing; use within 6 months of opening for peak aroma.
-            </AccordionContent>
+            <AccordionTrigger data-testid="accordion-storage" className="font-display text-lg font-semibold hover:no-underline">{t("pdp.storage")}</AccordionTrigger>
+            <AccordionContent className="text-sm leading-relaxed text-moss">{t("pdp.storageText")}</AccordionContent>
           </AccordionItem>
           <AccordionItem value="delivery" className="border-ink/15">
-            <AccordionTrigger data-testid="accordion-delivery" className="font-display text-lg font-semibold hover:no-underline">Delivery</AccordionTrigger>
-            <AccordionContent className="text-sm leading-relaxed text-moss">
-              Free delivery on orders above ₹599. Confirm your order on WhatsApp and pay on delivery — no advance payment needed.
-            </AccordionContent>
+            <AccordionTrigger data-testid="accordion-delivery" className="font-display text-lg font-semibold hover:no-underline">{t("pdp.delivery")}</AccordionTrigger>
+            <AccordionContent className="text-sm leading-relaxed text-moss">{t("pdp.deliveryText")}</AccordionContent>
           </AccordionItem>
         </Accordion>
       </div>
 
-      <section className="mx-auto max-w-7xl px-5 pb-24 md:px-10" data-testid="related-section">
+      <LoveWall />
+
+      <section className="mx-auto max-w-7xl px-5 py-24 md:px-10" data-testid="related-section">
         <Reveal>
-          <p className="overline-tag">You May Also Love</p>
+          <p className="overline-tag">{t("pdp.related")}</p>
         </Reveal>
         <div className="mt-10 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
           {related.map((p, i) => (
@@ -251,7 +253,7 @@ export default function ProductDetail() {
           data-testid="mobile-buy-now-button"
           className="flex flex-1 items-center justify-center gap-2 rounded-full bg-terra py-3.5 text-sm font-bold text-bone active:scale-95"
         >
-          <WhatsAppIcon className="h-4 w-4" /> Buy Now
+          <WhatsAppIcon className="h-4 w-4" /> {t("pdp.buyShort")}
         </a>
         <button
           data-testid="mobile-add-button"

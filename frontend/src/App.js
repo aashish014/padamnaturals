@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Lenis from "lenis";
 import { Toaster } from "sonner";
 import { CartProvider } from "@/context/CartContext";
+import { LanguageProvider } from "@/i18n";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { CartDrawer } from "@/components/CartDrawer";
@@ -34,7 +35,8 @@ function App() {
   return (
     <div className="grain">
       <BrowserRouter>
-        <CartProvider>
+        <LanguageProvider>
+          <CartProvider>
           <Navbar />
           <CartDrawer />
           <Routes>
@@ -46,7 +48,8 @@ function App() {
           </Routes>
           <Footer />
           <Toaster position="bottom-center" toastOptions={{ style: { background: "#1F2922", color: "#FAF7F2", border: "none" } }} />
-        </CartProvider>
+          </CartProvider>
+        </LanguageProvider>
       </BrowserRouter>
     </div>
   );

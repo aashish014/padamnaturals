@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { journey } from "../../data/products";
 import { Reveal, FadeUp } from "../Reveal";
+import { useLang } from "../../i18n";
 
 const Chapter = ({ step, flip }) => {
   const ref = useRef(null);
@@ -33,16 +34,18 @@ const Chapter = ({ step, flip }) => {
   );
 };
 
-export const Journey = () => (
+export const Journey = () => {
+  const { t } = useLang();
+  return (
   <section data-testid="journey-section" className="bg-bone py-24 md:py-32">
     <div className="mx-auto max-w-6xl px-5 md:px-10">
       <Reveal>
-        <p className="overline-tag">The Journey</p>
+        <p className="overline-tag">{t("home.journeyOver")}</p>
       </Reveal>
       <h2 className="mt-4 font-display text-4xl font-semibold leading-none tracking-tight sm:text-5xl lg:text-6xl">
-        <Reveal delay={0.1}>From farm to your kitchen —</Reveal>
+        <Reveal delay={0.1}>{t("home.journeyA")}</Reveal>
         <Reveal delay={0.22}>
-          <span className="italic text-terra">pure at every step.</span>
+          <span className="italic text-terra">{t("home.journeyB")}</span>
         </Reveal>
       </h2>
       <div className="mt-20 flex flex-col gap-24 md:gap-36">
@@ -52,4 +55,5 @@ export const Journey = () => (
       </div>
     </div>
   </section>
-);
+  );
+};

@@ -2,11 +2,13 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Reveal } from "../Reveal";
+import { useLang } from "../../i18n";
 import { heroBottle } from "../../data/products";
 import { ArrowDown } from "lucide-react";
 
 export const Hero = () => {
   const ref = useRef(null);
+  const { t } = useLang();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const yImg = useTransform(scrollYProgress, [0, 1], [0, 140]);
   const yText = useTransform(scrollYProgress, [0, 1], [0, -60]);
@@ -17,7 +19,7 @@ export const Hero = () => {
       <div className="mx-auto grid max-w-7xl gap-10 px-5 md:grid-cols-[1.25fr_1fr] md:px-10">
         <motion.div style={{ y: yText }} className="relative z-10 flex flex-col justify-center pb-16 pt-8 md:pb-32">
           <Reveal immediate>
-            <p className="overline-tag">Lakdi Ghani · Cold-Pressed · Small Batches</p>
+            <p className="overline-tag">{t("hero.overline")}</p>
           </Reveal>
           <h1 className="mt-6 font-hindi text-5xl leading-[1.12] sm:text-6xl md:text-7xl lg:text-[5.2rem]" data-testid="hero-heading">
             <Reveal immediate delay={0.15}>गांव की घानी से</Reveal>
@@ -27,7 +29,7 @@ export const Hero = () => {
           </h1>
           <Reveal immediate delay={0.45} className="mt-6">
             <p className="max-w-md font-display text-xl italic leading-snug text-moss md:text-2xl">
-              From the village ghani, straight to your home — every drop inspires trust.
+              {t("hero.sub")}
             </p>
           </Reveal>
           <Reveal immediate delay={0.6} className="mt-10">
@@ -37,20 +39,20 @@ export const Hero = () => {
                 data-testid="hero-shop-button"
                 className="rounded-full bg-terra px-8 py-4 text-sm font-bold text-bone transition-all duration-300 hover:scale-95 hover:bg-terra-dark"
               >
-                Shop the Oils
+                {t("hero.shop")}
               </Link>
               <Link
                 to="/about"
                 data-testid="hero-story-button"
                 className="rounded-full border border-ink px-8 py-4 text-sm font-bold transition-colors duration-300 hover:bg-ink hover:text-bone"
               >
-                Our Story
+                {t("hero.story")}
               </Link>
             </div>
           </Reveal>
           <Reveal immediate delay={0.75} className="mt-14">
             <div className="flex items-center gap-10">
-              {[["100%", "Pure Oils"], ["100+", "Happy Customers"], ["0%", "Chemicals"]].map(([v, l]) => (
+              {[["100%", t("hero.stat1")], ["100+", t("hero.stat2")], ["0%", t("hero.stat3")]].map(([v, l]) => (
                 <div key={l}>
                   <p className="font-display text-3xl font-bold text-ink">{v}</p>
                   <p className="mt-1 text-xs font-semibold uppercase tracking-widest text-moss">{l}</p>

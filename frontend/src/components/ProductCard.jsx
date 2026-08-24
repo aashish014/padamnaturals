@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import { useLang } from "../i18n";
 import { WhatsAppIcon } from "./WhatsAppIcon";
 import { waLink, buyNowMessage } from "../lib/whatsapp";
 import { FadeUp } from "./Reveal";
@@ -9,6 +10,7 @@ const inr = (n) => `₹${n.toLocaleString("en-IN")}`;
 
 export const ProductCard = ({ product, index = 0 }) => {
   const { add } = useCart();
+  const { t } = useLang();
   const size = product.sizes[0];
 
   return (
@@ -59,7 +61,7 @@ export const ProductCard = ({ product, index = 0 }) => {
           data-testid={`product-buy-now-${product.slug}`}
           className="mt-4 flex items-center justify-center gap-2 rounded-full bg-terra py-3 text-sm font-bold text-bone transition-all duration-300 hover:scale-[0.98] hover:bg-terra-dark"
         >
-          <WhatsAppIcon className="h-4 w-4" /> Buy Now on WhatsApp
+          <WhatsAppIcon className="h-4 w-4" /> {t("card.buyNow")}
         </a>
       </div>
     </FadeUp>

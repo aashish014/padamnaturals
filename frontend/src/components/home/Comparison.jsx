@@ -1,21 +1,24 @@
 import { comparison } from "../../data/products";
 import { Reveal, FadeUp } from "../Reveal";
+import { useLang } from "../../i18n";
 import { Check, X } from "lucide-react";
 
-export const Comparison = () => (
+export const Comparison = () => {
+  const { t } = useLang();
+  return (
   <section data-testid="comparison-section" className="bg-forest py-24 text-bone md:py-32">
     <div className="mx-auto max-w-6xl px-5 md:px-10">
       <Reveal>
-        <p className="overline-tag !text-gold">The Real Difference</p>
+        <p className="overline-tag !text-gold">{t("home.compOver")}</p>
       </Reveal>
       <h2 className="mt-4 font-display text-4xl font-semibold leading-none tracking-tight sm:text-5xl lg:text-6xl">
-        <Reveal delay={0.1}>In every single drop,</Reveal>
+        <Reveal delay={0.1}>{t("home.compA")}</Reveal>
         <Reveal delay={0.22}>
-          <span className="italic text-gold">the truth is pressed out.</span>
+          <span className="italic text-gold">{t("home.compB")}</span>
         </Reveal>
       </h2>
       <FadeUp delay={0.3} className="mt-4 max-w-lg text-sm leading-relaxed text-bone/60">
-        Choose purity, nutrition and tradition — because your family's health deserves the best.
+        {t("home.compSub")}
       </FadeUp>
 
       <FadeUp delay={0.2} className="mt-14 overflow-x-auto">
@@ -46,4 +49,5 @@ export const Comparison = () => (
       </FadeUp>
     </div>
   </section>
-);
+  );
+};

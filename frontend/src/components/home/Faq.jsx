@@ -1,23 +1,26 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
 import { faqs } from "../../data/products";
 import { Reveal, FadeUp } from "../Reveal";
+import { useLang } from "../../i18n";
 
-export const Faq = () => (
+export const Faq = () => {
+  const { t } = useLang();
+  return (
   <section data-testid="faq-section" className="bg-sand py-24 md:py-32">
     <div className="mx-auto grid max-w-6xl gap-12 px-5 md:grid-cols-[1fr_1.4fr] md:px-10">
       <div>
         <Reveal>
-          <p className="overline-tag">Questions, Answered</p>
+          <p className="overline-tag">{t("home.faqOver")}</p>
         </Reveal>
         <h2 className="mt-4 font-display text-4xl font-semibold leading-none tracking-tight sm:text-5xl">
-          <Reveal delay={0.1}>Everything you</Reveal>
+          <Reveal delay={0.1}>{t("home.faqA")}</Reveal>
           <Reveal delay={0.22}>
-            <span className="italic text-terra">want to know.</span>
+            <span className="italic text-terra">{t("home.faqB")}</span>
           </Reveal>
         </h2>
         <FadeUp delay={0.3}>
           <p className="mt-5 max-w-sm text-sm leading-relaxed text-moss">
-            Still curious? Message us on WhatsApp — we reply personally, like family.
+            {t("home.faqSub")}
           </p>
         </FadeUp>
       </div>
@@ -38,4 +41,5 @@ export const Faq = () => (
       </FadeUp>
     </div>
   </section>
-);
+  );
+};

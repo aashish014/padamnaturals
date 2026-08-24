@@ -2,10 +2,12 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ghaniPillars, heatComparison } from "../data/oilDetails";
 import { Reveal, FadeUp } from "./Reveal";
+import { useLang } from "../i18n";
 import { Flame } from "lucide-react";
 
 export const WhyGhani = ({ dark = true }) => {
   const [active, setActive] = useState(ghaniPillars[0]);
+  const { t } = useLang();
 
   return (
     <section
@@ -14,12 +16,12 @@ export const WhyGhani = ({ dark = true }) => {
     >
       <div className="mx-auto max-w-6xl px-5 md:px-10">
         <Reveal>
-          <p className={`overline-tag ${dark ? "!text-gold" : ""}`}>Why Lakdi Ghani Wins</p>
+          <p className={`overline-tag ${dark ? "!text-gold" : ""}`}>{t("home.whyOver")}</p>
         </Reveal>
         <h2 className="mt-4 font-display text-4xl font-semibold leading-none tracking-tight sm:text-5xl lg:text-6xl">
-          <Reveal delay={0.1}>Slow is not a flaw.</Reveal>
+          <Reveal delay={0.1}>{t("home.whyA")}</Reveal>
           <Reveal delay={0.22}>
-            <span className={`italic ${dark ? "text-gold" : "text-terra"}`}>Slow is the secret.</span>
+            <span className={`italic ${dark ? "text-gold" : "text-terra"}`}>{t("home.whyB")}</span>
           </Reveal>
         </h2>
 
@@ -75,7 +77,7 @@ export const WhyGhani = ({ dark = true }) => {
         <FadeUp delay={0.15} className="mt-20">
           <div className="flex items-center gap-3">
             <Flame className={`h-5 w-5 ${dark ? "text-gold" : "text-terra"}`} />
-            <p className="text-xs font-bold uppercase tracking-[0.2em] opacity-70">The Heat Test — pressing temperature compared</p>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] opacity-70">{t("home.heatLabel")}</p>
           </div>
           <div className="mt-8 flex flex-col gap-8" data-testid="heat-bars">
             {heatComparison.map((h, i) => (
@@ -98,7 +100,7 @@ export const WhyGhani = ({ dark = true }) => {
             ))}
           </div>
           <p className={`mt-6 font-display text-lg italic ${dark ? "text-gold" : "text-terra"}`}>
-            Lower the heat, higher the nutrition — it's that simple.
+            {t("home.heatNote")}
           </p>
         </FadeUp>
       </div>

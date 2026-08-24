@@ -2,9 +2,12 @@ import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin } from "lucide-react";
 import { WhatsAppIcon } from "./WhatsAppIcon";
 import { waLink, generalMessage } from "../lib/whatsapp";
+import { useLang } from "../i18n";
 import { logo } from "../data/products";
 
-export const Footer = () => (
+export const Footer = () => {
+  const { t } = useLang();
+  return (
   <footer data-testid="site-footer" className="bg-forest text-bone">
     <div className="mx-auto max-w-7xl px-5 py-20 md:px-10">
       <div className="grid gap-14 md:grid-cols-[1.4fr_1fr_1fr]">
@@ -18,15 +21,15 @@ export const Footer = () => (
           </p>
         </div>
         <div>
-          <p className="overline-tag !text-gold">Explore</p>
+          <p className="overline-tag !text-gold">{t("footer.explore")}</p>
           <div className="mt-5 flex flex-col gap-3 text-sm">
-            <Link to="/shop" data-testid="footer-link-shop" className="text-bone/70 transition-colors hover:text-gold">Shop Oils</Link>
-            <Link to="/about" data-testid="footer-link-about" className="text-bone/70 transition-colors hover:text-gold">Our Story</Link>
-            <Link to="/contact" data-testid="footer-link-contact" className="text-bone/70 transition-colors hover:text-gold">Contact</Link>
+            <Link to="/shop" data-testid="footer-link-shop" className="text-bone/70 transition-colors hover:text-gold">{t("nav.shop")}</Link>
+            <Link to="/about" data-testid="footer-link-about" className="text-bone/70 transition-colors hover:text-gold">{t("nav.about")}</Link>
+            <Link to="/contact" data-testid="footer-link-contact" className="text-bone/70 transition-colors hover:text-gold">{t("nav.contact")}</Link>
           </div>
         </div>
         <div>
-          <p className="overline-tag !text-gold">Reach Us</p>
+          <p className="overline-tag !text-gold">{t("footer.reach")}</p>
           <div className="mt-5 flex flex-col gap-3 text-sm text-bone/70">
             <span className="flex items-start gap-2.5"><Phone className="mt-0.5 h-4 w-4 shrink-0 text-gold" /> +91 82691 69904</span>
             <span className="flex items-start gap-2.5"><Mail className="mt-0.5 h-4 w-4 shrink-0 text-gold" /> padamnaturals@gmail.com</span>
@@ -39,14 +42,15 @@ export const Footer = () => (
             data-testid="footer-whatsapp-button"
             className="mt-6 inline-flex items-center gap-2.5 rounded-full bg-terra px-6 py-3 text-sm font-bold text-bone transition-all duration-300 hover:scale-95 hover:bg-terra-dark"
           >
-            <WhatsAppIcon className="h-4 w-4" /> Chat on WhatsApp
+            <WhatsAppIcon className="h-4 w-4" /> {t("footer.chat")}
           </a>
         </div>
       </div>
       <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-bone/10 pt-8 text-xs text-bone/40 md:flex-row md:items-center">
-        <span>© {new Date().getFullYear()} Padam Naturals. Sehat bhari har boond.</span>
+        <span>© {new Date().getFullYear()} {t("footer.rights")}</span>
         <span className="font-display italic text-bone/50">Traditional method, modern trust.</span>
       </div>
     </div>
   </footer>
-);
+  );
+};
