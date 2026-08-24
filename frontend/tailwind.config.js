@@ -57,7 +57,7 @@ module.exports = {
       },
       fontFamily: {
         display: ['"Cormorant Garamond"', 'serif'],
-        hindi: ['"Rozha One"', 'serif'],
+        hindi: ['"Tiro Devanagari Hindi"', 'serif'],
         sans: ['Manrope', 'sans-serif']
       },
       keyframes: {

@@ -4,7 +4,7 @@ import { useLang } from "../i18n";
 export const Motto = () => {
   const { t } = useLang();
   return (
-    <section data-testid="motto-section" className="relative overflow-hidden bg-bone py-24 md:py-36">
+    <section data-testid="motto-section" className="relative overflow-hidden bg-bone py-16 md:py-28">
       <div className="pointer-events-none absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/10 blur-3xl" />
       <div className="relative mx-auto max-w-5xl px-5 text-center md:px-10">
         <Reveal>

@@ -23,6 +23,16 @@ User choices: business WhatsApp number (found on site: +91 82691 69904), message
 - Recreate all original pages: Home, Shop, Product detail, About, Contact.
 - Bilingual Hindi-English heritage brand voice.
 
+## Implemented (2026-08-24 iteration 9)
+- Mobile bottom bar trimmed to 4 tabs (Home, Shop Oils, Seed to Oil, Chat) — Contact removed.
+- Section titles now always visible: Reveal switched from scroll-triggered to on-mount masked reveal (fixes headings not appearing on some mobiles).
+- Hindi display font changed Rozha One → Tiro Devanagari Hindi for readability.
+- Scroll-linked horizontal strips: ProcessSteps cards and the Comparison table auto-scroll sideways as the user scrolls vertically (`useAutoScrollX` in lib/scroll.js).
+- The Padam Standard box: richer leaf green (#2F5233), bigger gold title.
+- Seed banner copy changed to "तेल निकलता हुआ सामने देखें — watch your oil extracted in front of you".
+- Mobile spacing tightened (py-16) across OilGrid, LoveWall, WhyGhani, Comparison, MythFacts, FAQ, Motto.
+- Verified on 390px: 4 tabs, grid title opacity 1 with new font, banner text, process strip scrollLeft 297→594 on vertical scroll, green box renders. testing_agent not available in this environment — verified via screenshot tool.
+
 ## Implemented (2026-08-24 iteration 8)
 - Trust-first homepage refinement (user-directed, minimal changes):
   - Video section reframed as "देखिए, तेल कैसे निकलता है / Come see how your oil is pressed" + visit invitation (Village Shivpur, Ratlam — watch extraction live).

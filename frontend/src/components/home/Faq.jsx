@@ -7,7 +7,7 @@ export const Faq = () => {
   const { t, lang } = useLang();
   const hi = lang === "hi";
   return (
-  <section data-testid="faq-section" className="bg-sand py-24 md:py-32">
+  <section data-testid="faq-section" className="bg-sand py-16 md:py-24">
     <div className="mx-auto grid max-w-6xl gap-12 px-5 md:grid-cols-[1fr_1.4fr] md:px-10">
       <div>
         <Reveal>

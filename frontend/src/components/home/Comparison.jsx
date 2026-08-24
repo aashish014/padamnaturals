@@ -1,13 +1,17 @@
+import { useRef } from "react";
 import { comparison } from "../../data/products";
 import { Reveal, FadeUp } from "../Reveal";
 import { useLang } from "../../i18n";
+import { useAutoScrollX } from "../../lib/scroll";
 import { Check, X } from "lucide-react";
 
 export const Comparison = () => {
   const { t, lang } = useLang();
   const hi = lang === "hi";
+  const tableRef = useRef(null);
+  useAutoScrollX(tableRef);
   return (
-  <section data-testid="comparison-section" className="bg-forest py-24 text-bone md:py-32">
+  <section data-testid="comparison-section" className="bg-forest py-16 text-bone md:py-28">
     <div className="mx-auto max-w-6xl px-5 md:px-10">
       <Reveal>
         <p className="overline-tag !text-gold">{t("home.compOver")}</p>
@@ -23,6 +27,7 @@ export const Comparison = () => {
       </FadeUp>
 
       <FadeUp delay={0.2} className="mt-14 overflow-x-auto">
+        <div ref={tableRef} className="overflow-x-auto">
         <table className="w-full min-w-[640px] border-collapse text-left" data-testid="comparison-table">
           <thead>
             <tr className="border-b border-gold/30 text-xs uppercase tracking-[0.18em]">
@@ -47,6 +52,7 @@ export const Comparison = () => {
             ))}
           </tbody>
         </table>
+        </div>
       </FadeUp>
     </div>
   </section>

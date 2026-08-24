@@ -46,7 +46,7 @@ const Tile = ({ product, i, t }) => (
 export const OilGrid = () => {
   const { t } = useLang();
   return (
-    <section data-testid="oil-grid-section" className="bg-bone py-24 md:py-32">
+    <section data-testid="oil-grid-section" className="bg-bone py-16 md:py-28">
       <div className="mx-auto max-w-7xl px-5 md:px-10">
         <Reveal>
           <p className="overline-tag">{t("grid.over")}</p>

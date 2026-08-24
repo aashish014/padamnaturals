@@ -13,7 +13,7 @@ export const WhyGhani = ({ dark = true }) => {
   return (
     <section
       data-testid="why-ghani-section"
-      className={`py-24 md:py-32 ${dark ? "bg-forest text-bone" : "bg-sand text-ink"}`}
+      className={`py-16 md:py-28 ${dark ? "bg-forest text-bone" : "bg-sand text-ink"}`}
     >
       <div className="mx-auto max-w-6xl px-5 md:px-10">
         <Reveal>

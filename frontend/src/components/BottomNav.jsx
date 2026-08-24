@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { Home, Droplets, Wheat, Phone } from "lucide-react";
+import { Home, Droplets, Wheat } from "lucide-react";
 import { WhatsAppIcon } from "./WhatsAppIcon";
 import { useLang } from "../i18n";
 import { waLink, generalMessage } from "../lib/whatsapp";
@@ -30,7 +30,6 @@ export const BottomNav = () => {
       <Tab to="/" icon={Home} label={t("nav.home")} testid="tab-home" end />
       <Tab to="/shop" icon={Droplets} label={t("nav.shop")} testid="tab-shop" />
       <Tab to="/your-seed-your-oil" icon={Wheat} label={t("nav.seed")} testid="tab-seed" />
-      <Tab to="/contact" icon={Phone} label={t("nav.contact")} testid="tab-contact" />
       <a
         href={waLink(generalMessage)}
         target="_blank"

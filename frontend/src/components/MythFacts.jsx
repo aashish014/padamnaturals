@@ -49,7 +49,7 @@ export const MythFacts = ({ dark = false }) => {
   return (
     <section
       data-testid="myths-section"
-      className={`py-24 md:py-32 ${dark ? "bg-forest text-bone" : "bg-sand text-ink"}`}
+      className={`py-16 md:py-28 ${dark ? "bg-forest text-bone" : "bg-sand text-ink"}`}
     >
       <div className="mx-auto max-w-6xl px-5 md:px-10">
         <Reveal>
@@ -76,10 +76,10 @@ export const MythFacts = ({ dark = false }) => {
         </div>
 
         <FadeUp delay={0.2} className="mt-16">
-          <div className="rounded-3xl bg-moss p-6 text-bone md:p-10" data-testid="padam-standard-box">
+          <div className="rounded-3xl bg-[#2F5233] p-6 text-bone md:p-10" data-testid="padam-standard-box">
             <div className="text-center">
-              <p className="overline-tag !text-gold">{t("myths.standard")}</p>
-              <p className="mt-2 font-display text-xl italic text-bone/80">{t("myths.standardSub")}</p>
+              <p className="font-display text-2xl font-semibold text-gold md:text-4xl">{t("myths.standard")}</p>
+              <p className="mt-2 font-display text-lg italic text-bone/80 md:text-xl">{t("myths.standardSub")}</p>
             </div>
             <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4" data-testid="stat-strip">
               {statStrip.map((s, i) => {

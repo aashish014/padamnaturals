@@ -34,7 +34,7 @@ const Card = ({ r }) => (
 export const LoveWall = () => {
   const { t } = useLang();
   return (
-    <section data-testid="love-wall" className="overflow-hidden bg-sand py-24 md:py-28">
+    <section data-testid="love-wall" className="overflow-hidden bg-sand py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-5 md:px-10">
         <Reveal>
           <p className="overline-tag">{t("home.loveOver")}</p>

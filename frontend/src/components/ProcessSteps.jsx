@@ -1,6 +1,8 @@
+import { useRef } from "react";
 import { motion } from "framer-motion";
 import { Reveal, FadeUp } from "./Reveal";
 import { useLang } from "../i18n";
+import { useAutoScrollX } from "../lib/scroll";
 import { MoveRight } from "lucide-react";
 
 const steps = [
@@ -14,6 +16,8 @@ const steps = [
 export const ProcessSteps = () => {
   const { t, lang } = useLang();
   const hi = lang === "hi";
+  const stripRef = useRef(null);
+  useAutoScrollX(stripRef);
   return (
     <section data-testid="process-section" className="bg-bone py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-5 md:px-10">
@@ -27,7 +31,7 @@ export const ProcessSteps = () => {
           </Reveal>
         </h2>
 
-        <div className="mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 md:grid md:grid-cols-5 md:gap-3 md:overflow-visible md:pb-0" data-testid="process-steps">
+        <div ref={stripRef} className="mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 md:grid md:grid-cols-5 md:gap-3 md:overflow-visible md:pb-0" data-testid="process-steps">
           {steps.map((s, i) => (
             <FadeUp key={s.en} delay={i * 0.08} className="flex min-w-44 snap-center items-center gap-3 md:min-w-0 md:flex-col md:items-stretch md:gap-0">
               <motion.div whileTap={{ scale: 0.95 }} className="flex w-full flex-col items-center rounded-3xl border border-ink/10 bg-sand p-5 text-center" data-testid={`process-step-${i}`}>
