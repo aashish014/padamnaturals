@@ -23,6 +23,13 @@ User choices: business WhatsApp number (found on site: +91 82691 69904), message
 - Recreate all original pages: Home, Shop, Product detail, About, Contact.
 - Bilingual Hindi-English heritage brand voice.
 
+## Implemented (2026-08-24 iteration 6)
+- Combo Packs page `/combo` (`src/pages/Combo.jsx` + `src/data/combos.js`): 4 bundles (Kitchen Starter ₹549, Family Health ₹629, Royal Wellness ₹549, Full Kitchen ₹2,749 — SUGGESTED pricing, confirm with owner), save badges, contents lists, one-tap WhatsApp order per combo + custom-combo WhatsApp strip. Home grid combo tile now links here.
+- "Your Seed, Your Oil" page `/your-seed-your-oil` (`src/pages/SeedService.jsx`): bring-your-seeds churning service — 3 icon steps, trust points, WhatsApp CTA with dedicated enquiry message. Linked in navbar ("Seed to Oil" / "बीज से तेल"), footer, and a dark banner strip on Home.
+- Myth cards now AUTO-REVEAL the fact on scroll (staggered, no tapping needed); tapping still toggles. Stat strip reframed as "The Padam Standard — every bottle guarantees".
+- Floating WhatsApp bubble on all pages (green, pulsing, offsets above the mobile sticky buy bar on product pages).
+- Verified: combo WhatsApp message carries full pack contents + price; seed page CTA message; myth auto-reveal; floating button; nav link.
+
 ## Implemented (2026-08-24 iteration 5)
 - Replaced tap-to-flip facts with graphical "Myths vs Facts" section (`src/components/MythFacts.jsx`): 6 icon-led myth cards that tap to reveal the truth (animated MYTH→FACT badge + icon swap), plus a 4-tile icon stat strip (45℃ max temp, 0% chemicals, 90–100% nutrition, 100+ families). On Home + every PDP. Fully Hindi/English.
 - New home "Choose Your Oil" selector grid (`src/components/home/OilGrid.jsx`): 2-col mobile / 4-col desktop visual tiles with oil image, Hindi name, from-price, arrow — each lands on its product page; 6th terracotta tile = Family Combo via WhatsApp.

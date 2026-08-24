@@ -16,6 +16,7 @@ export const Navbar = () => {
   const LINKS = [
     { to: "/", label: t("nav.home") },
     { to: "/shop", label: t("nav.shop") },
+    { to: "/your-seed-your-oil", label: t("nav.seed") },
     { to: "/about", label: t("nav.about") },
     { to: "/contact", label: t("nav.contact") },
   ];

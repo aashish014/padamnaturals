@@ -11,7 +11,25 @@ import { Motto } from "../components/Motto";
 import { MythFacts } from "../components/MythFacts";
 import { Reveal, FadeUp } from "../components/Reveal";
 import { useLang } from "../i18n";
-import { Flame, Leaf, Sparkles } from "lucide-react";
+import { Flame, Leaf, Sparkles, ArrowUpRight } from "lucide-react";
+
+const SeedBanner = () => {
+  const { t } = useLang();
+  return (
+    <section data-testid="seed-banner" className="bg-forest py-9 text-bone">
+      <Link
+        to="/your-seed-your-oil"
+        data-testid="seed-banner-link"
+        className="group mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-5 md:px-10"
+      >
+        <p className="font-hindi text-xl leading-snug text-gold md:text-2xl">{t("home.seedBanner")}</p>
+        <span className="flex items-center gap-2 rounded-full border border-gold/40 px-5 py-2.5 text-sm font-bold text-gold transition-colors duration-300 group-hover:bg-gold group-hover:text-forest">
+          {t("home.seedCta")} <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:rotate-45" />
+        </span>
+      </Link>
+    </section>
+  );
+};
 
 const Values = () => {
   const { t } = useLang();
@@ -75,6 +93,7 @@ export default function Home() {
       <Hero />
       <Marquee />
       <OilGrid />
+      <SeedBanner />
       <LoveWall />
       <Values />
       <WhyGhani dark={false} />

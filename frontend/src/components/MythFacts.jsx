@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { myths, statStrip } from "../data/oilDetails";
 import { Reveal, FadeUp } from "./Reveal";
 import { useLang } from "../i18n";
@@ -13,9 +13,19 @@ const STAT_ICONS = { Thermometer, FlaskConical, Wheat, HeartHandshake };
 
 const MythCard = ({ m, i, hi, t }) => {
   const [revealed, setRevealed] = useState(false);
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-12%" });
   const Icon = ICONS[m.icon] || Feather;
+
+  useEffect(() => {
+    if (!inView) return;
+    const id = setTimeout(() => setRevealed(true), 700 + i * 380);
+    return () => clearTimeout(id);
+  }, [inView, i]);
+
   return (
     <motion.button
+      ref={ref}
       onClick={() => setRevealed(!revealed)}
       whileTap={{ scale: 0.96 }}
       data-testid={`myth-card-${i}`}
@@ -90,7 +100,11 @@ export const MythFacts = ({ dark = false }) => {
           ))}
         </div>
 
-        <div className={`mt-14 grid grid-cols-2 gap-px overflow-hidden rounded-3xl border md:grid-cols-4 ${dark ? "border-bone/10 bg-bone/10" : "border-ink/10 bg-ink/10"}`} data-testid="stat-strip">
+        <FadeUp delay={0.2} className="mt-16 text-center">
+          <p className={`overline-tag ${dark ? "!text-gold" : ""}`}>{t("myths.standard")}</p>
+          <p className={`mt-2 font-display text-xl italic ${dark ? "text-bone/70" : "text-moss"}`}>{t("myths.standardSub")}</p>
+        </FadeUp>
+        <div className={`mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-3xl border md:grid-cols-4 ${dark ? "border-bone/10 bg-bone/10" : "border-ink/10 bg-ink/10"}`} data-testid="stat-strip">
           {statStrip.map((s, i) => {
             const Icon = STAT_ICONS[s.icon];
             return (

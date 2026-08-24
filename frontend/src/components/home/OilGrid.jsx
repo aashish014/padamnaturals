@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { products } from "../../data/products";
-import { waLink, comboMessage } from "../../lib/whatsapp";
 import { useLang } from "../../i18n";
 import { Reveal, FadeUp } from "../Reveal";
 import { ArrowUpRight, Gift } from "lucide-react";
@@ -64,7 +63,7 @@ export const OilGrid = () => {
             <Tile key={p.slug} product={p} i={i} t={t} hi={hi} />
           ))}
           <FadeUp delay={products.length * 0.07}>
-            <a href={waLink(comboMessage)} target="_blank" rel="noopener noreferrer" data-testid="oil-tile-combo">
+            <Link to="/combo" data-testid="oil-tile-combo">
               <motion.div
                 whileHover={{ y: -6 }}
                 whileTap={{ scale: 0.96 }}
@@ -82,7 +81,7 @@ export const OilGrid = () => {
                   <p className="mt-1 text-xs font-bold text-bone/70">{hi ? t("grid.comboHi") : t("grid.combo")}</p>
                 </div>
               </motion.div>
-            </a>
+            </Link>
           </FadeUp>
         </div>
       </div>

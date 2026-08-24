@@ -38,3 +38,20 @@ export const generalMessage =
 
 export const comboMessage =
   "Hello Padam Naturals! I'm interested in a family combo pack of your cold-pressed oils. Please share the options and prices.";
+
+export const comboBuyMessage = (combo) =>
+  [
+    "Hello Padam Naturals! I want to order a combo pack:",
+    "",
+    `${combo.name}`,
+    ...combo.items.map((i) => `• ${i}`),
+    "",
+    `Combo Price: ₹${combo.price.toLocaleString("en-IN")} (worth ₹${combo.worth.toLocaleString("en-IN")})`,
+    "Please confirm my order. Dhanyavaad!",
+  ].join("\n");
+
+export const customComboMessage =
+  "Hello Padam Naturals! I want to build my own custom combo pack. Please help me choose.";
+
+export const seedServiceMessage =
+  "Hello Padam Naturals! I'm interested in 'Your Seed, Your Oil' — I want to get my own seeds churned in your Lakdi Ghani. Please share the churning charges and details.";

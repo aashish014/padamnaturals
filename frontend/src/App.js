@@ -14,6 +14,9 @@ import Shop from "@/pages/Shop";
 import ProductDetail from "@/pages/ProductDetail";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
+import Combo from "@/pages/Combo";
+import SeedService from "@/pages/SeedService";
+import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
 
 function App() {
   useEffect(() => {
@@ -42,10 +45,13 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/shop" element={<Shop />} />
+            <Route path="/combo" element={<Combo />} />
+            <Route path="/your-seed-your-oil" element={<SeedService />} />
             <Route path="/product/:slug" element={<ProductDetail />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
+          <FloatingWhatsApp />
           <Footer />
           <Toaster position="bottom-center" toastOptions={{ style: { background: "#1F2922", color: "#FAF7F2", border: "none" } }} />
           </CartProvider>
