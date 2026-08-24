@@ -23,6 +23,14 @@ User choices: business WhatsApp number (found on site: +91 82691 69904), message
 - Recreate all original pages: Home, Shop, Product detail, About, Contact.
 - Bilingual Hindi-English heritage brand voice.
 
+## Implemented (2026-08-24 iteration 2)
+- Product photo galleries: swipeable Embla carousel + thumbnails on every product page (6 photos for groundnut, 4 for others) using the brand's real imagery
+- Deep health content per oil (`src/data/oilDetails.js`): 4 detailed benefit cards, animated "nutrition retained" bars, best-for chips, smoke-point note
+- Interactive "Why Lakdi Ghani Wins" section (Home + every product page): tappable pillars (Wooden Churn / Stone Grinding / Slow Pressing / Pure & Natural) with animated detail panel + animated "Heat Test" comparison bars (Refined 225℃ vs Padam 40℃)
+- Mobile-first pass: hero bottle now visible on mobile, swipe gallery, sticky bottom Buy bar on product pages (price + qty + Buy Now + Add), 3-col size grid on mobile
+- Related-products row on product pages
+- Verified on 390px mobile viewport: gallery thumb switching, sticky bar wa.me link, benefit cards, pillar interaction all working
+
 ## Implemented (2026-07/08 build session)
 - Kinetic hero: masked line-by-line Hindi reveal, parallax bottle in arch frame, rotating "100% Pure" badge, stats.
 - Slow editorial marquee ribbon.

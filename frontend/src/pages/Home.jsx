@@ -5,6 +5,7 @@ import { Comparison } from "../components/home/Comparison";
 import { Journey } from "../components/home/Journey";
 import { Faq } from "../components/home/Faq";
 import { ProductCard } from "../components/ProductCard";
+import { WhyGhani } from "../components/WhyGhani";
 import { Reveal, FadeUp } from "../components/Reveal";
 import { products } from "../data/products";
 import { Flame, Leaf, Sparkles } from "lucide-react";
@@ -97,6 +98,7 @@ export default function Home() {
       <Marquee />
       <Range />
       <Values />
+      <WhyGhani dark={false} />
       <Comparison />
       <Journey />
       <Faq />

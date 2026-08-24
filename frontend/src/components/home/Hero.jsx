@@ -60,7 +60,7 @@ export const Hero = () => {
           </Reveal>
         </motion.div>
 
-        <div className="relative hidden items-end justify-center md:flex">
+        <div className="relative flex items-end justify-center pb-8 md:pb-0">
           <motion.div style={{ y: yImg }} className="relative">
             <motion.div
               initial={{ opacity: 0, y: 80 }}
@@ -72,7 +72,7 @@ export const Hero = () => {
               <img
                 src={heroBottle}
                 alt="Padam Naturals cold-pressed oil bottle"
-                className="relative z-10 h-[34rem] w-auto object-contain drop-shadow-2xl"
+                className="relative z-10 h-[19rem] w-auto object-contain drop-shadow-2xl md:h-[34rem]"
                 data-testid="hero-bottle-image"
               />
             </motion.div>
@@ -80,10 +80,10 @@ export const Hero = () => {
               initial={{ opacity: 0, scale: 0.6 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 1 }}
-              className="absolute -left-16 top-8 z-20"
+              className="absolute -left-3 top-2 z-20 md:-left-16 md:top-8"
               data-testid="hero-rotating-badge"
             >
-              <svg viewBox="0 0 120 120" className="h-28 w-28 animate-spin-slow">
+              <svg viewBox="0 0 120 120" className="h-20 w-20 animate-spin-slow md:h-28 md:w-28">
                 <defs>
                   <path id="badge-circle" d="M 60,60 m -46,0 a 46,46 0 1,1 92,0 a 46,46 0 1,1 -92,0" />
                 </defs>
