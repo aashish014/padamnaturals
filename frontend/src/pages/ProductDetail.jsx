@@ -2,13 +2,13 @@ import { useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { products } from "../data/products";
-import { galleries, oilHealth } from "../data/oilDetails";
+import { galleries, oilHealth, oilFaqs } from "../data/oilDetails";
 import { useCart } from "../context/CartContext";
 import { useLang } from "../i18n";
 import { WhatsAppIcon } from "../components/WhatsAppIcon";
 import { Gallery } from "../components/Gallery";
 import { WhyGhani } from "../components/WhyGhani";
-import { MythFacts } from "../components/MythFacts";
+import { PadamStandard } from "../components/PadamStandard";
 import { LoveWall } from "../components/LoveWall";
 import { ProductCard } from "../components/ProductCard";
 import { waLink, buyNowMessage } from "../lib/whatsapp";
@@ -54,6 +54,7 @@ export default function ProductDetail() {
   const product = useMemo(() => products.find((p) => p.slug === slug), [slug]);
   const health = oilHealth[slug];
   const gallery = galleries[slug];
+  const faqs = oilFaqs[slug] || [];
   const related = useMemo(() => products.filter((p) => p.slug !== slug).slice(0, 3), [slug]);
   const [sizeIdx, setSizeIdx] = useState(0);
   const [qty, setQty] = useState(1);
@@ -166,40 +167,42 @@ export default function ProductDetail() {
       </div>
 
       {health && (
-        <section data-testid="health-section" className="bg-sand py-20 md:py-28">
+        <section data-testid="health-section" className="bg-sand py-16 md:py-24">
           <div className="mx-auto max-w-6xl px-5 md:px-10">
             <Reveal>
               <p className="overline-tag">{t("pdp.healthOver")}</p>
             </Reveal>
-            <h2 className="mt-4 font-display text-4xl font-semibold leading-none tracking-tight sm:text-5xl">
+            <h2 className="mt-4 font-display text-3xl font-semibold leading-tight tracking-tight sm:text-5xl">
               <Reveal delay={0.1}>{t("pdp.healthWhy")} {displayName}</Reveal>
               <Reveal delay={0.22}>
                 <span className="italic text-terra">{t("pdp.healthB")}</span>
               </Reveal>
             </h2>
 
-            <div className="mt-12 grid gap-4 sm:grid-cols-2">
-              {health.benefits.map((b, i) => {
-                const Icon = BENEFIT_ICONS[i % BENEFIT_ICONS.length];
-                return (
-                  <FadeUp key={b.title} delay={i * 0.08}>
-                    <motion.div
-                      whileTap={{ scale: 0.98 }}
-                      data-testid={`benefit-card-${i}`}
-                      className="group h-full rounded-3xl border border-ink/10 bg-bone p-6 transition-colors duration-300 hover:border-terra/40 md:p-8"
-                    >
-                      <div className="flex h-11 w-11 items-center justify-center rounded-full bg-sand transition-colors duration-300 group-hover:bg-terra">
-                        <Icon className="h-5 w-5 text-terra transition-colors duration-300 group-hover:text-bone" />
-                      </div>
-                      <p className="mt-4 font-display text-xl font-semibold">{hi ? b.titleHi : b.title}</p>
-                      <p className="mt-2 text-sm leading-relaxed text-moss">{hi ? b.descHi : b.desc}</p>
-                    </motion.div>
-                  </FadeUp>
-                );
-              })}
-            </div>
+            <FadeUp delay={0.2} className="mt-8">
+              <Accordion type="single" collapsible className="w-full" data-testid="benefits-accordion">
+                {health.benefits.map((b, i) => {
+                  const Icon = BENEFIT_ICONS[i % BENEFIT_ICONS.length];
+                  return (
+                    <AccordionItem key={i} value={`benefit-${i}`} className="border-ink/15">
+                      <AccordionTrigger data-testid={`benefit-trigger-${i}`} className="py-4 text-left hover:no-underline">
+                        <span className="flex items-center gap-3.5">
+                          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-bone">
+                            <Icon className="h-4 w-4 text-terra" />
+                          </span>
+                          <span className="font-display text-lg font-semibold">{hi ? b.titleHi : b.title}</span>
+                        </span>
+                      </AccordionTrigger>
+                      <AccordionContent className="pl-[3.25rem] text-sm leading-relaxed text-moss">
+                        {hi ? b.descHi : b.desc}
+                      </AccordionContent>
+                    </AccordionItem>
+                  );
+                })}
+              </Accordion>
+            </FadeUp>
 
-            <div className="mt-16">
+            <div className="mt-14">
               <FadeUp>
                 <p className="text-xs font-bold uppercase tracking-[0.2em] text-moss">{t("pdp.inside")}</p>
               </FadeUp>
@@ -210,7 +213,7 @@ export default function ProductDetail() {
               </div>
             </div>
 
-            <div className="mt-14 grid gap-10 md:grid-cols-2">
+            <div className="mt-12 grid gap-10 md:grid-cols-2">
               <FadeUp>
                 <p className="text-xs font-bold uppercase tracking-[0.2em] text-moss">{t("pdp.bestFor")}</p>
                 <div className="mt-6 flex flex-wrap gap-2.5" data-testid="best-for-chips">
@@ -240,28 +243,49 @@ export default function ProductDetail() {
       )}
 
       <WhyGhani dark={true} />
-      <MythFacts dark={false} />
 
-      <div className="mx-auto max-w-3xl px-5 py-16 md:px-10">
-        <Accordion type="single" collapsible defaultValue="uses" data-testid="product-info-accordion">
-          <AccordionItem value="uses" className="border-ink/15">
-            <AccordionTrigger data-testid="accordion-uses" className="font-display text-lg font-semibold hover:no-underline">{t("pdp.uses")}</AccordionTrigger>
-            <AccordionContent className="text-sm leading-relaxed text-moss">{hi ? product.usesHi : product.uses}</AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="storage" className="border-ink/15">
-            <AccordionTrigger data-testid="accordion-storage" className="font-display text-lg font-semibold hover:no-underline">{t("pdp.storage")}</AccordionTrigger>
-            <AccordionContent className="text-sm leading-relaxed text-moss">{t("pdp.storageText")}</AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="delivery" className="border-ink/15">
-            <AccordionTrigger data-testid="accordion-delivery" className="font-display text-lg font-semibold hover:no-underline">{t("pdp.delivery")}</AccordionTrigger>
-            <AccordionContent className="text-sm leading-relaxed text-moss">{t("pdp.deliveryText")}</AccordionContent>
-          </AccordionItem>
-        </Accordion>
-      </div>
+      <section data-testid="product-faq-section" className="bg-bone py-16 md:py-24">
+        <div className="mx-auto max-w-3xl px-5 md:px-10">
+          <Reveal>
+            <p className="overline-tag">{t("pdp.faqOver")}</p>
+          </Reveal>
+          <h2 className="mt-4 font-display text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
+            <Reveal delay={0.1}>{t("pdp.faqA")}</Reveal>
+            <Reveal delay={0.22}>
+              <span className="italic text-terra">{t("pdp.faqB")}</span>
+            </Reveal>
+          </h2>
+          <FadeUp delay={0.2} className="mt-8">
+            <Accordion type="single" collapsible data-testid="product-faq-accordion">
+              {faqs.map((f, i) => (
+                <AccordionItem key={i} value={`faq-${i}`} className="border-ink/15">
+                  <AccordionTrigger data-testid={`product-faq-trigger-${i}`} className="py-4 text-left font-display text-lg font-semibold hover:text-terra hover:no-underline">
+                    {hi ? f.qHi : f.q}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-sm leading-relaxed text-moss">{hi ? f.aHi : f.a}</AccordionContent>
+                </AccordionItem>
+              ))}
+              <AccordionItem value="storage" className="border-ink/15">
+                <AccordionTrigger data-testid="product-faq-storage" className="py-4 text-left font-display text-lg font-semibold hover:text-terra hover:no-underline">
+                  {t("pdp.storage")}
+                </AccordionTrigger>
+                <AccordionContent className="text-sm leading-relaxed text-moss">{t("pdp.storageText")}</AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="delivery" className="border-ink/15">
+                <AccordionTrigger data-testid="product-faq-delivery" className="py-4 text-left font-display text-lg font-semibold hover:text-terra hover:no-underline">
+                  {t("pdp.delivery")}
+                </AccordionTrigger>
+                <AccordionContent className="text-sm leading-relaxed text-moss">{t("pdp.deliveryText")}</AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </FadeUp>
+          <PadamStandard />
+        </div>
+      </section>
 
       <LoveWall />
 
-      <section className="mx-auto max-w-7xl px-5 py-24 md:px-10" data-testid="related-section">
+      <section className="mx-auto max-w-7xl px-5 py-20 md:px-10" data-testid="related-section">
         <Reveal>
           <p className="overline-tag">{t("pdp.related")}</p>
         </Reveal>

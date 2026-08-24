@@ -23,6 +23,11 @@ User choices: business WhatsApp number (found on site: +91 82691 69904), message
 - Recreate all original pages: Home, Shop, Product detail, About, Contact.
 - Bilingual Hindi-English heritage brand voice.
 
+## Implemented (2026-08-24 iteration 10)
+- PDP restructured per user spec: Health benefits now one-line expandable accordion rows → nutrition rings → Best-for chips + smoke point → Why Lakdi Ghani → per-oil FAQ accordion (3 oil-specific Q&As each, EN/HI, + storage + delivery entries) → The Padam Standard (extracted to `src/components/PadamStandard.jsx`, shared) → reviews → related. Myth section removed from PDP (stays on Home).
+- ProcessSteps rebuilt as sticky stacking cards — each step card slides over the previous while scrolling (sticky top offsets, tinted cards, photos).
+- Verified mobile: benefit accordion opens, PDP has FAQ + standard box (myths gone), stacking overlap confirmed, sticky buy bar intact.
+
 ## Implemented (2026-08-24 iteration 9)
 - Mobile bottom bar trimmed to 4 tabs (Home, Shop Oils, Seed to Oil, Chat) — Contact removed.
 - Section titles now always visible: Reveal switched from scroll-triggered to on-mount masked reveal (fixes headings not appearing on some mobiles).

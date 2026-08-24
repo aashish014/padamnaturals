@@ -222,3 +222,31 @@ export const statStrip = [
   { icon: "Wheat", value: "90–100%", label: "Nutrition retained", labelHi: "पोषण सुरक्षित" },
   { icon: "HeartHandshake", value: "100+", label: "Happy families", labelHi: "खुश परिवार" },
 ];
+
+export const oilFaqs = {
+  "groundnut-oil": [
+    { q: "Can I use groundnut oil for deep frying?", qHi: "क्या मूंगफली के तेल से डीप फ्राइंग हो सकती है?", a: "Yes — its medium-high smoke point makes it perfect for pakoras, puris and everyday frying.", aHi: "हाँ — मीडियम-हाई स्मोक पॉइंट इसे पकोड़े, पूरी और रोज़ की तलाई के लिए परफेक्ट बनाता है।" },
+    { q: "Is it good for daily cooking?", qHi: "क्या यह रोज़ की कुकिंग के लिए अच्छा है?", a: "Absolutely — light, nutty and heart-friendly, it's the everyday hero of Indian kitchens.", aHi: "बिल्कुल — हल्का, नटी और हृदय के लिए अच्छा, यह इंडियन रसोई का रोज़ का हीरो है।" },
+    { q: "Does it smell strongly?", qHi: "क्या इसमें तेज़ गंध आती है?", a: "It has a mild, natural peanut aroma — the sign of real cold-pressed oil, not odourless refined oil.", aHi: "इसमें हल्की, प्राकृतिक मूंगफली की खुशबू होती है — असली कोल्ड-प्रेस्ड तेल की निशानी।" },
+  ],
+  "mustard-oil": [
+    { q: "Why does mustard oil sting?", qHi: "सरसों का तेल चुभता क्यों है?", a: "That's natural allyl isothiocyanate — proof it's unrefined and antibacterial. It mellows when heated.", aHi: "यह प्राकृतिक एलाइल आइसोथायोसाइनेट है — बिना रिफाइंड होने का प्रमाण। गर्म करने पर यह शांत हो जाता है।" },
+    { q: "Can I use it for pickles?", qHi: "क्या इसे अचार में इस्तेमाल कर सकते हैं?", a: "It's India's classic pickle oil — its antibacterial nature keeps pickles safe for years.", aHi: "यह भारत का क्लासिक अचार तेल है — इसकी एंटीबैक्टीरियल खूबी अचार को सालों सुरक्षित रखती है।" },
+    { q: "Is it safe for massage?", qHi: "क्या यह मालिश के लिए सुरक्षित है?", a: "Yes, winter body massage with kachi ghani mustard oil is a generations-old tradition.", aHi: "हाँ, सर्दियों में कच्ची घानी सरसों के तेल से मालिश पीढ़ियों पुरानी परंपरा है।" },
+  ],
+  "sesame-oil": [
+    { q: "What is oil pulling?", qHi: "ऑइल पुलिंग क्या है?", a: "Swishing a spoon of sesame oil in your mouth for 5–10 minutes — an Ayurvedic ritual for oral health.", aHi: "एक चम्मच तिल का तेल मुंह में 5-10 मिनट घुमाना — मुंह की सेहत का आयुर्वेदिक नुस्खा।" },
+    { q: "Is sesame oil good in winters?", qHi: "क्या तिल का तेल सर्दियों में अच्छा है?", a: "Yes, it's naturally warming — great for cooking and body massage in cold months.", aHi: "हाँ, यह स्वभाव से गर्म होता है — ठंडे महीनों में कुकिंग और मालिश के लिए बढ़िया।" },
+    { q: "Can I cook daily with it?", qHi: "क्या रोज़ इससे खाना बना सकते हैं?", a: "Yes — perfect for South Indian dishes, tadka and medium-heat cooking.", aHi: "हाँ — साउथ इंडियन व्यंजन, तड़का और मीडियम आंच की कुकिंग के लिए परफेक्ट।" },
+  ],
+  "coconut-oil": [
+    { q: "Why does coconut oil freeze?", qHi: "नारियल तेल जम क्यों जाता है?", a: "Pure coconut oil naturally solidifies below ~24℃ — a sign of zero adulteration. Warm it gently to liquefy.", aHi: "शुद्ध नारियल तेल ~24℃ से नीचे स्वाभाविक रूप से जमता है — बिना मिलावट की निशानी। हल्का गर्म करें, पिघल जाएगा।" },
+    { q: "Can babies use it?", qHi: "क्या बच्चों के लिए सुरक्षित है?", a: "Yes — so pure and gentle it's the traditional first massage oil for newborns.", aHi: "हाँ — इतना शुद्ध और कोमल कि नवजात की पहली मालिश का पारंपरिक तेल है।" },
+    { q: "Is it good for hair?", qHi: "क्या यह बालों के लिए अच्छा है?", a: "Its lauric acid penetrates hair deeply, reducing protein loss — nature's own conditioner.", aHi: "इसका लॉरिक एसिड बालों में गहराई तक जाता है — प्रकृति का अपना कंडीशनर।" },
+  ],
+  "almond-oil": [
+    { q: "Should I cook with almond oil?", qHi: "क्या बादाम तेल से खाना बनाना चाहिए?", a: "Best raw — drizzle in warm milk or on desserts. High heat wastes its delicate nutrients.", aHi: "कच्चा सबसे बढ़िया — गर्म दूध या मिठाइयों में डालें। तेज़ आंच इसके नाज़ुक पोषण नष्ट कर देती है।" },
+    { q: "How much per day?", qHi: "रोज़ कितना लें?", a: "1–2 teaspoons in warm milk or drizzled on food is plenty.", aHi: "गर्म दूध या खाने पर 1-2 चम्मच काफी है।" },
+    { q: "Is it good for skin?", qHi: "क्या यह त्वचा के लिए अच्छा है?", a: "It's our richest Vitamin E oil — a few drops nourish skin deeply.", aHi: "यह हमारा सबसे अमीर विटामिन E तेल है — कुछ बूँदें त्वचा का गहराई से पोषण करती हैं।" },
+  ],
+};
