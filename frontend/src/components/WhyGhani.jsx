@@ -7,7 +7,8 @@ import { Flame } from "lucide-react";
 
 export const WhyGhani = ({ dark = true }) => {
   const [active, setActive] = useState(ghaniPillars[0]);
-  const { t } = useLang();
+  const { t, lang } = useLang();
+  const hi = lang === "hi";
 
   return (
     <section
@@ -28,10 +29,11 @@ export const WhyGhani = ({ dark = true }) => {
         <div className="mt-14 grid gap-10 md:grid-cols-[1fr_1.2fr]">
           <div className="flex flex-col gap-3" data-testid="ghani-pillars">
             {ghaniPillars.map((p, i) => (
-              <button
+              <motion.button
                 key={p.id}
                 data-testid={`pillar-${p.id}`}
                 onClick={() => setActive(p)}
+                whileTap={{ scale: 0.97 }}
                 className={`flex items-center justify-between rounded-2xl border px-6 py-5 text-left transition-colors duration-300 ${
                   active.id === p.id
                     ? dark
@@ -44,21 +46,21 @@ export const WhyGhani = ({ dark = true }) => {
               >
                 <span>
                   <span className={`block text-[10px] font-bold uppercase tracking-[0.2em] ${active.id === p.id ? (dark ? "text-gold" : "text-terra") : "opacity-50"}`}>
-                    0{i + 1} · {p.subtitle}
+                    0{i + 1} · {hi ? p.subtitleHi : p.subtitle}
                   </span>
-                  <span className="mt-1 block font-display text-xl font-semibold">{p.title}</span>
+                  <span className="mt-1 block font-display text-xl font-semibold">{hi ? p.hindi : p.title}</span>
                 </span>
                 <span className={`font-hindi text-lg ${active.id === p.id ? (dark ? "text-gold" : "text-terra") : "opacity-40"}`}>
-                  {p.hindi}
+                  {hi ? p.title : p.hindi}
                 </span>
-              </button>
+              </motion.button>
             ))}
           </div>
 
           <div className={`relative min-h-56 overflow-hidden rounded-3xl border p-8 md:p-10 ${dark ? "border-bone/15 bg-bone/5" : "border-ink/10 bg-bone"}`} data-testid="pillar-detail-panel">
             <AnimatePresence mode="wait">
               <motion.div
-                key={active.id}
+                key={active.id + lang}
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -24 }}
@@ -67,7 +69,7 @@ export const WhyGhani = ({ dark = true }) => {
                 <p className={`font-hindi text-2xl ${dark ? "text-gold" : "text-terra"}`}>{active.hindi}</p>
                 <p className="mt-2 font-display text-3xl font-semibold">{active.title}</p>
                 <p className={`mt-4 max-w-lg text-sm leading-relaxed md:text-base ${dark ? "text-bone/70" : "text-moss"}`}>
-                  {active.detail}
+                  {hi ? active.detailHi : active.detail}
                 </p>
               </motion.div>
             </AnimatePresence>
@@ -83,8 +85,8 @@ export const WhyGhani = ({ dark = true }) => {
             {heatComparison.map((h, i) => (
               <div key={h.name} data-testid={`heat-bar-${i}`}>
                 <div className="flex items-baseline justify-between gap-4">
-                  <p className="font-display text-lg font-semibold">{h.name}</p>
-                  <p className={`text-xs ${dark ? "text-bone/50" : "text-moss"}`}>{h.note}</p>
+                  <p className="font-display text-lg font-semibold">{hi ? h.nameHi : h.name}</p>
+                  <p className={`text-xs ${dark ? "text-bone/50" : "text-moss"}`}>{hi ? h.noteHi : h.note}</p>
                 </div>
                 <div className={`mt-2 h-3.5 w-full overflow-hidden rounded-full ${dark ? "bg-bone/10" : "bg-ink/10"}`}>
                   <motion.div

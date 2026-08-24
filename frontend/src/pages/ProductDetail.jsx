@@ -8,6 +8,7 @@ import { useLang } from "../i18n";
 import { WhatsAppIcon } from "../components/WhatsAppIcon";
 import { Gallery } from "../components/Gallery";
 import { WhyGhani } from "../components/WhyGhani";
+import { FactsFlip } from "../components/FactsFlip";
 import { LoveWall } from "../components/LoveWall";
 import { ProductCard } from "../components/ProductCard";
 import { waLink, buyNowMessage } from "../lib/whatsapp";
@@ -17,6 +18,36 @@ import { Minus, Plus, ShoppingBag, Truck, ShieldCheck, Leaf, Heart, Sparkles, Za
 
 const inr = (n) => `₹${n.toLocaleString("en-IN")}`;
 const BENEFIT_ICONS = [Heart, Sparkles, ShieldCheck, Zap];
+const RING_C = 2 * Math.PI * 30;
+
+const NutrientRing = ({ name, level, i }) => (
+  <FadeUp delay={i * 0.08}>
+    <motion.div
+      whileTap={{ scale: 0.94 }}
+      className="flex flex-col items-center gap-3 rounded-3xl border border-ink/10 bg-bone p-5 text-center"
+      data-testid={`nutrient-ring-${i}`}
+    >
+      <div className="relative h-20 w-20">
+        <svg viewBox="0 0 72 72" className="h-full w-full -rotate-90">
+          <circle cx="36" cy="36" r="30" fill="none" strokeWidth="7" className="stroke-ink/10" />
+          <motion.circle
+            cx="36" cy="36" r="30" fill="none" strokeWidth="7" strokeLinecap="round"
+            className="stroke-terra"
+            strokeDasharray={RING_C}
+            initial={{ strokeDashoffset: RING_C }}
+            whileInView={{ strokeDashoffset: RING_C * (1 - level / 100) }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ duration: 1.3, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
+          />
+        </svg>
+        <span className="absolute inset-0 flex items-center justify-center text-sm font-extrabold text-terra">
+          {level}%
+        </span>
+      </div>
+      <p className="text-xs font-semibold leading-tight">{name}</p>
+    </motion.div>
+  </FadeUp>
+);
 
 export default function ProductDetail() {
   const { slug } = useParams();
@@ -28,6 +59,7 @@ export default function ProductDetail() {
   const [qty, setQty] = useState(1);
   const { add } = useCart();
   const { lang, t } = useLang();
+  const hi = lang === "hi";
 
   if (!product) {
     return (
@@ -39,8 +71,8 @@ export default function ProductDetail() {
   }
 
   const size = product.sizes[sizeIdx];
-  const perLitre = Math.round(size.price / parseInt(size.label));
-  const displayName = lang === "hi" ? product.hindi : product.name.replace("Lakdi Ghani ", "");
+  const perLitre = Math.round((size.price * 1000) / size.ml);
+  const displayName = hi ? product.hindi : product.name.replace("Lakdi Ghani ", "");
 
   return (
     <main data-testid="product-detail-page" className="bg-bone pt-24 md:pt-36">
@@ -59,24 +91,25 @@ export default function ProductDetail() {
             <Reveal immediate delay={0.1}>{product.name}</Reveal>
           </h1>
           <FadeUp delay={0.2}>
-            <p className="mt-3 font-display text-xl italic text-moss">{product.tagline}</p>
+            <p className="mt-3 font-display text-xl italic text-moss">{hi ? product.taglineHi : product.tagline}</p>
           </FadeUp>
 
           <FadeUp delay={0.26} className="mt-7">
             <p className="text-xs font-bold uppercase tracking-widest text-moss">{t("pdp.chooseSize")}</p>
-            <div className="mt-3 grid grid-cols-3 gap-2.5 sm:flex sm:flex-wrap sm:gap-3">
+            <div className="mt-3 grid grid-cols-2 gap-2.5 sm:flex sm:flex-wrap sm:gap-3">
               {product.sizes.map((s, i) => (
-                <button
+                <motion.button
                   key={s.label}
-                  data-testid={`size-option-${s.label}`}
+                  data-testid={`size-option-${s.label.replace(/\s/g, "")}`}
                   onClick={() => setSizeIdx(i)}
+                  whileTap={{ scale: 0.93 }}
                   className={`rounded-2xl border px-4 py-3 text-left transition-colors duration-300 sm:px-5 ${
                     i === sizeIdx ? "border-terra bg-terra/5" : "border-ink/15 hover:border-ink/40"
                   }`}
                 >
                   <span className="block text-sm font-extrabold">{s.label}</span>
-                  <span className="mt-0.5 block text-[11px] text-moss sm:text-xs">{inr(s.price)} · {inr(Math.round(s.price / parseInt(s.label)))}/L</span>
-                </button>
+                  <span className="mt-0.5 block text-[11px] text-moss sm:text-xs">{inr(s.price)} · {inr(Math.round((s.price * 1000) / s.ml))}/L</span>
+                </motion.button>
               ))}
             </div>
           </FadeUp>
@@ -84,37 +117,38 @@ export default function ProductDetail() {
           <FadeUp delay={0.32} className="mt-7 flex flex-wrap items-end justify-between gap-4 border-y border-ink/10 py-6">
             <div>
               <span className="font-display text-4xl font-bold" data-testid="product-detail-price">{inr(size.price)}</span>
-              <span className="ml-3 text-lg text-moss line-through">{inr(size.mrp)}</span>
               <p className="mt-1 text-xs font-semibold text-moss">{inr(perLitre)}/L · {t("pdp.launch")}</p>
             </div>
             <div className="flex items-center gap-4 rounded-full border border-ink/20 px-3 py-2">
-              <button data-testid="qty-minus-button" onClick={() => setQty(Math.max(1, qty - 1))} aria-label="Decrease quantity">
+              <motion.button whileTap={{ scale: 0.85 }} data-testid="qty-minus-button" onClick={() => setQty(Math.max(1, qty - 1))} aria-label="Decrease quantity">
                 <Minus className="h-4 w-4" />
-              </button>
+              </motion.button>
               <span className="w-6 text-center font-extrabold" data-testid="qty-value">{qty}</span>
-              <button data-testid="qty-plus-button" onClick={() => setQty(qty + 1)} aria-label="Increase quantity">
+              <motion.button whileTap={{ scale: 0.85 }} data-testid="qty-plus-button" onClick={() => setQty(qty + 1)} aria-label="Increase quantity">
                 <Plus className="h-4 w-4" />
-              </button>
+              </motion.button>
             </div>
           </FadeUp>
 
           <FadeUp delay={0.38} className="mt-7 hidden gap-3 sm:flex">
-            <a
+            <motion.a
               href={waLink(buyNowMessage(product, size, qty))}
               target="_blank"
               rel="noopener noreferrer"
               data-testid="buy-now-whatsapp-button"
-              className="flex flex-1 items-center justify-center gap-2.5 rounded-full bg-terra py-4 text-sm font-bold text-bone transition-all duration-300 hover:scale-[0.98] hover:bg-terra-dark"
+              whileTap={{ scale: 0.97 }}
+              className="flex flex-1 items-center justify-center gap-2.5 rounded-full bg-terra py-4 text-sm font-bold text-bone transition-colors duration-300 hover:bg-terra-dark"
             >
               <WhatsAppIcon className="h-5 w-5" /> {t("pdp.buyNow")}
-            </a>
-            <button
+            </motion.a>
+            <motion.button
               data-testid="add-to-order-button"
               onClick={() => add(product, size, qty)}
+              whileTap={{ scale: 0.97 }}
               className="flex flex-1 items-center justify-center gap-2.5 rounded-full border border-ink py-4 text-sm font-bold transition-colors duration-300 hover:bg-ink hover:text-bone"
             >
               <ShoppingBag className="h-5 w-5" /> {t("pdp.add")}
-            </button>
+            </motion.button>
           </FadeUp>
 
           <FadeUp delay={0.44} className="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-3">
@@ -149,58 +183,54 @@ export default function ProductDetail() {
                 const Icon = BENEFIT_ICONS[i % BENEFIT_ICONS.length];
                 return (
                   <FadeUp key={b.title} delay={i * 0.08}>
-                    <div
+                    <motion.div
+                      whileTap={{ scale: 0.98 }}
                       data-testid={`benefit-card-${i}`}
                       className="group h-full rounded-3xl border border-ink/10 bg-bone p-6 transition-colors duration-300 hover:border-terra/40 md:p-8"
                     >
                       <div className="flex h-11 w-11 items-center justify-center rounded-full bg-sand transition-colors duration-300 group-hover:bg-terra">
                         <Icon className="h-5 w-5 text-terra transition-colors duration-300 group-hover:text-bone" />
                       </div>
-                      <p className="mt-4 font-display text-xl font-semibold">{b.title}</p>
-                      <p className="mt-2 text-sm leading-relaxed text-moss">{b.desc}</p>
-                    </div>
+                      <p className="mt-4 font-display text-xl font-semibold">{hi ? b.titleHi : b.title}</p>
+                      <p className="mt-2 text-sm leading-relaxed text-moss">{hi ? b.descHi : b.desc}</p>
+                    </motion.div>
                   </FadeUp>
                 );
               })}
             </div>
 
-            <div className="mt-14 grid gap-10 md:grid-cols-2">
+            <div className="mt-16">
               <FadeUp>
                 <p className="text-xs font-bold uppercase tracking-[0.2em] text-moss">{t("pdp.inside")}</p>
-                <div className="mt-6 flex flex-col gap-5" data-testid="nutrient-bars">
-                  {health.nutrients.map((n, i) => (
-                    <div key={n.name} data-testid={`nutrient-${i}`}>
-                      <div className="flex justify-between text-sm">
-                        <span className="font-semibold">{n.name}</span>
-                        <span className="font-extrabold text-terra">{n.level}%</span>
-                      </div>
-                      <div className="mt-1.5 h-2.5 w-full overflow-hidden rounded-full bg-ink/10">
-                        <motion.div
-                          className="h-full rounded-full bg-gradient-to-r from-gold to-terra"
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${n.level}%` }}
-                          viewport={{ once: true, margin: "-10%" }}
-                          transition={{ duration: 1.1, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-                        />
-                      </div>
-                    </div>
+              </FadeUp>
+              <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-4" data-testid="nutrient-rings">
+                {health.nutrients.map((n, i) => (
+                  <NutrientRing key={n.name} name={hi ? n.nameHi : n.name} level={n.level} i={i} />
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-14 grid gap-10 md:grid-cols-2">
+              <FadeUp>
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-moss">{t("pdp.bestFor")}</p>
+                <div className="mt-6 flex flex-wrap gap-2.5" data-testid="best-for-chips">
+                  {(hi ? health.bestForHi : health.bestFor).map((chip) => (
+                    <motion.span
+                      key={chip}
+                      whileTap={{ scale: 0.92 }}
+                      className="rounded-full border border-ink/15 bg-bone px-5 py-2.5 text-sm font-semibold transition-colors duration-300 hover:border-terra hover:text-terra"
+                    >
+                      {chip}
+                    </motion.span>
                   ))}
                 </div>
               </FadeUp>
               <FadeUp delay={0.15}>
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-moss">{t("pdp.bestFor")}</p>
-                <div className="mt-6 flex flex-wrap gap-2.5" data-testid="best-for-chips">
-                  {health.bestFor.map((chip) => (
-                    <span key={chip} className="rounded-full border border-ink/15 bg-bone px-5 py-2.5 text-sm font-semibold transition-colors duration-300 hover:border-terra hover:text-terra">
-                      {chip}
-                    </span>
-                  ))}
-                </div>
-                <div className="mt-8 flex items-start gap-3 rounded-2xl bg-bone p-5">
+                <div className="flex items-start gap-3 rounded-2xl bg-bone p-5">
                   <Flame className="mt-0.5 h-5 w-5 shrink-0 text-terra" />
                   <div>
                     <p className="text-xs font-bold uppercase tracking-widest text-moss">{t("pdp.smoke")}</p>
-                    <p className="mt-1 text-sm font-semibold">{health.smokePoint}</p>
+                    <p className="mt-1 text-sm font-semibold">{hi ? health.smokePointHi : health.smokePoint}</p>
                   </div>
                 </div>
               </FadeUp>
@@ -210,12 +240,13 @@ export default function ProductDetail() {
       )}
 
       <WhyGhani dark={true} />
+      <FactsFlip dark={false} />
 
       <div className="mx-auto max-w-3xl px-5 py-16 md:px-10">
         <Accordion type="single" collapsible defaultValue="uses" data-testid="product-info-accordion">
           <AccordionItem value="uses" className="border-ink/15">
             <AccordionTrigger data-testid="accordion-uses" className="font-display text-lg font-semibold hover:no-underline">{t("pdp.uses")}</AccordionTrigger>
-            <AccordionContent className="text-sm leading-relaxed text-moss">{product.uses}</AccordionContent>
+            <AccordionContent className="text-sm leading-relaxed text-moss">{hi ? product.usesHi : product.uses}</AccordionContent>
           </AccordionItem>
           <AccordionItem value="storage" className="border-ink/15">
             <AccordionTrigger data-testid="accordion-storage" className="font-display text-lg font-semibold hover:no-underline">{t("pdp.storage")}</AccordionTrigger>
@@ -246,23 +277,25 @@ export default function ProductDetail() {
           <p className="font-display text-lg font-bold leading-none">{inr(size.price * qty)}</p>
           <p className="mt-0.5 text-[10px] font-semibold text-moss">{size.label} · Qty {qty}</p>
         </div>
-        <a
+        <motion.a
           href={waLink(buyNowMessage(product, size, qty))}
           target="_blank"
           rel="noopener noreferrer"
           data-testid="mobile-buy-now-button"
-          className="flex flex-1 items-center justify-center gap-2 rounded-full bg-terra py-3.5 text-sm font-bold text-bone active:scale-95"
+          whileTap={{ scale: 0.95 }}
+          className="flex flex-1 items-center justify-center gap-2 rounded-full bg-terra py-3.5 text-sm font-bold text-bone"
         >
           <WhatsAppIcon className="h-4 w-4" /> {t("pdp.buyShort")}
-        </a>
-        <button
+        </motion.a>
+        <motion.button
           data-testid="mobile-add-button"
           onClick={() => add(product, size, qty)}
+          whileTap={{ scale: 0.85 }}
           aria-label="Add to order"
           className="shrink-0 rounded-full border border-ink p-3.5 active:bg-ink active:text-bone"
         >
           <ShoppingBag className="h-4 w-4" />
-        </button>
+        </motion.button>
       </div>
     </main>
   );

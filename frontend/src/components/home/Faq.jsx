@@ -4,7 +4,8 @@ import { Reveal, FadeUp } from "../Reveal";
 import { useLang } from "../../i18n";
 
 export const Faq = () => {
-  const { t } = useLang();
+  const { t, lang } = useLang();
+  const hi = lang === "hi";
   return (
   <section data-testid="faq-section" className="bg-sand py-24 md:py-32">
     <div className="mx-auto grid max-w-6xl gap-12 px-5 md:grid-cols-[1fr_1.4fr] md:px-10">
@@ -32,9 +33,9 @@ export const Faq = () => {
                 data-testid={`faq-trigger-${i}`}
                 className="py-5 text-left font-display text-lg font-semibold hover:text-terra hover:no-underline"
               >
-                {f.q}
+                {hi ? f.qHi : f.q}
               </AccordionTrigger>
-              <AccordionContent className="text-sm leading-relaxed text-moss">{f.a}</AccordionContent>
+              <AccordionContent className="text-sm leading-relaxed text-moss">{hi ? f.aHi : f.a}</AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>

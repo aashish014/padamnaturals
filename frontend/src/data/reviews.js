@@ -51,9 +51,9 @@ export const reviews = [
     id: 7,
     name: "Dinesh Choudhary",
     city: "Jaipur",
-    oil: "Sunflower Oil",
+    oil: "Coconut Oil",
     stars: 5,
-    text: "Halka oil, koi smell nahi, roz ki sabzi ke liye perfect. Delivery bhi time par mili.",
+    text: "Halka oil, koi smell nahi, roz ke liye perfect. Delivery bhi time par mili.",
   },
   {
     id: 8,

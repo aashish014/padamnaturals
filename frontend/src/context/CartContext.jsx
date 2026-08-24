@@ -38,16 +38,15 @@ export const CartProvider = ({ children }) => {
 
   const clear = () => setItems([]);
 
-  const { total, mrpTotal, count } = useMemo(() => {
+  const { total, count } = useMemo(() => {
     const total = items.reduce((s, i) => s + i.size.price * i.qty, 0);
-    const mrpTotal = items.reduce((s, i) => s + i.size.mrp * i.qty, 0);
     const count = items.reduce((s, i) => s + i.qty, 0);
-    return { total, mrpTotal, count };
+    return { total, count };
   }, [items]);
 
   return (
     <CartContext.Provider
-      value={{ items, add, setQty, clear, total, mrpTotal, count, open, setOpen }}
+      value={{ items, add, setQty, clear, total, count, open, setOpen }}
     >
       {children}
     </CartContext.Provider>

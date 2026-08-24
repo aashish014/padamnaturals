@@ -7,6 +7,8 @@ import { Faq } from "../components/home/Faq";
 import { ProductCard } from "../components/ProductCard";
 import { WhyGhani } from "../components/WhyGhani";
 import { LoveWall } from "../components/LoveWall";
+import { Motto } from "../components/Motto";
+import { FactsFlip } from "../components/FactsFlip";
 import { Reveal, FadeUp } from "../components/Reveal";
 import { products } from "../data/products";
 import { useLang } from "../i18n";
@@ -113,7 +115,9 @@ export default function Home() {
       <Values />
       <WhyGhani dark={false} />
       <Comparison />
+      <FactsFlip dark={true} />
       <Journey />
+      <Motto />
       <Faq />
       <CtaBand />
     </main>

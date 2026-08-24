@@ -23,6 +23,15 @@ User choices: business WhatsApp number (found on site: +91 82691 69904), message
 - Recreate all original pages: Home, Shop, Product detail, About, Contact.
 - Bilingual Hindi-English heritage brand voice.
 
+## Implemented (2026-08-24 iteration 4)
+- REAL RATES applied (user-provided): Groundnut 1L ₹300 / 5L ₹1475 / 15L ₹4300 · Mustard 200ml ₹80 / 1L ₹280 / 5L ₹1400 / 15L ₹3999 · Sesame 200ml ₹85 / 1L ₹380 / 5L ₹1850 / 15L ₹5400 · Coconut 200ml ₹200 / 1L ₹950 · Almond 100ml ₹300 / 200ml ₹600. Sunflower oil removed (not in rate list). MRP/strike-through removed (no MRPs given). Sizes now carry ml for correct per-litre pricing.
+- Full Hindi long-form: FAQs, journey steps, comparison table (all cells), ghani pillar details, heat test, per-oil benefits/nutrients/bestFor/smoke point, About chapters, motto — all switch with the language toggle.
+- New sections: Motto "कम खाएं, पर अच्छा खाएं" (Home, before FAQ); FactsFlip — 6 tap-to-flip 3D fact cards (refined vs cold-pressed education, Home + every PDP).
+- Nutrition upgraded from bars to animated circular progress rings (per-oil, % + ring stroke animation).
+- Free-delivery progress in cart drawer: animated ring (%) + linear bar + ₹ remaining, "unlocked" check state at ₹599+.
+- Playful tap micro-interactions (whileTap scale) on product cards, size pills, qty steppers, benefit cards, chips, CTAs.
+- Verified: mustard 200ml ₹80 in PDP + wa.me message; cart ₹80 + ₹1475 = ₹1,555 with FREE delivery unlocked; fact card flip; motto + FAQ in Hindi mode; 5 product cards on shop.
+
 ## Implemented (2026-08-24 iteration 3)
 - Customer Love Wall (`src/components/LoveWall.jsx` + `src/data/reviews.js`): auto-scrolling marquee of 8 review cards (5★, name, city, oil tag), pause-on-hover, placed on Home after the product range and on every product page before related products. Reviews are SAMPLE content pending real customer quotes.
 - Hindi/English toggle (`src/i18n.js`): navbar button switches full UI language (nav, hero, section headings, buttons, cart drawer, PDP labels, contact, footer), persisted in localStorage, Mukta + Tiro Devanagari Hindi fonts for Hindi mode. Long-form content (benefit descriptions, journey text, comparison table, pillar details) remains English.

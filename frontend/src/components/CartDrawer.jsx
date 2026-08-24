@@ -1,16 +1,62 @@
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "./ui/sheet";
 import { useCart } from "../context/CartContext";
 import { useLang } from "../i18n";
-import { Minus, Plus, Trash2, Truck } from "lucide-react";
+import { motion } from "framer-motion";
+import { Minus, Plus, Trash2, Check } from "lucide-react";
 import { WhatsAppIcon } from "./WhatsAppIcon";
 import { waLink, cartMessage } from "../lib/whatsapp";
 
 const inr = (n) => `₹${n.toLocaleString("en-IN")}`;
+const FREE_AT = 599;
+const RING_C = 2 * Math.PI * 30;
+
+const DeliveryProgress = ({ total, t }) => {
+  const pct = Math.min(total / FREE_AT, 1);
+  const done = total >= FREE_AT;
+  return (
+    <div className="mb-4 flex items-center gap-4 rounded-2xl bg-sand px-4 py-4" data-testid="delivery-progress">
+      <div className="relative h-16 w-16 shrink-0">
+        <svg viewBox="0 0 72 72" className="h-full w-full -rotate-90">
+          <circle cx="36" cy="36" r="30" fill="none" strokeWidth="7" className="stroke-ink/10" />
+          <motion.circle
+            cx="36" cy="36" r="30" fill="none" strokeWidth="7" strokeLinecap="round"
+            className={done ? "stroke-moss" : "stroke-terra"}
+            strokeDasharray={RING_C}
+            initial={{ strokeDashoffset: RING_C }}
+            animate={{ strokeDashoffset: RING_C * (1 - pct) }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          />
+        </svg>
+        <span className="absolute inset-0 flex items-center justify-center">
+          {done ? (
+            <Check className="h-6 w-6 text-moss" data-testid="delivery-unlocked-icon" />
+          ) : (
+            <span className="text-[11px] font-extrabold text-terra" data-testid="delivery-progress-pct">{Math.round(pct * 100)}%</span>
+          )}
+        </span>
+      </div>
+      <div className="flex-1">
+        <p className="text-xs font-bold" data-testid="delivery-progress-text">
+          {done ? t("cart.done") : t("cart.left")(inr(FREE_AT - total))}
+        </p>
+        <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-ink/10">
+          <motion.div
+            className={`h-full rounded-full ${done ? "bg-moss" : "bg-gradient-to-r from-gold to-terra"}`}
+            initial={{ width: 0 }}
+            animate={{ width: `${pct * 100}%` }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            data-testid="delivery-progress-bar"
+          />
+        </div>
+        <p className="mt-1.5 text-[10px] font-semibold text-moss">{inr(total)} / {inr(FREE_AT)}</p>
+      </div>
+    </div>
+  );
+};
 
 export const CartDrawer = () => {
-  const { items, setQty, clear, total, mrpTotal, open, setOpen } = useCart();
+  const { items, setQty, clear, total, open, setOpen } = useCart();
   const { t } = useLang();
-  const freeDelivery = total >= 599;
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -68,19 +114,8 @@ export const CartDrawer = () => {
             </div>
 
             <div className="border-t border-ink/10 px-6 py-5">
-              <div className={`mb-4 flex items-center gap-2.5 rounded-xl px-4 py-3 text-xs font-semibold ${freeDelivery ? "bg-gold/20 text-ink" : "bg-sand text-moss"}`}>
-                <Truck className="h-4 w-4 shrink-0" />
-                {freeDelivery ? t("cart.free") : t("cart.more")(inr(599 - total))}
-              </div>
-              <div className="flex justify-between text-sm text-moss">
-                <span>{t("cart.mrp")}</span>
-                <span className="line-through">{inr(mrpTotal)}</span>
-              </div>
-              <div className="mt-1 flex justify-between text-sm font-semibold text-terra">
-                <span>{t("cart.save")}</span>
-                <span data-testid="cart-savings">{inr(mrpTotal - total)}</span>
-              </div>
-              <div className="mt-2 flex justify-between text-lg font-extrabold">
+              <DeliveryProgress total={total} t={t} />
+              <div className="flex justify-between text-lg font-extrabold">
                 <span>{t("cart.total")}</span>
                 <span data-testid="cart-total">{inr(total)}</span>
               </div>

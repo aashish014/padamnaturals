@@ -4,7 +4,8 @@ import { useLang } from "../../i18n";
 import { Check, X } from "lucide-react";
 
 export const Comparison = () => {
-  const { t } = useLang();
+  const { t, lang } = useLang();
+  const hi = lang === "hi";
   return (
   <section data-testid="comparison-section" className="bg-forest py-24 text-bone md:py-32">
     <div className="mx-auto max-w-6xl px-5 md:px-10">
@@ -25,22 +26,22 @@ export const Comparison = () => {
         <table className="w-full min-w-[640px] border-collapse text-left" data-testid="comparison-table">
           <thead>
             <tr className="border-b border-gold/30 text-xs uppercase tracking-[0.18em]">
-              <th className="py-4 pr-4 font-bold text-bone/50">Factor</th>
-              <th className="px-4 py-4 font-bold text-bone/40">Refined Oil</th>
-              <th className="px-4 py-4 font-bold text-bone/40">Ordinary Oil</th>
-              <th className="py-4 pl-4 font-bold text-gold">Padam Lakdi Ghani</th>
+              <th className="py-4 pr-4 font-bold text-bone/50">{hi ? "बात" : "Factor"}</th>
+              <th className="px-4 py-4 font-bold text-bone/40">{hi ? "रिफाइंड तेल" : "Refined Oil"}</th>
+              <th className="px-4 py-4 font-bold text-bone/40">{hi ? "मामूली तेल" : "Ordinary Oil"}</th>
+              <th className="py-4 pl-4 font-bold text-gold">{hi ? "पदम लकड़ी घानी" : "Padam Lakdi Ghani"}</th>
             </tr>
           </thead>
           <tbody>
             {comparison.map((row) => (
               <tr key={row.factor} className="border-b border-bone/10 align-top transition-colors duration-300 hover:bg-bone/5">
-                <td className="py-5 pr-4 text-sm font-bold">{row.factor}</td>
+                <td className="py-5 pr-4 text-sm font-bold">{hi ? row.factorHi : row.factor}</td>
                 <td className="px-4 py-5 text-sm text-bone/40">
-                  <span className="flex gap-2"><X className="mt-0.5 h-4 w-4 shrink-0 text-terra/70" />{row.refined}</span>
+                  <span className="flex gap-2"><X className="mt-0.5 h-4 w-4 shrink-0 text-terra/70" />{hi ? row.refinedHi : row.refined}</span>
                 </td>
-                <td className="px-4 py-5 text-sm text-bone/40">{row.ordinary}</td>
+                <td className="px-4 py-5 text-sm text-bone/40">{hi ? row.ordinaryHi : row.ordinary}</td>
                 <td className="py-5 pl-4 text-sm font-semibold text-gold">
-                  <span className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0" />{row.padam}</span>
+                  <span className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0" />{hi ? row.padamHi : row.padam}</span>
                 </td>
               </tr>
             ))}

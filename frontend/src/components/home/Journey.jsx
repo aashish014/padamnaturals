@@ -6,6 +6,7 @@ import { useLang } from "../../i18n";
 
 const Chapter = ({ step, flip }) => {
   const ref = useRef(null);
+  const { lang } = useLang();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
@@ -22,7 +23,7 @@ const Chapter = ({ step, flip }) => {
           <p className="mt-1 font-hindi text-lg text-terra">{step.hindi}</p>
         </Reveal>
         <FadeUp delay={0.25}>
-          <p className="mt-4 max-w-md text-base leading-relaxed text-moss">{step.text}</p>
+          <p className="mt-4 max-w-md text-base leading-relaxed text-moss">{lang === "hi" ? step.textHi : step.text}</p>
         </FadeUp>
       </div>
       <motion.div style={{ y }} className={flip ? "md:order-1" : ""}>
