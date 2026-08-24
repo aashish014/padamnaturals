@@ -1,70 +1,45 @@
-import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
 import { myths, statStrip } from "../data/oilDetails";
 import { Reveal, FadeUp } from "./Reveal";
 import { useLang } from "../i18n";
 import {
   XCircle, CheckCircle2, Thermometer, FlaskConical, Wheat, HeartHandshake,
-  Feather, Flame, Droplets, Wallet, Ban, Snowflake, MousePointerClick,
+  Feather, Flame, Droplets, Wallet, Ban, Snowflake,
 } from "lucide-react";
 
 const ICONS = { Feather, Flame, Droplets, Wallet, Ban, Snowflake };
 const STAT_ICONS = { Thermometer, FlaskConical, Wheat, HeartHandshake };
 
 const MythCard = ({ m, i, hi, t }) => {
-  const [revealed, setRevealed] = useState(false);
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-12%" });
   const Icon = ICONS[m.icon] || Feather;
-
-  useEffect(() => {
-    if (!inView) return;
-    const id = setTimeout(() => setRevealed(true), 700 + i * 380);
-    return () => clearTimeout(id);
-  }, [inView, i]);
-
   return (
-    <motion.button
-      ref={ref}
-      onClick={() => setRevealed(!revealed)}
-      whileTap={{ scale: 0.96 }}
+    <div
+      className="flex h-full flex-col overflow-hidden rounded-3xl border border-ink/10"
       data-testid={`myth-card-${i}`}
-      aria-label={`Myth ${i + 1}`}
-      className={`relative flex min-h-44 w-full flex-col justify-between overflow-hidden rounded-3xl border p-6 text-left transition-colors duration-500 ${
-        revealed ? "border-moss/40 bg-moss/10" : "border-terra/25 bg-terra/5"
-      }`}
     >
-      <div className="flex items-center justify-between">
-        <span className={`flex items-center gap-2 rounded-full px-3 py-1 text-[10px] font-extrabold tracking-[0.2em] ${
-          revealed ? "bg-moss text-bone" : "bg-terra text-bone"
-        }`}>
-          {revealed ? <CheckCircle2 className="h-3.5 w-3.5" /> : <XCircle className="h-3.5 w-3.5" />}
-          {revealed ? t("myths.fact") : t("myths.myth")}
+      <div className="flex flex-1 items-start gap-4 bg-terra/5 p-6">
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-terra/15 text-terra">
+          <Icon className="h-5 w-5" />
         </span>
-        <span className={`font-display text-4xl font-light ${revealed ? "text-moss/30" : "text-terra/25"}`}>
-          0{i + 1}
-        </span>
+        <div className="flex-1">
+          <span className="flex w-max items-center gap-1.5 rounded-full bg-terra px-3 py-1 text-[10px] font-extrabold tracking-[0.18em] text-bone">
+            <XCircle className="h-3 w-3" /> {t("myths.myth")}
+          </span>
+          <p className="mt-3 font-display text-lg font-semibold leading-snug">{hi ? m.mythHi : m.myth}</p>
+        </div>
+        <span className="font-display text-3xl font-light text-terra/20">0{i + 1}</span>
       </div>
-      <div className="mt-5 flex items-end gap-4">
-        <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl transition-colors duration-500 ${
-          revealed ? "bg-moss text-bone" : "bg-terra/15 text-terra"
-        }`}>
-          <Icon className="h-6 w-6" />
+      <div className="flex flex-1 items-start gap-4 border-t-2 border-dashed border-ink/10 bg-moss/10 p-6">
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-moss text-bone">
+          <CheckCircle2 className="h-5 w-5" />
         </span>
-        <AnimatePresence mode="wait">
-          <motion.p
-            key={String(revealed) + (hi ? "hi" : "en")}
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -14 }}
-            transition={{ duration: 0.35 }}
-            className="font-display text-lg font-semibold leading-snug md:text-xl"
-          >
-            {revealed ? (hi ? m.factHi : m.fact) : (hi ? m.mythHi : m.myth)}
-          </motion.p>
-        </AnimatePresence>
+        <div className="flex-1">
+          <span className="flex w-max items-center gap-1.5 rounded-full bg-moss px-3 py-1 text-[10px] font-extrabold tracking-[0.18em] text-bone">
+            {t("myths.fact")}
+          </span>
+          <p className="mt-3 font-display text-lg font-semibold leading-snug">{hi ? m.factHi : m.fact}</p>
+        </div>
       </div>
-    </motion.button>
+    </div>
   );
 };
 
@@ -87,8 +62,8 @@ export const MythFacts = ({ dark = false }) => {
           </Reveal>
         </h2>
         <FadeUp delay={0.25}>
-          <p className={`mt-4 flex items-center gap-2 text-sm font-semibold ${dark ? "text-bone/60" : "text-moss"}`}>
-            <MousePointerClick className="h-4 w-4" /> {t("myths.hint")}
+          <p className={`mt-4 text-sm font-semibold ${dark ? "text-bone/60" : "text-moss"}`}>
+            {t("myths.hint2")}
           </p>
         </FadeUp>
 

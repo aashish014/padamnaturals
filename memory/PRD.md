@@ -23,6 +23,16 @@ User choices: business WhatsApp number (found on site: +91 82691 69904), message
 - Recreate all original pages: Home, Shop, Product detail, About, Contact.
 - Bilingual Hindi-English heritage brand voice.
 
+## Implemented (2026-08-24 iteration 7)
+- Ghani video section (`src/components/GhaniVideo.jsx`): full-bleed autoplay muted looping video (slow-motion golden oil pour, placeholder stock clip at /videos/ghani.mp4 — REPLACE with owner's real wooden ghani footage) with dark overlay heading "Watch every drop, being born slow." on Home.
+- Combo idea dropped: /combo page + data removed; home grid 6th tile is now "Your Seed Your Oil" (Wheat icon, dark forest tile → /your-seed-your-oil). Footer combo link removed.
+- Myth/Fact cards now STATIC: one card shows both — terracotta MYTH block on top, moss FACT block below with dashed divider. No interaction needed.
+- App-style bottom tab bar on mobile (`src/components/BottomNav.jsx`): Home / Shop / Seed to Oil / Order (cart, live badge) / Chat (WhatsApp). Product-page sticky buy bar now sits above it. Floating WhatsApp bubble removed (Chat tab replaces it).
+- Mobile title clipping fix: hero/motto line-heights increased + Reveal inner padding for Devanagari matras.
+- 3D interactive hero: bottle arch tilts in 3D following pointer (spring rotateX/rotateY, perspective 1200px, badge at translateZ 60px).
+- Verified on 390px mobile: hero title fully visible, tab bar present, static myth cards, video section (poster shown; video file serves HTTP 206 — headless test browser doesn't buffer video, real devices will autoplay), PDP sticky bar clears tab bar exactly.
+- NOTE: testing_agent subagent was requested by system but is not available in this environment — verification done via screenshot tool instead.
+
 ## Implemented (2026-08-24 iteration 6)
 - Combo Packs page `/combo` (`src/pages/Combo.jsx` + `src/data/combos.js`): 4 bundles (Kitchen Starter ₹549, Family Health ₹629, Royal Wellness ₹549, Full Kitchen ₹2,749 — SUGGESTED pricing, confirm with owner), save badges, contents lists, one-tap WhatsApp order per combo + custom-combo WhatsApp strip. Home grid combo tile now links here.
 - "Your Seed, Your Oil" page `/your-seed-your-oil` (`src/pages/SeedService.jsx`): bring-your-seeds churning service — 3 icon steps, trust points, WhatsApp CTA with dedicated enquiry message. Linked in navbar ("Seed to Oil" / "बीज से तेल"), footer, and a dark banner strip on Home.

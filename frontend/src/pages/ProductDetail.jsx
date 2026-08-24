@@ -272,7 +272,7 @@ export default function ProductDetail() {
         </div>
       </section>
 
-      <div className="fixed inset-x-0 bottom-0 z-40 flex items-center gap-3 border-t border-ink/10 bg-bone/95 px-4 py-3 backdrop-blur-md sm:hidden" data-testid="mobile-sticky-buy-bar">
+      <div className="fixed inset-x-0 bottom-16 z-40 flex items-center gap-3 border-t border-ink/10 bg-bone/95 px-4 py-3 backdrop-blur-md sm:hidden" data-testid="mobile-sticky-buy-bar">
         <div className="shrink-0">
           <p className="font-display text-lg font-bold leading-none">{inr(size.price * qty)}</p>
           <p className="mt-0.5 text-[10px] font-semibold text-moss">{size.label} · Qty {qty}</p>

@@ -10,7 +10,7 @@ export const Motto = () => {
         <Reveal>
           <p className="overline-tag">{t("motto.over")}</p>
         </Reveal>
-        <h2 className="mt-8 font-hindi text-5xl leading-[1.15] sm:text-6xl md:text-8xl" data-testid="motto-heading">
+        <h2 className="mt-8 font-hindi text-5xl leading-[1.3] sm:text-6xl md:text-8xl" data-testid="motto-heading">
           <Reveal immediate delay={0.15}>कम खाएं,</Reveal>
           <Reveal immediate delay={0.35}>
             <span className="text-terra">पर अच्छा खाएं।</span>

@@ -9,6 +9,7 @@ import { WhyGhani } from "../components/WhyGhani";
 import { LoveWall } from "../components/LoveWall";
 import { Motto } from "../components/Motto";
 import { MythFacts } from "../components/MythFacts";
+import { GhaniVideo } from "../components/GhaniVideo";
 import { Reveal, FadeUp } from "../components/Reveal";
 import { useLang } from "../i18n";
 import { Flame, Leaf, Sparkles, ArrowUpRight } from "lucide-react";
@@ -100,6 +101,7 @@ export default function Home() {
       <Comparison />
       <MythFacts dark={false} />
       <Journey />
+      <GhaniVideo />
       <Motto />
       <Faq />
       <CtaBand />

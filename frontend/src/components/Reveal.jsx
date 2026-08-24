@@ -9,7 +9,7 @@ export const Reveal = ({ children, delay = 0, className = "", immediate = false 
   return (
     <span className={`block overflow-hidden ${className}`}>
       <motion.span
-        className="block will-change-transform"
+        className="block will-change-transform pb-[0.12em]"
         initial={{ y: 56, opacity: 0 }}
         {...motionProps}
         transition={{ duration: 0.9, delay, ease: EASE }}

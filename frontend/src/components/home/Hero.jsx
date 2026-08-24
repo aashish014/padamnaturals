@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Reveal } from "../Reveal";
@@ -9,9 +9,17 @@ import { ArrowDown } from "lucide-react";
 export const Hero = () => {
   const ref = useRef(null);
   const { t } = useLang();
+  const [tilt, setTilt] = useState({ rx: 0, ry: 0 });
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const yImg = useTransform(scrollYProgress, [0, 1], [0, 140]);
   const yText = useTransform(scrollYProgress, [0, 1], [0, -60]);
+
+  const onTiltMove = (e) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width - 0.5;
+    const py = (e.clientY - r.top) / r.height - 0.5;
+    setTilt({ rx: -py * 10, ry: px * 14 });
+  };
 
   return (
     <section ref={ref} data-testid="hero-section" className="relative min-h-screen overflow-hidden bg-bone pt-28 md:pt-32">
@@ -21,7 +29,7 @@ export const Hero = () => {
           <Reveal immediate>
             <p className="overline-tag">{t("hero.overline")}</p>
           </Reveal>
-          <h1 className="mt-6 font-hindi text-5xl leading-[1.12] sm:text-6xl md:text-7xl lg:text-[5.2rem]" data-testid="hero-heading">
+          <h1 className="mt-6 font-hindi text-5xl leading-[1.28] sm:text-6xl md:text-7xl lg:text-[5.2rem]" data-testid="hero-heading">
             <Reveal immediate delay={0.15}>गांव की घानी से</Reveal>
             <Reveal immediate delay={0.3}>
               <span className="text-terra">सीधा आपके घर तक</span>
@@ -62,8 +70,18 @@ export const Hero = () => {
           </Reveal>
         </motion.div>
 
-        <div className="relative flex items-end justify-center pb-8 md:pb-0">
-          <motion.div style={{ y: yImg }} className="relative">
+        <div
+          className="relative flex items-end justify-center pb-8 md:pb-0 [perspective:1200px]"
+          onPointerMove={onTiltMove}
+          onPointerLeave={() => setTilt({ rx: 0, ry: 0 })}
+          data-testid="hero-3d-area"
+        >
+          <motion.div
+            style={{ y: yImg, transformStyle: "preserve-3d" }}
+            animate={{ rotateX: tilt.rx, rotateY: tilt.ry }}
+            transition={{ type: "spring", stiffness: 120, damping: 14 }}
+            className="relative"
+          >
             <motion.div
               initial={{ opacity: 0, y: 80 }}
               animate={{ opacity: 1, y: 0 }}
@@ -83,6 +101,7 @@ export const Hero = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 1 }}
               className="absolute -left-3 top-2 z-20 md:-left-16 md:top-8"
+              style={{ transform: "translateZ(60px)" }}
               data-testid="hero-rotating-badge"
             >
               <svg viewBox="0 0 120 120" className="h-20 w-20 animate-spin-slow md:h-28 md:w-28">
