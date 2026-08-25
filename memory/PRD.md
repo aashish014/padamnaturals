@@ -23,6 +23,9 @@ User choices: business WhatsApp number (found on site: +91 82691 69904), message
 - Recreate all original pages: Home, Shop, Product detail, About, Contact.
 - Bilingual Hindi-English heritage brand voice.
 
+## Implemented (2026-08-25 iteration 20) — Mustard gallery replaced
+- Mustard PDP gallery fully replaced with the owner's 4 real branded packshots: 1L bottle (mo-2.png, also set as the main mustard product image in products.js so shop grid/cards/cart use it), 200ml "World's Most Transparent Label" pair (mo-1.png), 5L can (mo-3.png), 15L tin (mo-4.png). Verified: 4 thumbnails, 0 broken images at 390px.
+
 ## Implemented (2026-08-25 iteration 19) — Groundnut gallery enriched
 - Added the owner's 5 branded marketing images to the groundnut PDP gallery: clean white-bg bottle shot (gn-bottle.jpg), purity badges (gn-badges.png), "Freshness you can smell" kitchen (gn-freshness.png), "The PADAM Difference" comparison (gn-difference.png), "The Purity Promise" (gn-purity.png). Replaced the 2 generic stock lifestyle photos — gallery now 9 photos. Verified: 9 thumbnails, 0 broken images, arch-frame rendering on 390px.
 

@@ -21,7 +21,7 @@ export const products = [
     hindi: "सरसों का तेल",
     tagline: "Bold aroma, bolder flavour — the desi punch",
     taglineHi: "तेज़ खुशबू, दमदार स्वाद — देसी पंच",
-    image: "/images/mustard.png",
+    image: "/images/mo-2.png",
     tint: "#F0E3C0",
     sizes: [
       { label: "200 ml", ml: 200, price: 80 },
