@@ -1,4 +1,5 @@
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "./ui/sheet";
+import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useLang } from "../i18n";
 import { products } from "../data/products";
@@ -58,6 +59,7 @@ const DeliveryProgress = ({ total, t }) => {
 export const CartDrawer = () => {
   const { items, setQty, add, clear, total, open, setOpen } = useCart();
   const { t } = useLang();
+  const navigate = useNavigate();
   const suggestions = products.filter((p) => !items.some((i) => i.product.slug === p.slug)).slice(0, 4);
 
   return (
@@ -157,6 +159,16 @@ export const CartDrawer = () => {
               >
                 <WhatsAppIcon className="h-5 w-5" /> {t("cart.order")}
               </a>
+              <button
+                data-testid="cart-add-more-button"
+                onClick={() => {
+                  setOpen(false);
+                  navigate("/shop");
+                }}
+                className="mt-3 flex w-full items-center justify-center gap-2 rounded-full border border-ink py-3.5 text-sm font-bold transition-colors duration-300 hover:bg-ink hover:text-bone"
+              >
+                <Plus className="h-4 w-4" /> {t("cart.addMore")}
+              </button>
               <p className="mt-3 text-center text-[11px] text-moss">{t("cart.note")}</p>
             </div>
           </>

@@ -23,6 +23,12 @@ User choices: business WhatsApp number (found on site: +91 82691 69904), message
 - Recreate all original pages: Home, Shop, Product detail, About, Contact.
 - Bilingual Hindi-English heritage brand voice.
 
+## Implemented (2026-08-25 iteration 12)
+- Anti-tamper order messages: every WhatsApp order now carries a unique Order ID (PN-XXXX) + "as per today's rate card on padamnaturals.in" line, so edited prices are obvious; seller always confirms price on chat before accepting.
+- Single Buy Now everywhere: removed "Add to Order" buttons (PDP desktop + mobile, card "+" icon) — Buy Now adds the item and opens the order drawer. Cart icon removed from the top navbar.
+- Order drawer has an "Add more products (+)" button that closes the drawer and returns the shopper to /shop; basket persists.
+- Verified: top cart icon gone, drawer opens on Buy Now, add-more navigates to shop, cart survives navigation, order message carries Order ID.
+
 ## Implemented (2026-08-25 iteration 11)
 - Buy Now no longer jumps to WhatsApp directly: it adds the item and opens the order drawer — customer sees free-delivery progress ring, an "Add more — unlock free delivery" suggestion rail (one-tap add of other oils), then "Order on WhatsApp" sends one combined message. Cart persists (localStorage) if they go back to add more.
 - Mobile overflow bug fixed on product pages (min-w-0 grid columns + break-words title): page no longer flows outside the screen (verified docWidth = window width).

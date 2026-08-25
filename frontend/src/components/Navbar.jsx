@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { ShoppingBag, Menu, X, Languages } from "lucide-react";
-import { useCart } from "../context/CartContext";
+import { Menu, X, Languages } from "lucide-react";
 import { useLang } from "../i18n";
 import { logo } from "../data/products";
 import { scrollTop } from "../lib/scroll";
 
 export const Navbar = () => {
-  const { count, setOpen } = useCart();
   const { lang, setLang, t } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [menu, setMenu] = useState(false);
@@ -72,19 +70,6 @@ export const Navbar = () => {
           >
             <Languages className="h-3.5 w-3.5" />
             {lang === "en" ? "हिंदी" : "EN"}
-          </button>
-          <button
-            data-testid="cart-open-button"
-            onClick={() => setOpen(true)}
-            className="relative flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-bone transition-transform duration-300 hover:scale-95"
-          >
-            <ShoppingBag className="h-4 w-4" />
-            <span className="hidden sm:inline">{t("nav.order")}</span>
-            {count > 0 && (
-              <span data-testid="cart-count-badge" className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-terra text-[11px] font-bold text-bone">
-                {count}
-              </span>
-            )}
           </button>
           <button
             data-testid="mobile-menu-button"

@@ -18,18 +18,20 @@ export const buyNowMessage = (product, size, qty) => {
 };
 
 export const cartMessage = (items) => {
+  const orderId = "PN-" + Math.floor(1000 + Math.random() * 9000);
   const lines = items.map(
     (i) =>
       `• ${i.qty}x ${i.product.name} (${i.size.label}) — ${inr(i.size.price * i.qty)}`
   );
   const total = items.reduce((s, i) => s + i.size.price * i.qty, 0);
   return [
+    `Order ID: ${orderId}`,
     "Hello Padam Naturals! I would like to order:",
     "",
     ...lines,
     "",
-    `Order Total: ${inr(total)}`,
-    "Please confirm availability and delivery details. Dhanyavaad!",
+    `Order Total: ${inr(total)} (as per today's rate card on padamnaturals.in)`,
+    "Please confirm current prices and delivery details. Dhanyavaad!",
   ].join("\n");
 };
 

@@ -13,7 +13,7 @@ import { LoveWall } from "../components/LoveWall";
 import { OilTile } from "../components/home/OilGrid";
 import { Reveal, FadeUp } from "../components/Reveal";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../components/ui/accordion";
-import { Minus, Plus, ShoppingBag, Truck, ShieldCheck, Leaf, Heart, Sparkles, Zap, Flame } from "lucide-react";
+import { Minus, Plus, Truck, ShieldCheck, Leaf, Heart, Sparkles, Zap, Flame } from "lucide-react";
 
 const inr = (n) => `₹${n.toLocaleString("en-IN")}`;
 const BENEFIT_ICONS = [Heart, Sparkles, ShieldCheck, Zap];
@@ -134,22 +134,14 @@ export default function ProductDetail() {
             </div>
           </FadeUp>
 
-          <FadeUp delay={0.38} className="mt-7 hidden gap-3 sm:flex">
+          <FadeUp delay={0.38} className="mt-7 hidden sm:flex">
             <motion.button
               data-testid="buy-now-whatsapp-button"
               onClick={buyNow}
               whileTap={{ scale: 0.97 }}
-              className="flex flex-1 items-center justify-center gap-2.5 rounded-full bg-terra py-4 text-sm font-bold text-bone transition-colors duration-300 hover:bg-terra-dark"
+              className="flex w-full items-center justify-center gap-2.5 rounded-full bg-terra py-4 text-sm font-bold text-bone transition-colors duration-300 hover:bg-terra-dark"
             >
               <WhatsAppIcon className="h-5 w-5" /> {t("pdp.buyNow")}
-            </motion.button>
-            <motion.button
-              data-testid="add-to-order-button"
-              onClick={() => add(product, size, qty)}
-              whileTap={{ scale: 0.97 }}
-              className="flex flex-1 items-center justify-center gap-2.5 rounded-full border border-ink py-4 text-sm font-bold transition-colors duration-300 hover:bg-ink hover:text-bone"
-            >
-              <ShoppingBag className="h-5 w-5" /> {t("pdp.add")}
             </motion.button>
           </FadeUp>
 
@@ -309,15 +301,6 @@ export default function ProductDetail() {
           className="flex flex-1 items-center justify-center gap-2 rounded-full bg-terra py-3.5 text-sm font-bold text-bone"
         >
           <WhatsAppIcon className="h-4 w-4" /> {t("pdp.buyShort")}
-        </motion.button>
-        <motion.button
-          data-testid="mobile-add-button"
-          onClick={() => add(product, size, qty)}
-          whileTap={{ scale: 0.85 }}
-          aria-label="Add to order"
-          className="shrink-0 rounded-full border border-ink p-3.5 active:bg-ink active:text-bone"
-        >
-          <ShoppingBag className="h-4 w-4" />
         </motion.button>
       </div>
     </main>

@@ -4,7 +4,6 @@ import { useCart } from "../context/CartContext";
 import { useLang } from "../i18n";
 import { WhatsAppIcon } from "./WhatsAppIcon";
 import { FadeUp } from "./Reveal";
-import { Plus } from "lucide-react";
 
 const inr = (n) => `₹${n.toLocaleString("en-IN")}`;
 
@@ -48,15 +47,6 @@ export const ProductCard = ({ product, index = 0 }) => {
               </span>
             </p>
           </div>
-          <motion.button
-            data-testid={`product-add-${product.slug}`}
-            onClick={() => add(product, size)}
-            whileTap={{ scale: 0.85 }}
-            aria-label={`Add ${product.name} to order`}
-            className="mt-1 shrink-0 rounded-full border border-ink/20 p-2.5 transition-colors duration-300 hover:bg-ink hover:text-bone"
-          >
-            <Plus className="h-4 w-4" />
-          </motion.button>
         </div>
         <motion.button
           onClick={buy}
