@@ -51,47 +51,32 @@ export const CartDrawer = () => {
   const placeOrder = async () => {
     if (placing || items.length === 0) return;
     setPlacing(true);
-    // Open the tab synchronously inside the user gesture so mobile browsers don't block it
-    const win = window.open("", "_blank");
-    if (win) {
-      try {
-        win.document.write(
-          "<!doctype html><title>Padam Naturals</title><p style='font-family:sans-serif;padding:3em 1.5em;text-align:center;color:#1F2922'>Taking you to WhatsApp…</p>"
-        );
-      } catch {
-        /* some browsers disallow writing to the pre-opened tab */
-      }
-    }
-    const send = (url) => {
-      if (win) win.location.href = url;
-      else window.open(url, "_blank", "noopener,noreferrer");
-    };
     try {
+      let url;
+      let orderId;
       if (orderMeta?.orderId) {
-        const orderId = orderMeta.orderId;
+        orderId = orderMeta.orderId;
         try {
           await updateOrder(orderId, cartToOrderItems(items), total);
         } catch (err) {
           if (err.status === 409) {
-            if (win) win.close();
             toast.error(t("track.editFail"));
             return;
           }
           throw err;
         }
-        send(waLink(orderUpdateMessage(items, orderId)));
-        rememberOrder(orderId);
-        toast.success(t("cart.updatedToast")(orderId));
+        url = waLink(orderUpdateMessage(items, orderId));
       } else {
         const order = await createOrder(cartToOrderItems(items), total);
-        send(waLink(cartMessage(items, order.orderId)));
-        rememberOrder(order.orderId);
-        toast.success(t("cart.placedToast")(order.orderId));
+        orderId = order.orderId;
+        url = waLink(cartMessage(items, orderId));
       }
+      rememberOrder(orderId);
       clear();
       setOpen(false);
+      // Same-tab navigation: required for Android to open the WhatsApp app directly
+      window.location.href = url;
     } catch {
-      if (win) win.close();
       toast.error(t("cart.orderFail"));
     } finally {
       setPlacing(false);

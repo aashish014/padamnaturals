@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { toast } from "sonner";
 import { products } from "../data/products";
 
 const CartContext = createContext(null);
@@ -42,7 +41,6 @@ export const CartProvider = ({ children }) => {
         return prev.map((i) => (i.id === id ? { ...i, qty: i.qty + qty } : i));
       return [...prev, { id, product, size, qty }];
     });
-    toast.success(`${product.name} (${size.label}) added to your order`);
   };
 
   const setQty = (id, qty) =>

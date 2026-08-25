@@ -23,6 +23,11 @@ User choices: business WhatsApp number (found on site: +91 82691 69904), message
 - Recreate all original pages: Home, Shop, Product detail, About, Contact.
 - Bilingual Hindi-English heritage brand voice.
 
+## Implemented (2026-08-25 iteration 15) — Android WhatsApp fix + toast removal
+- "Order on WhatsApp" now navigates the SAME tab to wa.me (window.location.href) instead of a pre-opened popup tab — Android Chrome only fires the WhatsApp app intent on direct same-tab navigation; the popup-tab approach dumped users on the wa.me web/download page. Same fix applies to the "Send Updated Order" flow. Verified: same-tab lands on api.whatsapp.com/send with the full message.
+- Add-to-cart toast removed entirely (user found it slow/noisy) — adding items is now silent, the floating bubble badge is the feedback.
+- NOTE: app was deployed to production (buy-now-connect.emergent.host) BEFORE this fix — requires redeploy to take effect live.
+
 ## Implemented (2026-08-25 iteration 14) — UX polish + owner alerts
 - Cart icons removed from shop cards and product pages (desktop + sticky bar). Replaced by `src/components/FloatingCart.jsx`: a floating terracotta basket bubble that springs in bottom-right above the bottom nav whenever the basket has items (higher on product pages to clear the sticky buy bar), badge pops on each add, opens the order drawer.
 - WhatsApp order message no longer carries "(as per today's rate card on padamnaturals.in)".
