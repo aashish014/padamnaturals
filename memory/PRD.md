@@ -23,6 +23,12 @@ User choices: business WhatsApp number (found on site: +91 82691 69904), message
 - Recreate all original pages: Home, Shop, Product detail, About, Contact.
 - Bilingual Hindi-English heritage brand voice.
 
+## Implemented (2026-08-25 iteration 21) — Coconut gallery + per-product color vibes
+- Coconut PDP gallery replaced with the owner's 2 real packshots: 1L bottle on light blue (cn-1l.png) + 200ml "World's Most Transparent Label" pair (cn-pair.png). Main coconut card image stays the coconut-nut PNG (coconut.png).
+- Per-product tints now match each product's packshot vibe (drives card arches + PDP gallery bg): coconut #DAEDF7 (light blue), mustard #F9E2C9 (peach), groundnut #F3E9CB (golden cream), sesame #F1E3C4 (warm gold), almond #EED9BC (almond tan).
+- Oil cards: sesame/coconut/almond already show seed/nut PNGs (no bottles); groundnut + mustard cards still show real branded bottles — PENDING peanut + mustard-seed PNG uploads from owner to complete the no-bottle look.
+- Verified: coconut gallery 2/2 images load, light-blue seamless blend; shop grid tints correct at 390px.
+
 ## Implemented (2026-08-25 iteration 20) — Mustard gallery replaced
 - Mustard PDP gallery fully replaced with the owner's 4 real branded packshots: 1L bottle (mo-2.png, also set as the main mustard product image in products.js so shop grid/cards/cart use it), 200ml "World's Most Transparent Label" pair (mo-1.png), 5L can (mo-3.png), 15L tin (mo-4.png). Verified: 4 thumbnails, 0 broken images at 390px.
 

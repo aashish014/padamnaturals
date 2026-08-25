@@ -6,7 +6,7 @@ export const products = [
     tagline: "The everyday hero of the Indian kitchen",
     taglineHi: "हर इंडियन रसोई का रोज़ का हीरो",
     image: "/images/groundnut.png",
-    tint: "#EBE4D5",
+    tint: "#F3E9CB",
     sizes: [
       { label: "1L", ml: 1000, price: 300 },
       { label: "5L", ml: 5000, price: 1475 },
@@ -22,7 +22,7 @@ export const products = [
     tagline: "Bold aroma, bolder flavour — the desi punch",
     taglineHi: "तेज़ खुशबू, दमदार स्वाद — देसी पंच",
     image: "/images/mo-2.png",
-    tint: "#F0E3C0",
+    tint: "#F9E2C9",
     sizes: [
       { label: "200 ml", ml: 200, price: 80 },
       { label: "1L", ml: 1000, price: 280 },
@@ -39,7 +39,7 @@ export const products = [
     tagline: "Ancient seed, golden drop of wellness",
     taglineHi: "प्राचीन बीज, सेहत की सुनहरी बूँद",
     image: "/images/sesame.png",
-    tint: "#EFE0CC",
+    tint: "#F1E3C4",
     sizes: [
       { label: "200 ml", ml: 200, price: 85 },
       { label: "1L", ml: 1000, price: 380 },
@@ -56,7 +56,7 @@ export const products = [
     tagline: "Coastal purity in every spoonful",
     taglineHi: "हर चम्मच में तटीय शुद्धता",
     image: "/images/coconut.png",
-    tint: "#EDE7DC",
+    tint: "#DAEDF7",
     sizes: [
       { label: "200 ml", ml: 200, price: 200 },
       { label: "1L", ml: 1000, price: 950 },
@@ -71,7 +71,7 @@ export const products = [
     tagline: "Liquid gold for skin, hair & strength",
     taglineHi: "त्वचा, बाल और ताकत का तरल सोना",
     image: "/images/almond.png",
-    tint: "#EAD9C2",
+    tint: "#EED9BC",
     sizes: [
       { label: "100 ml", ml: 100, price: 300 },
       { label: "200 ml", ml: 200, price: 600 },
