@@ -23,6 +23,9 @@ User choices: business WhatsApp number (found on site: +91 82691 69904), message
 - Recreate all original pages: Home, Shop, Product detail, About, Contact.
 - Bilingual Hindi-English heritage brand voice.
 
+## Implemented (2026-08-25 iteration 18) — Real ghani video live
+- P0 DONE: owner's real extraction footage (28s, portrait, their branding/contact overlays) replaced the placeholder stock clip at /videos/ghani.mp4 (2.2MB, smaller than placeholder). Old stock poster removed so the video's own first frame shows. Component unchanged (autoPlay muted loop playsInline). Note: video shows a modern electric kolhu styled as lakdi ghani.
+
 ## Implemented (2026-08-25 iteration 17) — Myth card rewording
 - Myth/Fact card #4 reframed from negative ("yields 30% less oil — you pay for what's NOT taken out") to positive value framing: myth "Cold-pressed oil costs more for no extra benefit" → fact "One spoon carries the seed's full Vitamin E, Omega-3 and aroma — you cook with less and nourish more. Value per drop, not per litre." (Hindi too). Verified EN + HI render on mobile.
 
@@ -159,7 +162,7 @@ User choices: business WhatsApp number (found on site: +91 82691 69904), message
 - Screenshots: home hero, range, cart drawer, PDP, about, contact all render.
 
 ## Backlog
-- P0: Replace placeholder stock Ghani video (/videos/ghani.mp4) with owner's real wooden ghani footage; confirm final prices for non-groundnut oils (currently estimated 25%-off pricing).
+- P0: Confirm final prices for non-groundnut oils (currently estimated 25%-off pricing).
 - P1: Real process photos (seed cleaning is placeholder); owner's churning charges per kg on Seed to Oil page; real customer photos/quotes on Love Wall; coupon code field appended to WhatsApp message.
 - P2: Online payment checkout (user chose WhatsApp-only for now); blog/recipes; Google Maps embed on Contact.
 

@@ -11,7 +11,6 @@ export const GhaniVideo = () => {
         muted
         loop
         playsInline
-        poster="/images/pour.png"
         className="h-[65vh] w-full object-cover md:h-[85vh]"
         data-testid="ghani-video"
       >
