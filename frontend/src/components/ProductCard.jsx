@@ -3,16 +3,19 @@ import { motion } from "framer-motion";
 import { useCart } from "../context/CartContext";
 import { useLang } from "../i18n";
 import { WhatsAppIcon } from "./WhatsAppIcon";
-import { waLink, buyNowMessage } from "../lib/whatsapp";
 import { FadeUp } from "./Reveal";
 import { Plus } from "lucide-react";
 
 const inr = (n) => `₹${n.toLocaleString("en-IN")}`;
 
 export const ProductCard = ({ product, index = 0 }) => {
-  const { add } = useCart();
+  const { add, setOpen } = useCart();
   const { t } = useLang();
   const size = product.sizes[0];
+  const buy = () => {
+    add(product, size);
+    setOpen(true);
+  };
 
   return (
     <FadeUp delay={(index % 3) * 0.12}>
@@ -32,15 +35,15 @@ export const ProductCard = ({ product, index = 0 }) => {
             />
           </motion.div>
         </Link>
-        <div className="mt-5 flex items-start justify-between gap-3">
-          <div>
-            <p className="font-hindi text-sm text-terra">{product.hindi}</p>
-            <Link to={`/product/${product.slug}`} className="mt-1 block font-display text-xl font-semibold leading-tight transition-colors hover:text-terra">
+        <div className="mt-4 flex items-start justify-between gap-3 md:mt-5">
+          <div className="min-w-0">
+            <p className="font-hindi text-xs text-terra md:text-sm">{product.hindi}</p>
+            <Link to={`/product/${product.slug}`} className="mt-1 block break-words font-display text-lg font-semibold leading-tight transition-colors hover:text-terra md:text-xl">
               {product.name}
             </Link>
-            <p className="mt-1.5 text-sm">
+            <p className="mt-1.5 text-xs md:text-sm">
               <span className="font-extrabold">{inr(size.price)}</span>
-              <span className="ml-2 text-xs text-moss">
+              <span className="ml-2 text-moss">
                 {size.label}{product.sizes.length > 1 ? ` · ${product.sizes.length} sizes` : ""}
               </span>
             </p>
@@ -55,16 +58,14 @@ export const ProductCard = ({ product, index = 0 }) => {
             <Plus className="h-4 w-4" />
           </motion.button>
         </div>
-        <motion.a
-          href={waLink(buyNowMessage(product, size, 1))}
-          target="_blank"
-          rel="noopener noreferrer"
+        <motion.button
+          onClick={buy}
           data-testid={`product-buy-now-${product.slug}`}
           whileTap={{ scale: 0.97 }}
-          className="mt-4 flex items-center justify-center gap-2 rounded-full bg-terra py-3 text-sm font-bold text-bone transition-colors duration-300 hover:bg-terra-dark"
+          className="mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-terra py-3 text-xs font-bold text-bone transition-colors duration-300 hover:bg-terra-dark md:text-sm"
         >
           <WhatsAppIcon className="h-4 w-4" /> {t("card.buyNow")}
-        </motion.a>
+        </motion.button>
       </div>
     </FadeUp>
   );

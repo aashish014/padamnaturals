@@ -23,6 +23,14 @@ User choices: business WhatsApp number (found on site: +91 82691 69904), message
 - Recreate all original pages: Home, Shop, Product detail, About, Contact.
 - Bilingual Hindi-English heritage brand voice.
 
+## Implemented (2026-08-25 iteration 11)
+- Buy Now no longer jumps to WhatsApp directly: it adds the item and opens the order drawer — customer sees free-delivery progress ring, an "Add more — unlock free delivery" suggestion rail (one-tap add of other oils), then "Order on WhatsApp" sends one combined message. Cart persists (localStorage) if they go back to add more.
+- Mobile overflow bug fixed on product pages (min-w-0 grid columns + break-words title): page no longer flows outside the screen (verified docWidth = window width).
+- Shop page: 2-up product grid on mobile with compact cards.
+- "You May Also Love" now uses home-style OilTile cards (2-col mobile / 4-col desktop).
+- Fixed a duplicated ProductDetail.jsx (sed truncation after a bad replace).
+- Verified mobile: drawer opens on Buy Now, suggestions add, progress ring updates, cart badge persists after close, order message combines items.
+
 ## Implemented (2026-08-24 iteration 10)
 - PDP restructured per user spec: Health benefits now one-line expandable accordion rows → nutrition rings → Best-for chips + smoke point → Why Lakdi Ghani → per-oil FAQ accordion (3 oil-specific Q&As each, EN/HI, + storage + delivery entries) → The Padam Standard (extracted to `src/components/PadamStandard.jsx`, shared) → reviews → related. Myth section removed from PDP (stays on Home).
 - ProcessSteps rebuilt as sticky stacking cards — each step card slides over the previous while scrolling (sticky top offsets, tinted cards, photos).

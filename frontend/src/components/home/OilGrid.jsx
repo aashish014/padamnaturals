@@ -7,7 +7,7 @@ import { ArrowUpRight, Wheat } from "lucide-react";
 
 const inr = (n) => `₹${n.toLocaleString("en-IN")}`;
 
-const Tile = ({ product, i, t }) => (
+export const OilTile = ({ product, i, t }) => (
   <FadeUp delay={i * 0.07}>
     <Link to={`/product/${product.slug}`} data-testid={`oil-tile-${product.slug}`}>
       <motion.div
@@ -59,7 +59,7 @@ export const OilGrid = () => {
         </h2>
         <div className="mt-14 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-5" data-testid="oil-grid">
           {products.map((p, i) => (
-            <Tile key={p.slug} product={p} i={i} t={t} />
+            <OilTile key={p.slug} product={p} i={i} t={t} />
           ))}
           <FadeUp delay={products.length * 0.07}>
             <Link to="/your-seed-your-oil" data-testid="oil-tile-seed">

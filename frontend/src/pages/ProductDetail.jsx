@@ -10,8 +10,7 @@ import { Gallery } from "../components/Gallery";
 import { WhyGhani } from "../components/WhyGhani";
 import { PadamStandard } from "../components/PadamStandard";
 import { LoveWall } from "../components/LoveWall";
-import { ProductCard } from "../components/ProductCard";
-import { waLink, buyNowMessage } from "../lib/whatsapp";
+import { OilTile } from "../components/home/OilGrid";
 import { Reveal, FadeUp } from "../components/Reveal";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../components/ui/accordion";
 import { Minus, Plus, ShoppingBag, Truck, ShieldCheck, Leaf, Heart, Sparkles, Zap, Flame } from "lucide-react";
@@ -55,10 +54,10 @@ export default function ProductDetail() {
   const health = oilHealth[slug];
   const gallery = galleries[slug];
   const faqs = oilFaqs[slug] || [];
-  const related = useMemo(() => products.filter((p) => p.slug !== slug).slice(0, 3), [slug]);
+  const related = useMemo(() => products.filter((p) => p.slug !== slug).slice(0, 4), [slug]);
   const [sizeIdx, setSizeIdx] = useState(0);
   const [qty, setQty] = useState(1);
-  const { add } = useCart();
+  const { add, setOpen } = useCart();
   const { lang, t } = useLang();
   const hi = lang === "hi";
 
@@ -74,21 +73,25 @@ export default function ProductDetail() {
   const size = product.sizes[sizeIdx];
   const perLitre = Math.round((size.price * 1000) / size.ml);
   const displayName = hi ? product.hindi : product.name.replace("Lakdi Ghani ", "");
+  const buyNow = () => {
+    add(product, size, qty);
+    setOpen(true);
+  };
 
   return (
     <main data-testid="product-detail-page" className="bg-bone pt-24 md:pt-36">
       <div className="mx-auto grid max-w-7xl gap-10 px-5 pb-16 md:grid-cols-2 md:gap-14 md:px-10 md:pb-24">
-        <FadeUp>
-          <div className="md:sticky md:top-28">
+        <FadeUp className="min-w-0">
+          <div className="min-w-0 md:sticky md:top-28">
             <Gallery images={gallery} name={product.name} tint={product.tint} />
           </div>
         </FadeUp>
 
-        <div>
+        <div className="min-w-0">
           <Reveal immediate>
             <p className="overline-tag">{product.hindi}</p>
           </Reveal>
-          <h1 className="mt-3 font-display text-4xl font-semibold leading-none tracking-tight sm:text-5xl" data-testid="product-detail-name">
+          <h1 className="mt-3 break-words font-display text-4xl font-semibold leading-none tracking-tight sm:text-5xl" data-testid="product-detail-name">
             <Reveal immediate delay={0.1}>{product.name}</Reveal>
           </h1>
           <FadeUp delay={0.2}>
@@ -132,16 +135,14 @@ export default function ProductDetail() {
           </FadeUp>
 
           <FadeUp delay={0.38} className="mt-7 hidden gap-3 sm:flex">
-            <motion.a
-              href={waLink(buyNowMessage(product, size, qty))}
-              target="_blank"
-              rel="noopener noreferrer"
+            <motion.button
               data-testid="buy-now-whatsapp-button"
+              onClick={buyNow}
               whileTap={{ scale: 0.97 }}
               className="flex flex-1 items-center justify-center gap-2.5 rounded-full bg-terra py-4 text-sm font-bold text-bone transition-colors duration-300 hover:bg-terra-dark"
             >
               <WhatsAppIcon className="h-5 w-5" /> {t("pdp.buyNow")}
-            </motion.a>
+            </motion.button>
             <motion.button
               data-testid="add-to-order-button"
               onClick={() => add(product, size, qty)}
@@ -289,9 +290,9 @@ export default function ProductDetail() {
         <Reveal>
           <p className="overline-tag">{t("pdp.related")}</p>
         </Reveal>
-        <div className="mt-10 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-5" data-testid="related-grid">
           {related.map((p, i) => (
-            <ProductCard key={p.slug} product={p} index={i} />
+            <OilTile key={p.slug} product={p} i={i} t={t} />
           ))}
         </div>
       </section>
@@ -301,16 +302,14 @@ export default function ProductDetail() {
           <p className="font-display text-lg font-bold leading-none">{inr(size.price * qty)}</p>
           <p className="mt-0.5 text-[10px] font-semibold text-moss">{size.label} · Qty {qty}</p>
         </div>
-        <motion.a
-          href={waLink(buyNowMessage(product, size, qty))}
-          target="_blank"
-          rel="noopener noreferrer"
+        <motion.button
           data-testid="mobile-buy-now-button"
+          onClick={buyNow}
           whileTap={{ scale: 0.95 }}
           className="flex flex-1 items-center justify-center gap-2 rounded-full bg-terra py-3.5 text-sm font-bold text-bone"
         >
           <WhatsAppIcon className="h-4 w-4" /> {t("pdp.buyShort")}
-        </motion.a>
+        </motion.button>
         <motion.button
           data-testid="mobile-add-button"
           onClick={() => add(product, size, qty)}
@@ -324,3 +323,4 @@ export default function ProductDetail() {
     </main>
   );
 }
+

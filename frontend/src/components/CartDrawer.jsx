@@ -1,6 +1,7 @@
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "./ui/sheet";
 import { useCart } from "../context/CartContext";
 import { useLang } from "../i18n";
+import { products } from "../data/products";
 import { motion } from "framer-motion";
 import { Minus, Plus, Trash2, Check } from "lucide-react";
 import { WhatsAppIcon } from "./WhatsAppIcon";
@@ -55,8 +56,9 @@ const DeliveryProgress = ({ total, t }) => {
 };
 
 export const CartDrawer = () => {
-  const { items, setQty, clear, total, open, setOpen } = useCart();
+  const { items, setQty, add, clear, total, open, setOpen } = useCart();
   const { t } = useLang();
+  const suggestions = products.filter((p) => !items.some((i) => i.product.slug === p.slug)).slice(0, 4);
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -111,6 +113,33 @@ export const CartDrawer = () => {
               <button data-testid="cart-clear-button" onClick={clear} className="mt-4 text-xs font-semibold text-moss underline-offset-2 hover:text-terra hover:underline">
                 {t("cart.clear")}
               </button>
+
+              {suggestions.length > 0 && (
+                <div className="mt-6">
+                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-moss">{t("cart.suggest")}</p>
+                  <div className="mt-3 flex gap-3 overflow-x-auto pb-1" data-testid="cart-suggestions">
+                    {suggestions.map((p) => (
+                      <div key={p.slug} className="w-32 shrink-0 rounded-2xl border border-ink/10 bg-bone p-3" data-testid={`suggest-${p.slug}`}>
+                        <img src={p.image} alt={p.name} className="mx-auto h-14 w-auto object-contain" />
+                        <p className="mt-2 text-[11px] font-bold leading-tight">{p.name.replace("Lakdi Ghani ", "")}</p>
+                        <p className="text-[10px] text-moss">{p.sizes[0].label}</p>
+                        <div className="mt-2 flex items-center justify-between">
+                          <span className="text-xs font-extrabold">{inr(p.sizes[0].price)}</span>
+                          <motion.button
+                            data-testid={`suggest-add-${p.slug}`}
+                            onClick={() => add(p, p.sizes[0])}
+                            whileTap={{ scale: 0.8 }}
+                            aria-label={`Add ${p.name}`}
+                            className="rounded-full bg-ink p-1.5 text-bone"
+                          >
+                            <Plus className="h-3.5 w-3.5" />
+                          </motion.button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="border-t border-ink/10 px-6 py-5">
