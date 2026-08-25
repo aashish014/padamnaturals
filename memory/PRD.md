@@ -23,6 +23,9 @@ User choices: business WhatsApp number (found on site: +91 82691 69904), message
 - Recreate all original pages: Home, Shop, Product detail, About, Contact.
 - Bilingual Hindi-English heritage brand voice.
 
+## Implemented (2026-08-25 iteration 19) — Groundnut gallery enriched
+- Added the owner's 5 branded marketing images to the groundnut PDP gallery: clean white-bg bottle shot (gn-bottle.jpg), purity badges (gn-badges.png), "Freshness you can smell" kitchen (gn-freshness.png), "The PADAM Difference" comparison (gn-difference.png), "The Purity Promise" (gn-purity.png). Replaced the 2 generic stock lifestyle photos — gallery now 9 photos. Verified: 9 thumbnails, 0 broken images, arch-frame rendering on 390px.
+
 ## Implemented (2026-08-25 iteration 18) — Real ghani video live
 - P0 DONE: owner's real extraction footage (28s, portrait, their branding/contact overlays) replaced the placeholder stock clip at /videos/ghani.mp4 (2.2MB, smaller than placeholder). Old stock poster removed so the video's own first frame shows. Component unchanged (autoPlay muted loop playsInline). Note: video shows a modern electric kolhu styled as lakdi ghani.
 

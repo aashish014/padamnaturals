@@ -1,5 +1,5 @@
 export const galleries = {
-  "groundnut-oil": ["/images/groundnut.png", "/images/oil-1l.png", "/images/oil-5l.png", "/images/peanuts.png", "/images/life-1.png", "/images/life-2.png"],
+  "groundnut-oil": ["/images/groundnut.png", "/images/gn-bottle.jpg", "/images/gn-badges.png", "/images/gn-freshness.png", "/images/gn-difference.png", "/images/gn-purity.png", "/images/oil-1l.png", "/images/oil-5l.png", "/images/peanuts.png"],
   "mustard-oil": ["/images/mustard.png", "/images/kitchen.png", "/images/pour.png", "/images/life-3.png"],
   "sesame-oil": ["/images/sesame.png", "/images/pour.png", "/images/kitchen.png", "/images/life-4.png"],
   "coconut-oil": ["/images/coconut.png", "/images/kitchen.png", "/images/life-1.png", "/images/pour.png"],
