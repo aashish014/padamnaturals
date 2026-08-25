@@ -23,6 +23,9 @@ User choices: business WhatsApp number (found on site: +91 82691 69904), message
 - Recreate all original pages: Home, Shop, Product detail, About, Contact.
 - Bilingual Hindi-English heritage brand voice.
 
+## Implemented (2026-08-25 iteration 23) — Almond gallery replaced
+- Almond PDP gallery now shows only the owner's real "World's Most Transparent Label" almond packshot (ao-1.png), replacing all 4 stock images. Card image stays the almonds PNG (per no-bottle-on-cards rule). Verified at 390px: 1 image, 0 broken, brown themed button.
+
 ## Implemented (2026-08-25 iteration 22) — Full per-product page theming
 - Every product page now runs on its own light→dark palette via CSS vars (--p deep accent, --pt light tint, set per product in products.js): Buy Now buttons (desktop + sticky bar), selected size pill, nutrition rings, benefit icons, best-for chips hover, smoke-point icon, italic heading accents, FAQ hover, and the health-section background all take the product's color. Palettes: coconut #DAEDF7/#155E8C (blue), mustard #F9E2C9/#1C6B3A (peach/green), groundnut #F3E9CB/#8A6100 (golden), sesame #F1E3C4/#7A5A14 (bronze), almond #EED9BC/#6B4226 (brown). Shared sections (WhyGhani dark, Padam Standard, LoveWall) keep brand colors.
 - Verified computed styles: coconut button rgb(21,94,140), mustard rgb(28,107,58), selected pill green/peach; screenshots at 390px.

@@ -3,7 +3,7 @@ export const galleries = {
   "mustard-oil": ["/images/mo-2.png", "/images/mo-1.png", "/images/mo-3.png", "/images/mo-4.png"],
   "sesame-oil": ["/images/sesame.png", "/images/pour.png", "/images/kitchen.png", "/images/life-4.png"],
   "coconut-oil": ["/images/cn-1l.png", "/images/cn-pair.png"],
-  "almond-oil": ["/images/almond.png", "/images/pour.png", "/images/kitchen.png", "/images/life-3.png"],
+  "almond-oil": ["/images/ao-1.png"],
 };
 
 export const oilHealth = {
