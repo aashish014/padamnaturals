@@ -23,6 +23,11 @@ User choices: business WhatsApp number (found on site: +91 82691 69904), message
 - Recreate all original pages: Home, Shop, Product detail, About, Contact.
 - Bilingual Hindi-English heritage brand voice.
 
+## Implemented (2026-08-25 iteration 25) — Mustard card seed PNG + copy fix
+- Mustard shop/home card now shows the owner's transparent mustard-seeds PNG (mustard-seeds.png, verified RGBA transparent) instead of the bottle — gallery keeps the 4 real packshots. Only groundnut card still shows a bottle (peanut PNG awaited).
+- Copy fix: "Six varieties/six pure oils" → "Five" (EN+HI) — sunflower was removed long ago.
+- Verified at 390px: mustard card renders seeds on peach tint, image loads.
+
 ## Implemented (2026-08-25 iteration 24) — Sesame gallery replaced (all 5 oils now real)
 - Sesame PDP gallery fully replaced with the owner's 4 real packshots: 1L bottle (ss-1l.png), 200ml "World's Most Transparent Label" pair (ss-pair.png), 5L can (ss-can.png), 15L tin (ss-tin.png). Card image stays sesame pods PNG. ALL 5 product pages now use real branded imagery. Verified at 390px: 4 thumbnails, 0 broken, bronze theme intact.
 
