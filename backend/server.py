@@ -6,9 +6,12 @@ from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
 import random
+import asyncio
+import urllib.parse
+import requests
 from pathlib import Path
 from pydantic import BaseModel, Field, ConfigDict
-from typing import List
+from typing import List, Optional
 import uuid
 from datetime import datetime, timezone, timedelta
 
@@ -105,6 +108,7 @@ class OrderUpsert(BaseModel):
 
 class StatusUpdate(BaseModel):
     status: str
+    note: Optional[str] = None
 
 
 class LoginIn(BaseModel):
@@ -116,6 +120,32 @@ def pub(order: dict) -> dict:
     order = dict(order)
     order.pop("_id", None)
     return order
+
+
+async def notify_owner(order: dict):
+    """Ping the owner's WhatsApp via CallMeBot when a new order is placed.
+    No-ops silently until CALLMEBOT_API_KEY is set — ordering never depends on it."""
+    api_key = os.environ.get("CALLMEBOT_API_KEY")
+    phone = os.environ.get("OWNER_WA_NUMBER")
+    if not api_key or not phone:
+        return
+    items = "\n".join(
+        f"• {i['qty']}x {i['name']} ({i['sizeLabel']})" for i in order["items"]
+    )
+    text = (
+        f"New order {order['orderId']}!\n\n"
+        f"{items}\n\n"
+        f"Total: ₹{order['total']:,}\n\n"
+        f"Open your /admin page to mark it packed/shipped."
+    )
+    url = (
+        "https://api.callmebot.com/whatsapp.php"
+        f"?phone={phone}&text={urllib.parse.quote(text)}&apikey={api_key}"
+    )
+    try:
+        await asyncio.to_thread(requests.get, url, timeout=10)
+    except Exception:
+        logger.warning("CallMeBot owner notification failed", exc_info=True)
 
 
 api_router = APIRouter(prefix="/api")
@@ -170,6 +200,7 @@ async def create_order(body: OrderUpsert):
         "statusHistory": [{"status": "placed", "at": now}],
     }
     await db.orders.insert_one(doc)
+    asyncio.create_task(notify_owner(doc))
     return pub(doc)
 
 
@@ -262,17 +293,19 @@ async def list_orders(admin: dict = Depends(get_admin)):
 async def set_order_status(order_id: str, body: StatusUpdate, admin: dict = Depends(get_admin)):
     if body.status not in ORDER_STATUSES:
         raise HTTPException(status_code=422, detail="Invalid status")
-    now = datetime.now(timezone.utc).isoformat()
-    res = await db.orders.update_one(
-        {"orderId": order_id.strip().upper()},
-        {
-            "$set": {"status": body.status, "updatedAt": now},
-            "$push": {"statusHistory": {"status": body.status, "at": now}},
-        },
-    )
-    if res.matched_count == 0:
+    oid = order_id.strip().upper()
+    order = await db.orders.find_one({"orderId": oid})
+    if not order:
         raise HTTPException(status_code=404, detail="Order not found")
-    order = await db.orders.find_one({"orderId": order_id.strip().upper()})
+    now = datetime.now(timezone.utc).isoformat()
+    updates = {"status": body.status, "updatedAt": now}
+    if body.note is not None:
+        updates["deliveryNote"] = body.note.strip()[:140]
+    query = {"$set": updates}
+    if order["status"] != body.status:
+        query["$push"] = {"statusHistory": {"status": body.status, "at": now}}
+    await db.orders.update_one({"orderId": oid}, query)
+    order.update(updates)
     return pub(order)
 
 

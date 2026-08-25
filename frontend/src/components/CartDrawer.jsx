@@ -13,47 +13,29 @@ import { cartToOrderItems, createOrder, updateOrder } from "../lib/api";
 
 const inr = (n) => `₹${n.toLocaleString("en-IN")}`;
 const FREE_AT = 599;
-const RING_C = 2 * Math.PI * 30;
 
 const DeliveryProgress = ({ total, t }) => {
   const pct = Math.min(total / FREE_AT, 1);
   const done = total >= FREE_AT;
   return (
-    <div className="mb-4 flex items-center gap-4 rounded-2xl bg-sand px-4 py-4" data-testid="delivery-progress">
-      <div className="relative h-16 w-16 shrink-0">
-        <svg viewBox="0 0 72 72" className="h-full w-full -rotate-90">
-          <circle cx="36" cy="36" r="30" fill="none" strokeWidth="7" className="stroke-ink/10" />
-          <motion.circle
-            cx="36" cy="36" r="30" fill="none" strokeWidth="7" strokeLinecap="round"
-            className={done ? "stroke-moss" : "stroke-terra"}
-            strokeDasharray={RING_C}
-            initial={{ strokeDashoffset: RING_C }}
-            animate={{ strokeDashoffset: RING_C * (1 - pct) }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          />
-        </svg>
-        <span className="absolute inset-0 flex items-center justify-center">
-          {done ? (
-            <Check className="h-6 w-6 text-moss" data-testid="delivery-unlocked-icon" />
-          ) : (
-            <span className="text-[11px] font-extrabold text-terra" data-testid="delivery-progress-pct">{Math.round(pct * 100)}%</span>
-          )}
-        </span>
-      </div>
-      <div className="flex-1">
-        <p className="text-xs font-bold" data-testid="delivery-progress-text">
+    <div className="mb-3 rounded-xl bg-sand px-3.5 py-2.5" data-testid="delivery-progress">
+      <p className="flex items-center gap-1.5 text-[11px] font-bold" data-testid="delivery-progress-text">
+        {done && <Check className="h-3.5 w-3.5 shrink-0 text-moss" data-testid="delivery-unlocked-icon" />}
+        <span className={done ? "text-moss" : "text-ink"}>
           {done ? t("cart.done") : t("cart.left")(inr(FREE_AT - total))}
-        </p>
-        <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-ink/10">
-          <motion.div
-            className={`h-full rounded-full ${done ? "bg-moss" : "bg-gradient-to-r from-gold to-terra"}`}
-            initial={{ width: 0 }}
-            animate={{ width: `${pct * 100}%` }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            data-testid="delivery-progress-bar"
-          />
-        </div>
-        <p className="mt-1.5 text-[10px] font-semibold text-moss">{inr(total)} / {inr(FREE_AT)}</p>
+        </span>
+        <span className="ml-auto shrink-0 text-[10px] font-semibold text-moss" data-testid="delivery-progress-pct">
+          {inr(total)} / {inr(FREE_AT)}
+        </span>
+      </p>
+      <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-ink/10">
+        <motion.div
+          className={`h-full rounded-full ${done ? "bg-moss" : "bg-gradient-to-r from-gold to-terra"}`}
+          initial={{ width: 0 }}
+          animate={{ width: `${pct * 100}%` }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          data-testid="delivery-progress-bar"
+        />
       </div>
     </div>
   );
@@ -71,6 +53,15 @@ export const CartDrawer = () => {
     setPlacing(true);
     // Open the tab synchronously inside the user gesture so mobile browsers don't block it
     const win = window.open("", "_blank");
+    if (win) {
+      try {
+        win.document.write(
+          "<!doctype html><title>Padam Naturals</title><p style='font-family:sans-serif;padding:3em 1.5em;text-align:center;color:#1F2922'>Taking you to WhatsApp…</p>"
+        );
+      } catch {
+        /* some browsers disallow writing to the pre-opened tab */
+      }
+    }
     const send = (url) => {
       if (win) win.location.href = url;
       else window.open(url, "_blank", "noopener,noreferrer");

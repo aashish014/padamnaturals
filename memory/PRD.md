@@ -23,6 +23,15 @@ User choices: business WhatsApp number (found on site: +91 82691 69904), message
 - Recreate all original pages: Home, Shop, Product detail, About, Contact.
 - Bilingual Hindi-English heritage brand voice.
 
+## Implemented (2026-08-25 iteration 14) — UX polish + owner alerts
+- Cart icons removed from shop cards and product pages (desktop + sticky bar). Replaced by `src/components/FloatingCart.jsx`: a floating terracotta basket bubble that springs in bottom-right above the bottom nav whenever the basket has items (higher on product pages to clear the sticky buy bar), badge pops on each add, opens the order drawer.
+- WhatsApp order message no longer carries "(as per today's rate card on padamnaturals.in)".
+- Free-delivery progress in the drawer slimmed from a ~100px ring block to a ~48px single-line strip (text + thin bar + amounts).
+- Delivery ETA notes: owner types a note (e.g. "Arriving Tuesday") per order in /admin and saves it standalone or with a status change (PATCH accepts optional `note`, stored as `deliveryNote`, history push skipped when only the note changes); customer tracking page shows it as a green strip under the timeline. Bilingual label.
+- WhatsApp handoff polish: the pre-opened tab shows "Taking you to WhatsApp…" instead of a blank page while the order saves.
+- Owner order alerts built (`notify_owner` in server.py): background CallMeBot ping to OWNER_WA_NUMBER the moment an order is placed — fire-and-forget, ordering never blocks on it. DORMANT until owner shares the free CallMeBot API key (activation: send "I allow callmebot to send me messages" to +34 644 51 95 23 from owner WhatsApp → get key → set CALLMEBOT_API_KEY in backend env).
+- Verified: 18/18 pytest regression, note flow via curl (packed + note → public GET shows it), floating bubble behavior + hidden-when-empty + compact bar (48px) on 390px, UI order lands in backend (PN-VM92MX), no references to removed CartIconButton remain.
+
 ## Implemented (2026-08-25 iteration 13) — Order Tracking + Admin
 - Backend is now live (FastAPI + MongoDB): orders save automatically when the customer taps "Order on WhatsApp". Order IDs are unguessable unambiguous 6-char codes (PN-XXXXXX, no 0/O/1/I/L).
 - WhatsApp order message: `Order ID: PN-XXXXXX` first line, item lines, Order Total, and last line `Track my order: <site>/track/PN-XXXXXX` — customer taps straight into their order without re-entering the ID.

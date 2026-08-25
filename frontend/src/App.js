@@ -8,6 +8,7 @@ import { LanguageProvider } from "@/i18n";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { CartDrawer } from "@/components/CartDrawer";
+import { FloatingCart } from "@/components/FloatingCart";
 import { lenisStore } from "@/lib/scroll";
 import Home from "@/pages/Home";
 import Shop from "@/pages/Shop";
@@ -43,6 +44,7 @@ function App() {
           <CartProvider>
           <Navbar />
           <CartDrawer />
+          <FloatingCart />
           <Routes>            <Route path="/" element={<Home />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/your-seed-your-oil" element={<SeedService />} />

@@ -219,6 +219,12 @@ export default function TrackOrder() {
                 <Timeline status={order.status} t={t} />
               </div>
 
+              {order.deliveryNote && (
+                <div className="mt-6 rounded-2xl bg-moss/10 px-4 py-3 text-center text-sm font-semibold text-moss" data-testid="track-delivery-note">
+                  {t("track.note")}: {order.deliveryNote}
+                </div>
+              )}
+
               <div className="mt-8 border-t border-ink/10 pt-6">
                 <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-moss">{t("track.items")}</p>
                 <div className="mt-3 space-y-2.5">

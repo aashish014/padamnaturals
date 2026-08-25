@@ -6,7 +6,6 @@ import { galleries, oilHealth, oilFaqs } from "../data/oilDetails";
 import { useCart } from "../context/CartContext";
 import { useLang } from "../i18n";
 import { WhatsAppIcon } from "../components/WhatsAppIcon";
-import { CartIconButton } from "../components/CartIconButton";
 import { Gallery } from "../components/Gallery";
 import { WhyGhani } from "../components/WhyGhani";
 import { PadamStandard } from "../components/PadamStandard";
@@ -135,16 +134,15 @@ export default function ProductDetail() {
             </div>
           </FadeUp>
 
-          <FadeUp delay={0.38} className="mt-7 hidden items-center gap-3 sm:flex">
+          <FadeUp delay={0.38} className="mt-7 hidden sm:flex">
             <motion.button
               data-testid="buy-now-whatsapp-button"
               onClick={buyNow}
               whileTap={{ scale: 0.97 }}
-              className="flex flex-1 items-center justify-center gap-2.5 rounded-full bg-terra py-4 text-sm font-bold text-bone transition-colors duration-300 hover:bg-terra-dark"
+              className="flex w-full items-center justify-center gap-2.5 rounded-full bg-terra py-4 text-sm font-bold text-bone transition-colors duration-300 hover:bg-terra-dark"
             >
               <WhatsAppIcon className="h-5 w-5" /> {t("pdp.buyNow")}
             </motion.button>
-            <CartIconButton testid="pdp-cart-icon-button" className="h-[52px] w-[52px]" />
           </FadeUp>
 
           <FadeUp delay={0.44} className="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-3">
@@ -304,7 +302,6 @@ export default function ProductDetail() {
         >
           <WhatsAppIcon className="h-4 w-4" /> {t("pdp.buyShort")}
         </motion.button>
-        <CartIconButton testid="mobile-cart-icon-button" className="h-11 w-11" />
       </div>
     </main>
   );

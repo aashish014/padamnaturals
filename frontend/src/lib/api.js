@@ -46,8 +46,8 @@ export const adminLogout = () => req("/auth/logout", { method: "POST" });
 
 export const adminOrders = () => req("/admin/orders");
 
-export const adminSetStatus = (orderId, status) =>
+export const adminSetStatus = (orderId, status, note = null) =>
   req(`/admin/orders/${encodeURIComponent(orderId)}/status`, {
     method: "PATCH",
-    ...json({ status }),
+    ...json({ status, note }),
   });

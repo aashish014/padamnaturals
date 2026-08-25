@@ -28,6 +28,7 @@ export default function Admin() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   const [orders, setOrders] = useState([]);
+  const [notes, setNotes] = useState({});
 
   useEffect(() => {
     adminMe().then(setAuth).catch(() => setAuth(false));
@@ -35,7 +36,15 @@ export default function Admin() {
 
   const load = useCallback(async () => {
     try {
-      setOrders(await adminOrders());
+      const list = await adminOrders();
+      setOrders(list);
+      setNotes((prev) => {
+        const next = { ...prev };
+        list.forEach((o) => {
+          if (!(o.orderId in next)) next[o.orderId] = o.deliveryNote || "";
+        });
+        return next;
+      });
     } catch (err) {
       if (err.status === 401) setAuth(false);
       else toast.error("Could not load orders — pull to refresh or try again");
@@ -68,13 +77,26 @@ export default function Admin() {
     setAuth(false);
   };
 
+  const applyUpdate = (updated) =>
+    setOrders((prev) => prev.map((o) => (o.orderId === updated.orderId ? updated : o)));
+
   const setStatus = async (orderId, status) => {
     try {
-      const updated = await adminSetStatus(orderId, status);
-      setOrders((prev) => prev.map((o) => (o.orderId === orderId ? updated : o)));
+      const updated = await adminSetStatus(orderId, status, notes[orderId] || null);
+      applyUpdate(updated);
       toast.success(`${orderId} marked as ${status}`);
     } catch (err) {
       toast.error(err.message || "Could not update status");
+    }
+  };
+
+  const saveNote = async (order) => {
+    try {
+      const updated = await adminSetStatus(order.orderId, order.status, notes[order.orderId] || "");
+      applyUpdate(updated);
+      toast.success(`Note saved on ${order.orderId}`);
+    } catch (err) {
+      toast.error(err.message || "Could not save note");
     }
   };
 
@@ -201,6 +223,28 @@ export default function Admin() {
                     </button>
                   ))}
                 </div>
+                <div className="mt-3.5 flex gap-2">
+                  <input
+                    data-testid={`admin-note-input-${o.orderId}`}
+                    value={notes[o.orderId] ?? ""}
+                    onChange={(e) => setNotes((prev) => ({ ...prev, [o.orderId]: e.target.value }))}
+                    placeholder='Delivery note (e.g. "Arriving Tuesday")'
+                    maxLength={140}
+                    className="min-w-0 flex-1 rounded-full border border-ink/20 bg-bone px-4 py-2.5 text-xs font-semibold outline-none focus:border-terra"
+                  />
+                  <button
+                    data-testid={`admin-note-save-${o.orderId}`}
+                    onClick={() => saveNote(o)}
+                    className="shrink-0 rounded-full border border-ink/20 px-4 py-2.5 text-[11px] font-extrabold uppercase tracking-wider transition-colors hover:border-terra hover:text-terra"
+                  >
+                    Save note
+                  </button>
+                </div>
+                {o.deliveryNote && (
+                  <p className="mt-2 text-[11px] font-semibold text-moss" data-testid={`admin-note-current-${o.orderId}`}>
+                    Customer sees: "{o.deliveryNote}"
+                  </p>
+                )}
               </div>
             ))}
           </div>
