@@ -31,7 +31,7 @@ const NutrientRing = ({ name, level, i }) => (
           <circle cx="36" cy="36" r="30" fill="none" strokeWidth="7" className="stroke-ink/10" />
           <motion.circle
             cx="36" cy="36" r="30" fill="none" strokeWidth="7" strokeLinecap="round"
-            className="stroke-terra"
+            className="stroke-[var(--p)]"
             strokeDasharray={RING_C}
             initial={{ strokeDashoffset: RING_C }}
             whileInView={{ strokeDashoffset: RING_C * (1 - level / 100) }}
@@ -39,7 +39,7 @@ const NutrientRing = ({ name, level, i }) => (
             transition={{ duration: 1.3, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
           />
         </svg>
-        <span className="absolute inset-0 flex items-center justify-center text-sm font-extrabold text-terra">
+        <span className="absolute inset-0 flex items-center justify-center text-sm font-extrabold text-[var(--p)]">
           {level}%
         </span>
       </div>
@@ -73,13 +73,14 @@ export default function ProductDetail() {
   const size = product.sizes[sizeIdx];
   const perLitre = Math.round((size.price * 1000) / size.ml);
   const displayName = hi ? product.hindi : product.name.replace("Lakdi Ghani ", "");
+  const themeVars = { "--p": product.deep, "--pt": product.tint };
   const buyNow = () => {
     add(product, size, qty);
     setOpen(true);
   };
 
   return (
-    <main data-testid="product-detail-page" className="bg-bone pt-24 md:pt-36">
+    <main data-testid="product-detail-page" className="bg-bone pt-24 md:pt-36" style={themeVars}>
       <div className="mx-auto grid max-w-7xl gap-10 px-5 pb-16 md:grid-cols-2 md:gap-14 md:px-10 md:pb-24">
         <FadeUp className="min-w-0">
           <div className="min-w-0 md:sticky md:top-28">
@@ -108,7 +109,7 @@ export default function ProductDetail() {
                   onClick={() => setSizeIdx(i)}
                   whileTap={{ scale: 0.93 }}
                   className={`rounded-2xl border px-4 py-3 text-left transition-colors duration-300 sm:px-5 ${
-                    i === sizeIdx ? "border-terra bg-terra/5" : "border-ink/15 hover:border-ink/40"
+                    i === sizeIdx ? "border-[var(--p)] bg-[var(--pt)]" : "border-ink/15 hover:border-ink/40"
                   }`}
                 >
                   <span className="block text-sm font-extrabold">{s.label}</span>
@@ -139,7 +140,7 @@ export default function ProductDetail() {
               data-testid="buy-now-whatsapp-button"
               onClick={buyNow}
               whileTap={{ scale: 0.97 }}
-              className="flex w-full items-center justify-center gap-2.5 rounded-full bg-terra py-4 text-sm font-bold text-bone transition-colors duration-300 hover:bg-terra-dark"
+              className="flex w-full items-center justify-center gap-2.5 rounded-full bg-[var(--p)] py-4 text-sm font-bold text-bone transition-[filter] duration-300 hover:brightness-110"
             >
               <WhatsAppIcon className="h-5 w-5" /> {t("pdp.buyNow")}
             </motion.button>
@@ -151,8 +152,8 @@ export default function ProductDetail() {
               [ShieldCheck, t("pdp.zero")],
               [Leaf, t("pdp.fresh")],
             ].map(([Icon, label]) => (
-              <div key={label} className="flex items-center gap-2.5 rounded-xl bg-sand px-4 py-3 text-xs font-semibold">
-                <Icon className="h-4 w-4 shrink-0 text-terra" /> {label}
+              <div key={label} className="flex items-center gap-2.5 rounded-xl bg-[var(--pt)] px-4 py-3 text-xs font-semibold">
+                <Icon className="h-4 w-4 shrink-0 text-[var(--p)]" /> {label}
               </div>
             ))}
           </FadeUp>
@@ -160,7 +161,7 @@ export default function ProductDetail() {
       </div>
 
       {health && (
-        <section data-testid="health-section" className="bg-sand py-16 md:py-24">
+        <section data-testid="health-section" className="bg-[var(--pt)] py-16 md:py-24">
           <div className="mx-auto max-w-6xl px-5 md:px-10">
             <Reveal>
               <p className="overline-tag">{t("pdp.healthOver")}</p>
@@ -168,7 +169,7 @@ export default function ProductDetail() {
             <h2 className="mt-4 font-display text-3xl font-semibold leading-tight tracking-tight sm:text-5xl">
               <Reveal delay={0.1}>{t("pdp.healthWhy")} {displayName}</Reveal>
               <Reveal delay={0.22}>
-                <span className="italic text-terra">{t("pdp.healthB")}</span>
+                <span className="italic text-[var(--p)]">{t("pdp.healthB")}</span>
               </Reveal>
             </h2>
 
@@ -181,7 +182,7 @@ export default function ProductDetail() {
                       <AccordionTrigger data-testid={`benefit-trigger-${i}`} className="py-4 text-left hover:no-underline">
                         <span className="flex items-center gap-3.5">
                           <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-bone">
-                            <Icon className="h-4 w-4 text-terra" />
+                            <Icon className="h-4 w-4 text-[var(--p)]" />
                           </span>
                           <span className="font-display text-lg font-semibold">{hi ? b.titleHi : b.title}</span>
                         </span>
@@ -214,7 +215,7 @@ export default function ProductDetail() {
                     <motion.span
                       key={chip}
                       whileTap={{ scale: 0.92 }}
-                      className="rounded-full border border-ink/15 bg-bone px-5 py-2.5 text-sm font-semibold transition-colors duration-300 hover:border-terra hover:text-terra"
+                      className="rounded-full border border-ink/15 bg-bone px-5 py-2.5 text-sm font-semibold transition-colors duration-300 hover:border-[var(--p)] hover:text-[var(--p)]"
                     >
                       {chip}
                     </motion.span>
@@ -223,7 +224,7 @@ export default function ProductDetail() {
               </FadeUp>
               <FadeUp delay={0.15}>
                 <div className="flex items-start gap-3 rounded-2xl bg-bone p-5">
-                  <Flame className="mt-0.5 h-5 w-5 shrink-0 text-terra" />
+                  <Flame className="mt-0.5 h-5 w-5 shrink-0 text-[var(--p)]" />
                   <div>
                     <p className="text-xs font-bold uppercase tracking-widest text-moss">{t("pdp.smoke")}</p>
                     <p className="mt-1 text-sm font-semibold">{hi ? health.smokePointHi : health.smokePoint}</p>
@@ -245,27 +246,27 @@ export default function ProductDetail() {
           <h2 className="mt-4 font-display text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
             <Reveal delay={0.1}>{t("pdp.faqA")}</Reveal>
             <Reveal delay={0.22}>
-              <span className="italic text-terra">{t("pdp.faqB")}</span>
+              <span className="italic text-[var(--p)]">{t("pdp.faqB")}</span>
             </Reveal>
           </h2>
           <FadeUp delay={0.2} className="mt-8">
             <Accordion type="single" collapsible data-testid="product-faq-accordion">
               {faqs.map((f, i) => (
                 <AccordionItem key={i} value={`faq-${i}`} className="border-ink/15">
-                  <AccordionTrigger data-testid={`product-faq-trigger-${i}`} className="py-4 text-left font-display text-lg font-semibold hover:text-terra hover:no-underline">
+                  <AccordionTrigger data-testid={`product-faq-trigger-${i}`} className="py-4 text-left font-display text-lg font-semibold hover:text-[var(--p)] hover:no-underline">
                     {hi ? f.qHi : f.q}
                   </AccordionTrigger>
                   <AccordionContent className="text-sm leading-relaxed text-moss">{hi ? f.aHi : f.a}</AccordionContent>
                 </AccordionItem>
               ))}
               <AccordionItem value="storage" className="border-ink/15">
-                <AccordionTrigger data-testid="product-faq-storage" className="py-4 text-left font-display text-lg font-semibold hover:text-terra hover:no-underline">
+                <AccordionTrigger data-testid="product-faq-storage" className="py-4 text-left font-display text-lg font-semibold hover:text-[var(--p)] hover:no-underline">
                   {t("pdp.storage")}
                 </AccordionTrigger>
                 <AccordionContent className="text-sm leading-relaxed text-moss">{t("pdp.storageText")}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="delivery" className="border-ink/15">
-                <AccordionTrigger data-testid="product-faq-delivery" className="py-4 text-left font-display text-lg font-semibold hover:text-terra hover:no-underline">
+                <AccordionTrigger data-testid="product-faq-delivery" className="py-4 text-left font-display text-lg font-semibold hover:text-[var(--p)] hover:no-underline">
                   {t("pdp.delivery")}
                 </AccordionTrigger>
                 <AccordionContent className="text-sm leading-relaxed text-moss">{t("pdp.deliveryText")}</AccordionContent>
@@ -298,7 +299,7 @@ export default function ProductDetail() {
           data-testid="mobile-buy-now-button"
           onClick={buyNow}
           whileTap={{ scale: 0.95 }}
-          className="flex flex-1 items-center justify-center gap-2 rounded-full bg-terra py-3.5 text-sm font-bold text-bone"
+          className="flex flex-1 items-center justify-center gap-2 rounded-full bg-[var(--p)] py-3.5 text-sm font-bold text-bone"
         >
           <WhatsAppIcon className="h-4 w-4" /> {t("pdp.buyShort")}
         </motion.button>
@@ -306,4 +307,3 @@ export default function ProductDetail() {
     </main>
   );
 }
-

@@ -23,6 +23,10 @@ User choices: business WhatsApp number (found on site: +91 82691 69904), message
 - Recreate all original pages: Home, Shop, Product detail, About, Contact.
 - Bilingual Hindi-English heritage brand voice.
 
+## Implemented (2026-08-25 iteration 22) — Full per-product page theming
+- Every product page now runs on its own light→dark palette via CSS vars (--p deep accent, --pt light tint, set per product in products.js): Buy Now buttons (desktop + sticky bar), selected size pill, nutrition rings, benefit icons, best-for chips hover, smoke-point icon, italic heading accents, FAQ hover, and the health-section background all take the product's color. Palettes: coconut #DAEDF7/#155E8C (blue), mustard #F9E2C9/#1C6B3A (peach/green), groundnut #F3E9CB/#8A6100 (golden), sesame #F1E3C4/#7A5A14 (bronze), almond #EED9BC/#6B4226 (brown). Shared sections (WhyGhani dark, Padam Standard, LoveWall) keep brand colors.
+- Verified computed styles: coconut button rgb(21,94,140), mustard rgb(28,107,58), selected pill green/peach; screenshots at 390px.
+
 ## Implemented (2026-08-25 iteration 21) — Coconut gallery + per-product color vibes
 - Coconut PDP gallery replaced with the owner's 2 real packshots: 1L bottle on light blue (cn-1l.png) + 200ml "World's Most Transparent Label" pair (cn-pair.png). Main coconut card image stays the coconut-nut PNG (coconut.png).
 - Per-product tints now match each product's packshot vibe (drives card arches + PDP gallery bg): coconut #DAEDF7 (light blue), mustard #F9E2C9 (peach), groundnut #F3E9CB (golden cream), sesame #F1E3C4 (warm gold), almond #EED9BC (almond tan).

@@ -7,6 +7,7 @@ export const products = [
     taglineHi: "हर इंडियन रसोई का रोज़ का हीरो",
     image: "/images/groundnut.png",
     tint: "#F3E9CB",
+    deep: "#8A6100",
     sizes: [
       { label: "1L", ml: 1000, price: 300 },
       { label: "5L", ml: 5000, price: 1475 },
@@ -23,6 +24,7 @@ export const products = [
     taglineHi: "तेज़ खुशबू, दमदार स्वाद — देसी पंच",
     image: "/images/mo-2.png",
     tint: "#F9E2C9",
+    deep: "#1C6B3A",
     sizes: [
       { label: "200 ml", ml: 200, price: 80 },
       { label: "1L", ml: 1000, price: 280 },
@@ -40,6 +42,7 @@ export const products = [
     taglineHi: "प्राचीन बीज, सेहत की सुनहरी बूँद",
     image: "/images/sesame.png",
     tint: "#F1E3C4",
+    deep: "#7A5A14",
     sizes: [
       { label: "200 ml", ml: 200, price: 85 },
       { label: "1L", ml: 1000, price: 380 },
@@ -57,6 +60,7 @@ export const products = [
     taglineHi: "हर चम्मच में तटीय शुद्धता",
     image: "/images/coconut.png",
     tint: "#DAEDF7",
+    deep: "#155E8C",
     sizes: [
       { label: "200 ml", ml: 200, price: 200 },
       { label: "1L", ml: 1000, price: 950 },
@@ -72,6 +76,7 @@ export const products = [
     taglineHi: "त्वचा, बाल और ताकत का तरल सोना",
     image: "/images/almond.png",
     tint: "#EED9BC",
+    deep: "#6B4226",
     sizes: [
       { label: "100 ml", ml: 100, price: 300 },
       { label: "200 ml", ml: 200, price: 600 },
