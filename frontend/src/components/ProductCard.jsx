@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useCart } from "../context/CartContext";
 import { useLang } from "../i18n";
 import { WhatsAppIcon } from "./WhatsAppIcon";
+import { CartIconButton } from "./CartIconButton";
 import { FadeUp } from "./Reveal";
 
 const inr = (n) => `₹${n.toLocaleString("en-IN")}`;
@@ -48,14 +49,17 @@ export const ProductCard = ({ product, index = 0 }) => {
             </p>
           </div>
         </div>
-        <motion.button
-          onClick={buy}
-          data-testid={`product-buy-now-${product.slug}`}
-          whileTap={{ scale: 0.97 }}
-          className="mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-terra py-3 text-xs font-bold text-bone transition-colors duration-300 hover:bg-terra-dark md:text-sm"
-        >
-          <WhatsAppIcon className="h-4 w-4" /> {t("card.buyNow")}
-        </motion.button>
+        <div className="mt-4 flex items-center gap-2.5">
+          <motion.button
+            onClick={buy}
+            data-testid={`product-buy-now-${product.slug}`}
+            whileTap={{ scale: 0.97 }}
+            className="flex flex-1 items-center justify-center gap-2 rounded-full bg-terra py-3 text-xs font-bold text-bone transition-colors duration-300 hover:bg-terra-dark md:text-sm"
+          >
+            <WhatsAppIcon className="h-4 w-4" /> {t("card.buyNow")}
+          </motion.button>
+          <CartIconButton testid={`cart-icon-${product.slug}`} className="h-11 w-11" />
+        </div>
       </div>
     </FadeUp>
   );

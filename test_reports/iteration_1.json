@@ -1,0 +1,62 @@
+{
+  "summary": "First full test run for Padam Naturals (WhatsApp-only ordering). Backend: 17/17 pytest cases pass (orders create/get/update/persistence, 404/422 validation, auth login/logout/me + httpOnly cookie, admin list, status transitions, 409 edit-lock after shipped/delivered, unauthenticated 401s). Frontend: verified via Playwright on the public preview URL — shop basket icons + count badge, Buy Now opens drawer (never WhatsApp directly), full order flow with intercepted window.open (Order ID first line, item lines, Order Total, tracking link with same PN id last line), order persisted in Mongo, cart cleared + toast with order id, track page timeline/items/total/3 WhatsApp question buttons, edit flow (banner + 'Send Updated Order' + UPDATE message + backend PUT reflected), edit lock after admin sets shipped (locked note + PUT 409), admin login (wrong pw error, valid login, status button updates pill and customer timeline, logout), /track/PN-0000 not-found, Hindi toggle on /track, PDP desktop + mobile sticky bar basket icons, and no horizontal overflow at 390px on /shop, /track, /track/:id, /product/:slug. Only defects found are backend security/robustness items — no functional or UI blocker.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {
+        "endpoint": "POST /api/auth/login",
+        "issue": "Brute-force lockout is ineffective behind the ingress. The lockout key uses request.client.host, which is the rotating ingress pod IP (observed 10.231.129.137 and .138 for the same client), so 7 consecutive wrong passwords from one client produced 7x401 and never a 429. Same test against localhost:8001 correctly returns 401 x5 then 429, confirming the logic is right but the identifier is wrong. Fix: derive the client IP from X-Forwarded-For (first hop) or key the counter on email only."
+      },
+      {
+        "endpoint": "CORS middleware (backend/.env CORS_ORIGINS)",
+        "issue": "CORS_ORIGINS=\"*\" combined with allow_credentials=True is an invalid/insecure combination for cookie auth (playbook requires explicit origins). Currently masked because the preview ingress answers preflight and the app is same-origin, but it should be set to the explicit frontend origin."
+      },
+      {
+        "endpoint": "POST /api/orders",
+        "issue": "Order IDs are random 4-digit (PN-1000..PN-9999) = only 9000 possible ids with 25 collision retries; will start failing/colliding as order volume grows. Also PN ids are guessable, so anyone can enumerate and PUT-edit other customers' orders (GET/PUT /api/orders/{id} are fully public with no secondary token/phone check)."
+      },
+      {
+        "endpoint": "GET /api/admin/orders",
+        "issue": "No pagination/filtering; hard-capped at 500 documents."
+      }
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/backend_test.py",
+    "/app/backend/tests/test_bruteforce.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "Use X-Forwarded-For (or email-only key) for the login_attempts identifier so the 5-fail/15-min lockout actually triggers behind the ingress proxy.",
+    "Set CORS_ORIGINS to the explicit frontend origin instead of '*' since allow_credentials=True.",
+    "Consider a longer/random order id (or an opaque track token) because GET/PUT /api/orders/{id} are public and 4-digit ids are trivially enumerable and editable by strangers.",
+    "CartDrawer.placeOrder(): when POST /api/orders fails it silently fabricates a local 'PN-xxxx' id and still sends the WhatsApp message + tracking link; that id does not exist in the DB so /track/<id> will show 'not found'. Surface the failure instead of faking an id.",
+    "CartDrawer.placeOrder(): window.open() runs after an awaited fetch, so it is not inside the user-gesture window — Safari/iOS and some mobile browsers will block the WhatsApp popup. Prefer building the wa.me URL and navigating (location.href / pre-opened tab) so the handoff never gets blocked."
+  ],
+  "critical_code_review_comments": [
+    "server.py login(): identifier = f\"{request.client.host}:{email}\" — behind Kubernetes ingress request.client.host is the proxy pod IP and rotates, defeating the lockout (verified). Read X-Forwarded-For.",
+    "server.py login(): locked_until is overwritten on every failure and the counter is never reset after the window expires, so a stale count>=5 with a past locked_until permanently keeps the account one failure away from a fresh 15-min lock; reset count when the window lapses.",
+    "server.py: PUT /api/orders/{id} has no ownership check — any guessed PN id can be rewritten by anyone.",
+    "CartDrawer.jsx placeOrder(): the `catch { orderId = 'PN-'+random }` fallback creates an order id with no DB record (broken tracking link).",
+    "CartDrawer.jsx placeOrder(): window.open after await can be popup-blocked on mobile Safari.",
+    "server.py uses deprecated @app.on_event('startup'/'shutdown'); migrate to lifespan handlers.",
+    "Admin.jsx load() swallows errors silently (empty catch) — an expired session shows a stale/empty list with no feedback."
+  ],
+  "updated_files": [
+    "/app/backend/tests/backend_test.py",
+    "/app/backend/tests/test_bruteforce.py",
+    "/app/test_reports/iteration_1.json"
+  ],
+  "success_rate": {"backend": "100% (17/17 functional; 1 separate security test for lockout fails)", "frontend": "100% of requested flows"},
+  "seed_data_creation": "Created test orders via UI/API: PN-2066 (order flow -> edited to qty2 -> set packed -> shipped via admin, used for edit-lock test) plus several TEST_ orders from the pytest suite (statuses placed/packed/shipped/delivered). Login attempt rows for bruteforce_probe_qa@example.test and local_probe_qa@example.test exist in login_attempts. Existing PN-6394 untouched.",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_self_test": true,
+  "test_credentials": "owner@padamnaturals.in / Padam@82691 (from /app/memory/test_credentials.md) — verified working; bcrypt hash in Mongo starts with $2b$12$",
+  "context_for_next_testing_agent": "Regression suite: /app/backend/tests/backend_test.py (17 tests, all pass) and /app/backend/tests/test_bruteforce.py (fails by design until the X-Forwarded-For fix lands). Playwright pattern that works: add_init_script overriding window.open to push urls into window.__wa, then parse the wa.me ?text= query to assert the message. Note the cookie assertion must accept SameSite=None;Partitioned because the preview ingress rewrites the backend's SameSite=Lax. PN-2066 is now 'shipped' (locked, non-editable) — create a fresh order for any new edit tests. Avoid >4 consecutive wrong admin logins to prevent locking the owner account once the lockout fix lands.",
+  "rca_of_the_issue": "Brute-force lockout failure RCA: login() keys login_attempts on request.client.host, which inside this Kubernetes/ingress setup is the proxy pod address. Consecutive requests from one external client arrive from different pod IPs (10.231.129.137/.138 observed in the login_attempts collection), so each identifier's count stays below 5 and the 429 branch is never reached. Reproduction: POST /api/auth/login 7x with a bad password against the public URL -> 7x 401; same against http://localhost:8001 -> 401x5 then 429x2. Mitigation: parse the left-most X-Forwarded-For entry (fallback to request.client.host) for the identifier, and/or add an email-scoped counter."
+}

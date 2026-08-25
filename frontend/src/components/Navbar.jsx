@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { Menu, X, Languages } from "lucide-react";
+import { Menu, X, Languages, PackageSearch } from "lucide-react";
 import { useLang } from "../i18n";
 import { logo } from "../data/products";
 import { scrollTop } from "../lib/scroll";
@@ -62,6 +62,15 @@ export const Navbar = () => {
         </nav>
 
         <div className="flex items-center gap-2.5">
+          <Link
+            to="/track"
+            data-testid="nav-track-order-button"
+            aria-label={t("nav.track")}
+            className="flex items-center gap-1.5 rounded-full border border-ink/20 px-4 py-2 text-xs font-bold transition-colors duration-300 hover:border-terra hover:text-terra"
+          >
+            <PackageSearch className="h-3.5 w-3.5" />
+            <span className="hidden sm:inline">{t("nav.track")}</span>
+          </Link>
           <button
             data-testid="lang-toggle-button"
             onClick={() => setLang(lang === "en" ? "hi" : "en")}
@@ -94,6 +103,13 @@ export const Navbar = () => {
               {l.label}
             </NavLink>
           ))}
+          <NavLink
+            to="/track"
+            data-testid="nav-mobile-link-track"
+            className="block py-3 font-display text-2xl text-terra"
+          >
+            {t("nav.track")}
+          </NavLink>
         </nav>
       )}
     </header>

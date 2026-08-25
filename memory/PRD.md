@@ -23,6 +23,15 @@ User choices: business WhatsApp number (found on site: +91 82691 69904), message
 - Recreate all original pages: Home, Shop, Product detail, About, Contact.
 - Bilingual Hindi-English heritage brand voice.
 
+## Implemented (2026-08-25 iteration 13) — Order Tracking + Admin
+- Backend is now live (FastAPI + MongoDB): orders save automatically when the customer taps "Order on WhatsApp". Order IDs are unguessable unambiguous 6-char codes (PN-XXXXXX, no 0/O/1/I/L).
+- WhatsApp order message: `Order ID: PN-XXXXXX` first line, item lines, Order Total, and last line `Track my order: <site>/track/PN-XXXXXX` — customer taps straight into their order without re-entering the ID.
+- Track Order page `/track` + `/track/:orderId`: Order ID input, recent-order chips (localStorage), live status timeline (Placed → Packed → Shipped → Delivered), items + total, Edit Order (until shipped — reloads items into the cart drawer, "Send Updated Order" CTA sends an UPDATE WhatsApp message with the same ID and PUTs the backend), and 3 WhatsApp question buttons (status? / when delivered? / where is my order?) pre-filled with the Order ID. Bilingual EN/HI.
+- Owner admin at `/admin`: seeded single admin (env ADMIN_EMAIL/ADMIN_PASSWORD), bcrypt + JWT httpOnly cookie (7d), brute-force lockout 5 fails/15 min keyed on X-Forwarded-For+email, orders list with one-tap status buttons.
+- Cart icon with red count badge next to every Buy Now (shop cards, PDP desktop, PDP mobile sticky bar) opens the order drawer; top navbar has a Track icon instead of a cart icon.
+- Security/robustness fixes from test report: popup-safe WhatsApp handoff (tab pre-opened in click gesture), no fake fallback order IDs (failure surfaces as error toast), explicit CORS origin, lifespan handlers, admin load errors surfaced.
+- Verified: 18/18 pytest backend tests, full frontend e2e (order flow, tracking, edit-lock after shipped 409, admin status updates reflect on customer timeline, Hindi toggle, no 390px overflow).
+
 ## Implemented (2026-08-25 iteration 12)
 - Anti-tamper order messages: every WhatsApp order now carries a unique Order ID (PN-XXXX) + "as per today's rate card on padamnaturals.in" line, so edited prices are obvious; seller always confirms price on chat before accepting.
 - Single Buy Now everywhere: removed "Add to Order" buttons (PDP desktop + mobile, card "+" icon) — Buy Now adds the item and opens the order drawer. Cart icon removed from the top navbar.
@@ -124,10 +133,10 @@ User choices: business WhatsApp number (found on site: +91 82691 69904), message
 - Screenshots: home hero, range, cart drawer, PDP, about, contact all render.
 
 ## Backlog
-- P0: Replace mirrored images with originals once site is directly reachable; confirm final prices for non-groundnut oils (currently estimated 25%-off pricing).
-- P1: Coupon code field appended to WhatsApp message; order tracking note; Hindi full-language toggle.
-- P2: Online payment checkout (user chose WhatsApp-only for now); testimonials section with real customer quotes; blog/recipes.
+- P0: Replace placeholder stock Ghani video (/videos/ghani.mp4) with owner's real wooden ghani footage; confirm final prices for non-groundnut oils (currently estimated 25%-off pricing).
+- P1: Real process photos (seed cleaning is placeholder); owner's churning charges per kg on Seed to Oil page; real customer photos/quotes on Love Wall; coupon code field appended to WhatsApp message.
+- P2: Online payment checkout (user chose WhatsApp-only for now); blog/recipes; Google Maps embed on Contact.
 
 ## Next Tasks
-- Swap in final per-oil pricing from the owner.
-- Optional: Google Maps embed on Contact (maps currently blocked by origin).
+- Owner supplies real ghani video + process photos + churning rates.
+- Optional: delivery-area note or ETA field on admin status updates.

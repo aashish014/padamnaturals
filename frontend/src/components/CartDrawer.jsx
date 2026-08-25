@@ -1,12 +1,15 @@
+import { useState } from "react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "./ui/sheet";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useLang } from "../i18n";
 import { products } from "../data/products";
 import { motion } from "framer-motion";
-import { Minus, Plus, Trash2, Check } from "lucide-react";
+import { Minus, Plus, Trash2, Check, Pencil } from "lucide-react";
+import { toast } from "sonner";
 import { WhatsAppIcon } from "./WhatsAppIcon";
-import { waLink, cartMessage } from "../lib/whatsapp";
+import { waLink, cartMessage, orderUpdateMessage } from "../lib/whatsapp";
+import { cartToOrderItems, createOrder, updateOrder } from "../lib/api";
 
 const inr = (n) => `₹${n.toLocaleString("en-IN")}`;
 const FREE_AT = 599;
@@ -57,10 +60,52 @@ const DeliveryProgress = ({ total, t }) => {
 };
 
 export const CartDrawer = () => {
-  const { items, setQty, add, clear, total, open, setOpen } = useCart();
+  const { items, setQty, add, clear, total, open, setOpen, orderMeta, rememberOrder } = useCart();
   const { t } = useLang();
   const navigate = useNavigate();
+  const [placing, setPlacing] = useState(false);
   const suggestions = products.filter((p) => !items.some((i) => i.product.slug === p.slug)).slice(0, 4);
+
+  const placeOrder = async () => {
+    if (placing || items.length === 0) return;
+    setPlacing(true);
+    // Open the tab synchronously inside the user gesture so mobile browsers don't block it
+    const win = window.open("", "_blank");
+    const send = (url) => {
+      if (win) win.location.href = url;
+      else window.open(url, "_blank", "noopener,noreferrer");
+    };
+    try {
+      if (orderMeta?.orderId) {
+        const orderId = orderMeta.orderId;
+        try {
+          await updateOrder(orderId, cartToOrderItems(items), total);
+        } catch (err) {
+          if (err.status === 409) {
+            if (win) win.close();
+            toast.error(t("track.editFail"));
+            return;
+          }
+          throw err;
+        }
+        send(waLink(orderUpdateMessage(items, orderId)));
+        rememberOrder(orderId);
+        toast.success(t("cart.updatedToast")(orderId));
+      } else {
+        const order = await createOrder(cartToOrderItems(items), total);
+        send(waLink(cartMessage(items, order.orderId)));
+        rememberOrder(order.orderId);
+        toast.success(t("cart.placedToast")(order.orderId));
+      }
+      clear();
+      setOpen(false);
+    } catch {
+      if (win) win.close();
+      toast.error(t("cart.orderFail"));
+    } finally {
+      setPlacing(false);
+    }
+  };
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -88,6 +133,13 @@ export const CartDrawer = () => {
           </div>
         ) : (
           <>
+            {orderMeta?.orderId && (
+              <div className="border-b border-gold/30 bg-gold/10 px-6 py-3" data-testid="cart-editing-banner">
+                <p className="flex items-center gap-2 text-xs font-bold text-ink">
+                  <Pencil className="h-3.5 w-3.5 text-terra" /> {t("cart.editing")(orderMeta.orderId)}
+                </p>
+              </div>
+            )}
             <div className="flex-1 overflow-y-auto px-6 py-4">
               {items.map((i) => (
                 <div key={i.id} data-testid={`cart-item-${i.id}`} className="flex gap-4 border-b border-ink/10 py-4">
@@ -150,15 +202,15 @@ export const CartDrawer = () => {
                 <span>{t("cart.total")}</span>
                 <span data-testid="cart-total">{inr(total)}</span>
               </div>
-              <a
-                href={waLink(cartMessage(items))}
-                target="_blank"
-                rel="noopener noreferrer"
+              <motion.button
+                onClick={placeOrder}
+                disabled={placing}
+                whileTap={{ scale: 0.98 }}
                 data-testid="cart-order-whatsapp-button"
-                className="mt-4 flex w-full items-center justify-center gap-2.5 rounded-full bg-terra py-4 text-sm font-bold text-bone transition-all duration-300 hover:scale-[0.98] hover:bg-terra-dark"
+                className="mt-4 flex w-full items-center justify-center gap-2.5 rounded-full bg-terra py-4 text-sm font-bold text-bone transition-all duration-300 hover:bg-terra-dark disabled:opacity-60"
               >
-                <WhatsAppIcon className="h-5 w-5" /> {t("cart.order")}
-              </a>
+                <WhatsAppIcon className="h-5 w-5" /> {placing ? "…" : orderMeta?.orderId ? t("cart.update") : t("cart.order")}
+              </motion.button>
               <button
                 data-testid="cart-add-more-button"
                 onClick={() => {

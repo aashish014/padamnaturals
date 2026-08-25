@@ -15,6 +15,8 @@ import ProductDetail from "@/pages/ProductDetail";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
 import SeedService from "@/pages/SeedService";
+import TrackOrder from "@/pages/TrackOrder";
+import Admin from "@/pages/Admin";
 import { BottomNav } from "@/components/BottomNav";
 
 function App() {
@@ -47,6 +49,9 @@ function App() {
             <Route path="/product/:slug" element={<ProductDetail />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/track" element={<TrackOrder />} />
+            <Route path="/track/:orderId" element={<TrackOrder />} />
+            <Route path="/admin" element={<Admin />} />
           </Routes>
           <Footer />
           <div className="h-16 md:hidden" aria-hidden="true" />

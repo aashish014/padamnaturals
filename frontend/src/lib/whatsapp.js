@@ -5,6 +5,9 @@ const inr = (n) => `₹${n.toLocaleString("en-IN")}`;
 export const waLink = (message) =>
   `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
 
+export const trackUrl = (orderId) =>
+  `${window.location.origin}/track/${orderId}`;
+
 export const buyNowMessage = (product, size, qty) => {
   const lineTotal = size.price * qty;
   return [
@@ -17,23 +20,46 @@ export const buyNowMessage = (product, size, qty) => {
   ].join("\n");
 };
 
-export const cartMessage = (items) => {
-  const orderId = "PN-" + Math.floor(1000 + Math.random() * 9000);
-  const lines = items.map(
+const orderLines = (items) =>
+  items.map(
     (i) =>
       `• ${i.qty}x ${i.product.name} (${i.size.label}) — ${inr(i.size.price * i.qty)}`
   );
+
+export const cartMessage = (items, orderId) => {
   const total = items.reduce((s, i) => s + i.size.price * i.qty, 0);
   return [
     `Order ID: ${orderId}`,
+    "",
     "Hello Padam Naturals! I would like to order:",
     "",
-    ...lines,
+    ...orderLines(items),
     "",
     `Order Total: ${inr(total)} (as per today's rate card on padamnaturals.in)`,
-    "Please confirm current prices and delivery details. Dhanyavaad!",
+    "Please confirm availability and delivery details. Dhanyavaad!",
+    "",
+    `Track my order: ${trackUrl(orderId)}`,
   ].join("\n");
 };
+
+export const orderUpdateMessage = (items, orderId) => {
+  const total = items.reduce((s, i) => s + i.size.price * i.qty, 0);
+  return [
+    `Order ID: ${orderId}`,
+    "",
+    "Hello Padam Naturals! I would like to UPDATE my order:",
+    "",
+    ...orderLines(items),
+    "",
+    `Updated Order Total: ${inr(total)} (as per today's rate card on padamnaturals.in)`,
+    "Please confirm my updated order. Dhanyavaad!",
+    "",
+    `Track my order: ${trackUrl(orderId)}`,
+  ].join("\n");
+};
+
+export const trackQuestionMessage = (orderId, question) =>
+  [`Order ID: ${orderId}`, "", question].join("\n");
 
 export const generalMessage =
   "Hello Padam Naturals! I have a question about your cold-pressed oils.";
