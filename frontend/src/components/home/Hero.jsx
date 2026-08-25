@@ -1,25 +1,16 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Reveal } from "../Reveal";
 import { useLang } from "../../i18n";
-import { heroBottle } from "../../data/products";
 import { ArrowDown } from "lucide-react";
 
 export const Hero = () => {
   const ref = useRef(null);
   const { t } = useLang();
-  const [tilt, setTilt] = useState({ rx: 0, ry: 0 });
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const yImg = useTransform(scrollYProgress, [0, 1], [0, 140]);
   const yText = useTransform(scrollYProgress, [0, 1], [0, -60]);
-
-  const onTiltMove = (e) => {
-    const r = e.currentTarget.getBoundingClientRect();
-    const px = (e.clientX - r.left) / r.width - 0.5;
-    const py = (e.clientY - r.top) / r.height - 0.5;
-    setTilt({ rx: -py * 10, ry: px * 14 });
-  };
 
   return (
     <section ref={ref} data-testid="hero-section" className="relative min-h-screen overflow-hidden bg-bone pt-24 md:pt-32">
@@ -70,38 +61,29 @@ export const Hero = () => {
           </Reveal>
         </motion.div>
 
-        <div
-          className="relative flex items-end justify-center pb-8 md:pb-0 [perspective:1200px]"
-          onPointerMove={onTiltMove}
-          onPointerLeave={() => setTilt({ rx: 0, ry: 0 })}
-          data-testid="hero-3d-area"
-        >
-          <motion.div
-            style={{ y: yImg, transformStyle: "preserve-3d" }}
-            animate={{ rotateX: tilt.rx, rotateY: tilt.ry }}
-            transition={{ type: "spring", stiffness: 120, damping: 14 }}
-            className="relative"
-          >
+        <div className="relative flex items-end justify-center pb-8 md:pb-0" data-testid="hero-video-area">
+          <motion.div style={{ y: yImg }} className="relative">
             <motion.div
               initial={{ opacity: 0, y: 80 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="arch relative overflow-hidden bg-sand"
+              className="relative overflow-hidden rounded-[2rem] border border-ink/10 bg-sand shadow-[0_30px_60px_-30px_rgba(31,41,34,0.4)]"
             >
-              <div className="absolute inset-x-8 top-10 bottom-0 rounded-full bg-gold/30 blur-2xl" />
-              <img
-                src={heroBottle}
-                alt="Padam Naturals cold-pressed oil bottle"
-                className="relative z-10 h-[19rem] w-auto object-contain drop-shadow-2xl md:h-[34rem]"
-                data-testid="hero-bottle-image"
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                src="/videos/ghani.mp4"
+                className="aspect-[3/4] w-64 object-cover sm:w-72 md:w-[22rem]"
+                data-testid="hero-video"
               />
             </motion.div>
             <motion.div
               initial={{ opacity: 0, scale: 0.6 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 1 }}
-              className="absolute -left-3 top-2 z-20 md:-left-16 md:top-8"
-              style={{ transform: "translateZ(60px)" }}
+              className="absolute -left-4 top-3 z-20 md:-left-12 md:top-6"
               data-testid="hero-rotating-badge"
             >
               <svg viewBox="0 0 120 120" className="h-20 w-20 animate-spin-slow md:h-28 md:w-28">

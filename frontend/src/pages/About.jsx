@@ -1,5 +1,7 @@
+import { motion } from "framer-motion";
 import { Reveal, FadeUp } from "../components/Reveal";
 import { Marquee } from "../components/Marquee";
+import { Motto } from "../components/Motto";
 import { waLink, generalMessage } from "../lib/whatsapp";
 import { WhatsAppIcon } from "../components/WhatsAppIcon";
 import { useLang } from "../i18n";
@@ -28,6 +30,8 @@ const chapters = [
   },
 ];
 
+const CHAPTER_TINTS = ["#F3E9CB", "#DAEDF7", "#1F2922"];
+
 export default function About() {
   const { t, lang } = useLang();
   const hi = lang === "hi";
@@ -49,23 +53,41 @@ export default function About() {
           </p>
         </FadeUp>
 
-        <div className="mt-24 flex flex-col gap-20 pb-10 md:gap-28">
+        <div className="mt-20 flex flex-col gap-6 pb-10" data-testid="about-chapters">
           {chapters.map((c, i) => (
-            <div key={c.num} className={`grid gap-8 md:grid-cols-[auto_1fr] md:gap-16 ${i % 2 === 1 ? "md:pl-24" : ""}`} data-testid={`about-chapter-${c.num}`}>
-              <Reveal>
-                <span className="font-display text-7xl font-light text-terra/30 md:text-9xl">{c.num}</span>
-              </Reveal>
-              <div className="max-w-xl">
-                <h2 className="font-display text-3xl font-semibold sm:text-4xl">
-                  <Reveal delay={0.1}>{hi ? c.hindi : c.title}</Reveal>
-                </h2>
-                <Reveal delay={0.18}>
-                  <p className="mt-1 font-hindi text-lg text-terra">{hi ? c.title : c.hindi}</p>
-                </Reveal>
-                <FadeUp delay={0.25}>
-                  <p className="mt-4 text-base leading-relaxed text-moss">{hi ? c.textHi : c.text}</p>
-                </FadeUp>
-              </div>
+            <div key={c.num} className="sticky" style={{ top: `${96 + i * 26}px` }}>
+              <motion.div
+                initial={{ opacity: 0, y: 48 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-5%" }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ y: -6 }}
+                className={`rounded-3xl border p-8 shadow-[0_24px_50px_-30px_rgba(31,41,34,0.35)] md:p-12 ${
+                  i === 2 ? "border-bone/10 text-bone" : "border-ink/10 text-ink"
+                }`}
+                style={{ backgroundColor: CHAPTER_TINTS[i] }}
+                data-testid={`about-chapter-${c.num}`}
+              >
+                <div className="grid gap-6 md:grid-cols-[auto_1fr] md:gap-14">
+                  <motion.span
+                    whileHover={{ scale: 1.08, rotate: -3 }}
+                    className={`font-display text-7xl font-light md:text-8xl ${i === 2 ? "text-gold" : "text-terra/50"}`}
+                  >
+                    {c.num}
+                  </motion.span>
+                  <div className="max-w-xl">
+                    <h2 className="font-display text-3xl font-semibold sm:text-4xl">
+                      {hi ? c.hindi : c.title}
+                    </h2>
+                    <p className={`mt-1 font-hindi text-lg ${i === 2 ? "text-gold" : "text-terra"}`}>
+                      {hi ? c.title : c.hindi}
+                    </p>
+                    <p className={`mt-4 text-base leading-relaxed ${i === 2 ? "text-bone/70" : "text-moss"}`}>
+                      {hi ? c.textHi : c.text}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
             </div>
           ))}
         </div>
@@ -78,8 +100,12 @@ export default function About() {
             </div>
           ))}
         </FadeUp>
+      </div>
 
-        <FadeUp className="mb-24 flex flex-col items-start justify-between gap-6 rounded-3xl bg-forest p-10 text-bone md:flex-row md:items-center md:p-14">
+      <Motto />
+
+      <div className="mx-auto max-w-6xl px-5 md:px-10">
+        <FadeUp className="my-24 flex flex-col items-start justify-between gap-6 rounded-3xl bg-forest p-10 text-bone md:flex-row md:items-center md:p-14">
           <div>
             <p className="font-hindi text-2xl text-gold">परंपरा पर भरोसा</p>
             <p className="mt-2 max-w-md font-display text-2xl italic">Traditional method, modern trust — taste the difference yourself.</p>

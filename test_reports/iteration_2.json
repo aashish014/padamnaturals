@@ -1,0 +1,36 @@
+{
+  "summary": "Frontend-only regression run for the latest Padam Naturals UI changes (backend untouched, per handoff). Verified on the public preview URL at 390px mobile and 1920px desktop. KEY BUG FIX CONFIRMED: The Heat Test bars now render and fill on mobile — measured fill/track ratios are exactly 90% (Refined, rgb(192,74,34)), 46% (Ordinary Expeller, rgb(221,167,79)), 16% (Padam Lakdi Ghani, rgb(92,104,86)) on Home (light mode) AND on /product/mustard-oil (dark mode, section bg rgb(20,28,22)), and same 90/46/16 on desktop. Also verified: home section order exactly hero-section, editorial-marquee, oil-grid-section, seed-banner, why-ghani-section, heat-test-section, myths-section, comparison-section, faq-section, motto-section, cta-band with NO love-wall and NO ghani-video-section; Hero portrait rounded video box (data-testid hero-video, src /videos/ghani.mp4, 200 video/mp4 2.2MB) + rotating 100% PURE badge, zero <img> left in hero; WhyGhani 4 pillar cards 2x2 on mobile (167px 167px) / 4-up on desktop (250px x4), 24px radius, all 4 titles+subtitles exact, all 4 video els correctly fell back to /videos/ghani.mp4 via onError (pillar-1..4.mp4 return the SPA index.html, so onError fires as intended); PDP (/product/mustard-oil, /product/coconut-oil) has no LoveWall, WhyGhani then HeatTest (dark) then FAQ, coconut buy button themed rgb(21,94,140); Myths heading is only 'Busting oily myths,' (EN) / 'तेल के मिथक तोड़ें,' (HI) with no second italic line; About has 3 sticky stacking chapters (01 #F3E9CB top 96px, 02 #DAEDF7 top 122px, 03 #1F2922 top 148px, all position:sticky, opacity 1) followed by Motto (कम खाएं, पर अच्छा खाएं) and the WhatsApp CTA card; Hindi toggle localises pillar titles/heat labels/myths heading; ordering regression works — Buy Now opens drawer, 'Order on WhatsApp' navigates to api.whatsapp.com with Order ID (PN-9KBVUB) as first line, item line, Order Total and tracking link last. No horizontal overflow at 390px on /, /about, /product/groundnut-oil, /product/mustard-oil (scrollWidth == clientWidth == 390) and none at 1920px. No console errors observed.",
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {
+        "screen": "Home / PDP — Why Lakdi Ghani Wins",
+        "issues": [
+          "Performance (minor): all 4 pillar cards fall back to the same 2.2MB /videos/ghani.mp4 and the hero loads it too — up to ~11MB of autoplaying video on a mobile connection. Consider preload='metadata'/poster images, or one shared decoded source, until the real pillar-1..4.mp4 files are uploaded.",
+          "The pillar fallback currently works because the dev server answers /videos/pillar-N.mp4 with index.html (200 text/html) and the video element errors. On a static production host a 404 will still trigger onError, but if any host returns a 200 HTML body the behaviour depends on decode failure — safer to only reference files that exist."
+        ]
+      },
+      {
+        "screen": "PDP — Heat Test (dark mode)",
+        "issues": [
+          "Cosmetic: the Padam bar colour #5C6856 on the dark forest bg (#141C16) is low-contrast versus the other two bars; still visible, but the winning bar reads weakest of the three."
+        ]
+      }
+    ]
+  },
+  "test_report_links": ["/app/test_reports/iteration_1.json", "/app/test_reports/iteration_2.json"],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "HeatTest.jsx: bars animate on mount but are wrapped in FadeUp (whileInView) — works today because the fill animation finishes before the section scrolls into view; if the FadeUp reveal ever fails to trigger, the whole block (labels + bars) is hidden, not just the animation. Consider putting the reveal only on the heading.",
+    "WhyGhani.jsx: PILLARS references /videos/pillar-1..4.mp4 which do not exist; relying on onError fallback is acceptable temporarily but ships 4 failed network requests per page view."
+  ],
+  "updated_files": [],
+  "success_rate": { "backend": "not retested (per handoff)", "frontend": "100% of the 8 requested checks passed" },
+  "seed_data_creation": "One live order created by the ordering regression: PN-9KBVUB (Groundnut Oil 1L x1, QA Tester / 9876543210).",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "All 8 requested frontend checks pass; no functional defects found this round. Heat Test bar verification technique: evaluate fill.getBoundingClientRect().width / track.getBoundingClientRect().width on [data-testid=heat-bar-i] children[1].firstElementChild after scroll_into_view_if_needed + 3s wait. Order flow now navigates via location.href to api.whatsapp.com (not window.open), so intercepting window.open no longer captures it — read page.url instead. Order IDs are now alphanumeric (PN-9KBVUB), an improvement over the 4-digit ids flagged in iteration_1. Backend security items from iteration_1 (X-Forwarded-For lockout, CORS '*', public PUT /api/orders/{id}) were not re-verified this round.",
+  "rca_of_the_issue": "Heat Test mobile bug: previously the bar fill used whileInView, which on mobile viewports (with Lenis smooth scroll and a -8% viewport margin) could fail to fire, leaving the bars at their 8% initial width. Replacing whileInView with a mount-triggered `animate` makes the fill deterministic; measured widths now match (temp/250)*100% exactly (90/46/16) on mobile, desktop, light and dark variants."
+}

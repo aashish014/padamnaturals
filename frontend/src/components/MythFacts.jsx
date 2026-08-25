@@ -57,9 +57,11 @@ export const MythFacts = ({ dark = false }) => {
         </Reveal>
         <h2 className="mt-4 font-display text-4xl font-semibold leading-none tracking-tight sm:text-5xl lg:text-6xl">
           <Reveal delay={0.1}>{t("myths.a")}</Reveal>
-          <Reveal delay={0.22}>
-            <span className={`italic ${dark ? "text-gold" : "text-terra"}`}>{t("myths.b")}</span>
-          </Reveal>
+          {t("myths.b") ? (
+            <Reveal delay={0.22}>
+              <span className={`italic ${dark ? "text-gold" : "text-terra"}`}>{t("myths.b")}</span>
+            </Reveal>
+          ) : null}
         </h2>
         <FadeUp delay={0.25}>
           <p className={`mt-4 text-sm font-semibold ${dark ? "text-bone/60" : "text-moss"}`}>

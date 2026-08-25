@@ -5,13 +5,10 @@ import { Comparison } from "../components/home/Comparison";
 import { Faq } from "../components/home/Faq";
 import { OilGrid } from "../components/home/OilGrid";
 import { WhyGhani } from "../components/WhyGhani";
-import { LoveWall } from "../components/LoveWall";
+import { HeatTest } from "../components/HeatTest";
 import { Motto } from "../components/Motto";
 import { MythFacts } from "../components/MythFacts";
-import { GhaniVideo } from "../components/GhaniVideo";
-import { ProcessSteps } from "../components/ProcessSteps";
-import { QualityPromise } from "../components/QualityPromise";
-import { Reveal, FadeUp } from "../components/Reveal";
+import { Reveal } from "../components/Reveal";
 import { useLang } from "../i18n";
 import { ArrowUpRight } from "lucide-react";
 
@@ -70,15 +67,12 @@ export default function Home() {
       <Marquee />
       <OilGrid />
       <SeedBanner />
-      <LoveWall />
-      <QualityPromise />
-      <WhyGhani dark={false} />
-      <Comparison />
+      <WhyGhani dark={true} />
+      <HeatTest dark={false} />
       <MythFacts dark={false} />
-      <ProcessSteps />
-      <GhaniVideo />
-      <Motto />
+      <Comparison />
       <Faq />
+      <Motto />
       <CtaBand />
     </main>
   );

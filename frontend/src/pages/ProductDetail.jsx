@@ -8,8 +8,8 @@ import { useLang } from "../i18n";
 import { WhatsAppIcon } from "../components/WhatsAppIcon";
 import { Gallery } from "../components/Gallery";
 import { WhyGhani } from "../components/WhyGhani";
+import { HeatTest } from "../components/HeatTest";
 import { PadamStandard } from "../components/PadamStandard";
-import { LoveWall } from "../components/LoveWall";
 import { OilTile } from "../components/home/OilGrid";
 import { Reveal, FadeUp } from "../components/Reveal";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../components/ui/accordion";
@@ -238,6 +238,8 @@ export default function ProductDetail() {
 
       <WhyGhani dark={true} />
 
+      <HeatTest dark={true} />
+
       <section data-testid="product-faq-section" className="bg-bone py-16 md:py-24">
         <div className="mx-auto max-w-3xl px-5 md:px-10">
           <Reveal>
@@ -276,8 +278,6 @@ export default function ProductDetail() {
           <PadamStandard />
         </div>
       </section>
-
-      <LoveWall />
 
       <section className="mx-auto max-w-7xl px-5 py-20 md:px-10" data-testid="related-section">
         <Reveal>
