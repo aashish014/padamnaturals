@@ -23,6 +23,9 @@ User choices: business WhatsApp number (found on site: +91 82691 69904), message
 - Recreate all original pages: Home, Shop, Product detail, About, Contact.
 - Bilingual Hindi-English heritage brand voice.
 
+## Implemented (2026-08-25 iteration 17) — Myth card rewording
+- Myth/Fact card #4 reframed from negative ("yields 30% less oil — you pay for what's NOT taken out") to positive value framing: myth "Cold-pressed oil costs more for no extra benefit" → fact "One spoon carries the seed's full Vitamin E, Omega-3 and aroma — you cook with less and nourish more. Value per drop, not per litre." (Hindi too). Verified EN + HI render on mobile.
+
 ## Implemented (2026-08-25 iteration 16) — Mobile optimization pass
 - Full-page mobile audit at 390px (all 7 routes): zero horizontal overflow confirmed everywhere.
 - Hero tightened on mobile (pt-24, smaller Hindi heading text-[2.55rem], stats mt-9, text col pb-8) so the signature 3D bottle + rotating badge now peeks into the first viewport (bottle top y=616 of 800px) instead of hiding below the fold.

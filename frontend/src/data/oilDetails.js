@@ -195,10 +195,10 @@ export const myths = [
   },
   {
     icon: "Wallet",
-    myth: "Cold-pressed is expensive for no reason",
-    mythHi: "कोल्ड-प्रेस्ड तेल बिना वजह महंगा है",
-    fact: "A wooden ghani yields 30% less oil per seed. You pay for what's NOT taken out.",
-    factHi: "लकड़ी घानी हर बीज से 30% कम तेल निकालती है। आप उस चीज़ की कीमत देते हैं जो निकाली नहीं गई।",
+    myth: "Cold-pressed oil costs more for no extra benefit",
+    mythHi: "कोल्ड-प्रेस्ड तेल महंगा है, फायदा वही",
+    fact: "One spoon carries the seed's full Vitamin E, Omega-3 and aroma — you cook with less and nourish more. Value per drop, not per litre.",
+    factHi: "एक चम्मच में बीज का पूरा विटामिन E, ओमेगा-3 और खुशबू — कम इस्तेमाल, ज़्यादा पोषण। कीमत बूँद-दर-बूँद नापें, लीटर से नहीं।",
   },
   {
     icon: "Ban",
