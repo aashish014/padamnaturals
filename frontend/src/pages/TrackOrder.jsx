@@ -147,7 +147,7 @@ export default function TrackOrder() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder={t("track.placeholder")}
-              className="h-13 min-w-0 flex-1 rounded-full border border-ink/20 bg-bone px-5 py-3.5 text-sm font-bold uppercase tracking-widest outline-none transition-colors placeholder:normal-case placeholder:tracking-normal placeholder:text-ink/35 focus:border-terra"
+              className="min-w-0 flex-1 rounded-full border border-ink/20 bg-bone px-5 py-3.5 text-sm font-bold uppercase tracking-widest outline-none transition-colors placeholder:normal-case placeholder:tracking-normal placeholder:text-ink/35 focus:border-terra"
             />
             <motion.button
               data-testid="track-submit-button"

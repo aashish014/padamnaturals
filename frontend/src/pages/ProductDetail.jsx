@@ -123,12 +123,12 @@ export default function ProductDetail() {
               <span className="font-display text-4xl font-bold" data-testid="product-detail-price">{inr(size.price)}</span>
               <p className="mt-1 text-xs font-semibold text-moss">{inr(perLitre)}/L · {t("pdp.launch")}</p>
             </div>
-            <div className="flex items-center gap-4 rounded-full border border-ink/20 px-3 py-2">
-              <motion.button whileTap={{ scale: 0.85 }} data-testid="qty-minus-button" onClick={() => setQty(Math.max(1, qty - 1))} aria-label="Decrease quantity">
+            <div className="flex items-center gap-2 rounded-full border border-ink/20 px-2 py-1.5">
+              <motion.button whileTap={{ scale: 0.85 }} data-testid="qty-minus-button" onClick={() => setQty(Math.max(1, qty - 1))} aria-label="Decrease quantity" className="flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-sand">
                 <Minus className="h-4 w-4" />
               </motion.button>
               <span className="w-6 text-center font-extrabold" data-testid="qty-value">{qty}</span>
-              <motion.button whileTap={{ scale: 0.85 }} data-testid="qty-plus-button" onClick={() => setQty(qty + 1)} aria-label="Increase quantity">
+              <motion.button whileTap={{ scale: 0.85 }} data-testid="qty-plus-button" onClick={() => setQty(qty + 1)} aria-label="Increase quantity" className="flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-sand">
                 <Plus className="h-4 w-4" />
               </motion.button>
             </div>
@@ -289,7 +289,7 @@ export default function ProductDetail() {
         </div>
       </section>
 
-      <div className="fixed inset-x-0 bottom-16 z-40 flex items-center gap-3 border-t border-ink/10 bg-bone/95 px-4 py-3 backdrop-blur-md sm:hidden" data-testid="mobile-sticky-buy-bar">
+      <div className="fixed inset-x-0 z-40 flex items-center gap-3 border-t border-ink/10 bg-bone/95 px-4 py-3 backdrop-blur-md sm:hidden" style={{ bottom: "calc(4rem + env(safe-area-inset-bottom))" }} data-testid="mobile-sticky-buy-bar">
         <div className="shrink-0">
           <p className="font-display text-lg font-bold leading-none">{inr(size.price * qty)}</p>
           <p className="mt-0.5 text-[10px] font-semibold text-moss">{size.label} · Qty {qty}</p>

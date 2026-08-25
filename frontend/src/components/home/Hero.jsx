@@ -22,14 +22,14 @@ export const Hero = () => {
   };
 
   return (
-    <section ref={ref} data-testid="hero-section" className="relative min-h-screen overflow-hidden bg-bone pt-28 md:pt-32">
+    <section ref={ref} data-testid="hero-section" className="relative min-h-screen overflow-hidden bg-bone pt-24 md:pt-32">
       <div className="pointer-events-none absolute -right-40 top-1/4 h-[34rem] w-[34rem] rounded-full bg-gold/15 blur-3xl" />
-      <div className="mx-auto grid max-w-7xl gap-10 px-5 md:grid-cols-[1.25fr_1fr] md:px-10">
-        <motion.div style={{ y: yText }} className="relative z-10 flex flex-col justify-center pb-16 pt-8 md:pb-32">
+      <div className="mx-auto grid max-w-7xl gap-6 px-5 md:grid-cols-[1.25fr_1fr] md:gap-10 md:px-10">
+        <motion.div style={{ y: yText }} className="relative z-10 flex flex-col justify-center pb-8 pt-4 md:pb-32">
           <Reveal immediate>
             <p className="overline-tag">{t("hero.overline")}</p>
           </Reveal>
-          <h1 className="mt-6 font-hindi text-5xl leading-[1.28] sm:text-6xl md:text-7xl lg:text-[5.2rem]" data-testid="hero-heading">
+          <h1 className="mt-4 font-hindi text-[2.55rem] leading-[1.24] sm:text-6xl md:mt-6 md:text-7xl lg:text-[5.2rem]" data-testid="hero-heading">
             <Reveal immediate delay={0.15}>गांव की घानी से</Reveal>
             <Reveal immediate delay={0.3}>
               <span className="text-terra">सीधा आपके घर तक</span>
@@ -58,7 +58,7 @@ export const Hero = () => {
               </Link>
             </div>
           </Reveal>
-          <Reveal immediate delay={0.75} className="mt-14">
+          <Reveal immediate delay={0.75} className="mt-9 md:mt-14">
             <div className="flex items-center gap-10">
               {[["100%", t("hero.stat1")], ["100+", t("hero.stat2")], ["0%", t("hero.stat3")]].map(([v, l]) => (
                 <div key={l}>

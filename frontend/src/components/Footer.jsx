@@ -23,10 +23,10 @@ export const Footer = () => {
         <div>
           <p className="overline-tag !text-gold">{t("footer.explore")}</p>
           <div className="mt-5 flex flex-col gap-3 text-sm">
-            <Link to="/shop" data-testid="footer-link-shop" className="text-bone/70 transition-colors hover:text-gold">{t("nav.shop")}</Link>
-            <Link to="/your-seed-your-oil" data-testid="footer-link-seed" className="text-bone/70 transition-colors hover:text-gold">{t("nav.seed")}</Link>
-            <Link to="/about" data-testid="footer-link-about" className="text-bone/70 transition-colors hover:text-gold">{t("nav.about")}</Link>
-            <Link to="/contact" data-testid="footer-link-contact" className="text-bone/70 transition-colors hover:text-gold">{t("nav.contact")}</Link>
+            <Link to="/shop" data-testid="footer-link-shop" className="inline-block py-2 text-bone/70 transition-colors hover:text-gold">{t("nav.shop")}</Link>
+            <Link to="/your-seed-your-oil" data-testid="footer-link-seed" className="inline-block py-2 text-bone/70 transition-colors hover:text-gold">{t("nav.seed")}</Link>
+            <Link to="/about" data-testid="footer-link-about" className="inline-block py-2 text-bone/70 transition-colors hover:text-gold">{t("nav.about")}</Link>
+            <Link to="/contact" data-testid="footer-link-contact" className="inline-block py-2 text-bone/70 transition-colors hover:text-gold">{t("nav.contact")}</Link>
           </div>
         </div>
         <div>

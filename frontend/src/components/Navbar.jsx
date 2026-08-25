@@ -66,7 +66,7 @@ export const Navbar = () => {
             to="/track"
             data-testid="nav-track-order-button"
             aria-label={t("nav.track")}
-            className="flex items-center gap-1.5 rounded-full border border-ink/20 px-4 py-2 text-xs font-bold transition-colors duration-300 hover:border-terra hover:text-terra"
+            className="flex items-center gap-1.5 rounded-full border border-ink/20 px-4 py-3 text-xs font-bold transition-colors duration-300 hover:border-terra hover:text-terra"
           >
             <PackageSearch className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">{t("nav.track")}</span>
@@ -74,7 +74,7 @@ export const Navbar = () => {
           <button
             data-testid="lang-toggle-button"
             onClick={() => setLang(lang === "en" ? "hi" : "en")}
-            className="flex items-center gap-1.5 rounded-full border border-ink/20 px-4 py-2 text-xs font-bold transition-colors duration-300 hover:border-terra hover:text-terra"
+            className="flex items-center gap-1.5 rounded-full border border-ink/20 px-4 py-3 text-xs font-bold transition-colors duration-300 hover:border-terra hover:text-terra"
             aria-label="Switch language"
           >
             <Languages className="h-3.5 w-3.5" />

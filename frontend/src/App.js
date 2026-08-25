@@ -56,7 +56,7 @@ function App() {
             <Route path="/admin" element={<Admin />} />
           </Routes>
           <Footer />
-          <div className="h-16 md:hidden" aria-hidden="true" />
+          <div className="md:hidden" style={{ height: "calc(4rem + env(safe-area-inset-bottom))" }} aria-hidden="true" />
           <BottomNav />
           <Toaster position="bottom-center" toastOptions={{ style: { background: "#1F2922", color: "#FAF7F2", border: "none" } }} />
           </CartProvider>

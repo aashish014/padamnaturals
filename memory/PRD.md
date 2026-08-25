@@ -23,6 +23,15 @@ User choices: business WhatsApp number (found on site: +91 82691 69904), message
 - Recreate all original pages: Home, Shop, Product detail, About, Contact.
 - Bilingual Hindi-English heritage brand voice.
 
+## Implemented (2026-08-25 iteration 16) — Mobile optimization pass
+- Full-page mobile audit at 390px (all 7 routes): zero horizontal overflow confirmed everywhere.
+- Hero tightened on mobile (pt-24, smaller Hindi heading text-[2.55rem], stats mt-9, text col pb-8) so the signature 3D bottle + rotating badge now peeks into the first viewport (bottle top y=616 of 800px) instead of hiding below the fold.
+- Tap targets fixed to ≥40px: PDP qty stepper buttons (were 16px icon-only, now 40×40 padded circles), navbar Track icon + language toggle (32px → 40px), footer nav links (20px → 36px rows with 12px gaps).
+- Gesture-bar safe areas: bottom nav, PDP sticky buy bar, floating cart bubble, and the bottom content spacer all respect env(safe-area-inset-bottom) so nothing hides under Android/iPhone gesture bars.
+- Removed dead h-13 class on track input.
+- Verified visually: hero, PDP gallery/sticky bar, stacking of bubble vs sticky bar vs bottom nav all clean at 390px.
+- Requires redeploy to reach production (buy-now-connect.emergent.host).
+
 ## Implemented (2026-08-25 iteration 15) — Android WhatsApp fix + toast removal
 - "Order on WhatsApp" now navigates the SAME tab to wa.me (window.location.href) instead of a pre-opened popup tab — Android Chrome only fires the WhatsApp app intent on direct same-tab navigation; the popup-tab approach dumped users on the wa.me web/download page. Same fix applies to the "Send Updated Order" flow. Verified: same-tab lands on api.whatsapp.com/send with the full message.
 - Add-to-cart toast removed entirely (user found it slow/noisy) — adding items is now silent, the floating bubble badge is the feedback.

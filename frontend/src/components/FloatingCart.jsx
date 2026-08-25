@@ -24,7 +24,9 @@ export const FloatingCart = () => {
           whileTap={{ scale: 0.88 }}
           aria-label="View basket"
           className={`fixed right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-terra text-bone shadow-[0_14px_34px_-10px_rgba(184,84,42,0.6)] md:bottom-8 md:right-8 ${
-            onPdp ? "bottom-[152px]" : "bottom-[84px]"
+            onPdp
+              ? "bottom-[calc(9.5rem+env(safe-area-inset-bottom))]"
+              : "bottom-[calc(5.25rem+env(safe-area-inset-bottom))]"
           }`}
         >
           <ShoppingBasket className="h-6 w-6" />
